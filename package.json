@@ -1,0 +1,34 @@
+{
+  "name": "cobalt-js",
+  "version": "0.0.1",
+  "description": "Cobalt frontend SDK",
+  "main": "./cobalt.js",
+  "scripts": {
+    "build": "uglifyjs cobalt.js -o cobalt.min.js",
+    "docgen": "jsdoc . -R README.md -d docs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Breakout-Embed/cobalt.js.git"
+  },
+  "keywords": [
+    "cobalt embed",
+    "cobalt sdk",
+    "frontend sdk",
+    "sdk"
+  ],
+  "author": "Sankarsan Kampa",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Breakout-Embed/cobalt-js/issues"
+  },
+  "homepage": "https://github.com/Breakout-Embed/cobalt-js#readme",
+  "devDependencies": {
+    "jsdoc": "^3.6.11",
+    "uglify-js": "^3.17.0"
+  },
+  "dependencies": {
+    "foodoc": "^0.0.9"
+  }
+}
