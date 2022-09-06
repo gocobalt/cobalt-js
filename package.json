@@ -1,5 +1,5 @@
 {
-  "name": "cobalt-js",
+  "name": "@cobaltio/cobalt-js",
   "version": "0.0.1",
   "description": "Cobalt frontend SDK",
   "main": "./cobalt.js",
