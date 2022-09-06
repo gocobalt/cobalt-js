@@ -15,10 +15,11 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: npm ci
-      - run: npm test
       - run: |
           echo 'NPM Token ${secrets.NPM_TOKEN}'
+          npm ci
+          npm test
+          
 
   publish-npm:
     needs: build
