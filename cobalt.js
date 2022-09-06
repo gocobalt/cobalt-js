@@ -88,4 +88,4 @@ class Cobalt {
     }
 }
 
-export default Cobalt;
+module.exports = Cobalt;
