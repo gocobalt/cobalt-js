@@ -12,6 +12,10 @@
     "type": "git",
     "url": "git+https://github.com/Breakout-Embed/cobalt.js.git"
   },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "keywords": [
     "cobalt embed",
     "cobalt sdk",
