@@ -6,7 +6,7 @@
   "scripts": {
     "build": "uglifyjs cobalt.js -o cobalt.min.js",
     "docgen": "jsdoc . -R README.md -d docs",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Warn: no test specified\""
   },
   "repository": {
     "type": "git",
