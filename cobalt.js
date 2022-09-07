@@ -9,7 +9,6 @@ class Cobalt {
      */
     constructor(options) {
         this.apiBaseUrl = options?.baseUrl || "https://api.gocobalt.io";
-        this.template = {};
         this.token(options?.token);
     }
 
@@ -68,16 +67,18 @@ class Cobalt {
                 authorization: `Bearer ${this.token}`,
             },
         });
-        this.template = await res.json();
-        return this.template;
+        return await res.json();
     }
 
     /**
-     * Install the given template.
+     * Save the input data for the specified node.
+     * @property {string} workflowId The ID of the workflow.
+     * @property {string} nodeId The ID of the node.
+     * @property {object} inputData The input data for the node.
      * @returns {Promise<Workflow>}
      */
-    async saveNode(nodeId, inputData = {}) {
-        const res = await fetch(`${this.baseUrl}/api/v2/workflow/${this.template?.workflow_id}/node/${nodeId}`, {
+    async saveNode(workflowId, nodeId, inputData = {}) {
+        const res = await fetch(`${this.baseUrl}/api/v2/workflow/${workflowId}/node/${nodeId}`, {
             method: "PUT",
             headers: {
                 authorization: `Bearer ${this.token}`,
