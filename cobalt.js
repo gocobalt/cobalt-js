@@ -5,6 +5,7 @@ class Cobalt {
     /**
      * Cobalt Frontend SDK
      * @param {object} options The options to configure the Cobalt SDK.
+     * @param {string} [options.token] The session token.
      * @param {string} [options.baseUrl=https://api.gocobalt.io] The base URL of your Cobalt API.
      */
     constructor(options) {
