@@ -13,17 +13,17 @@ class Cobalt {
     }
 
     /**
-     * @returns {string} The token to install a template.
+     * @returns {string} The session token.
      */
     get token() {
-        return this.templateToken;
+        return this.sessionToken;
     };
 
     /**
-     * @returns {string} The token to install a template.
+     * @returns {string} The session token.
      */
     set token(token) {
-        return this.templateToken = typeof token === "string" ? token : "";
+        return this.sessionToken = typeof token === "string" ? token : "";
     };
 
     /**
