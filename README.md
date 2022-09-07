@@ -41,5 +41,5 @@ const cobalt = new Cobalt({
 // initialize without token
 const cobalt = new Cobalt();
 // the token you generate for linked accounts using the cobalt backend SDK
-cobalt.token("COBALT_SESSION_TOKEN");
+cobalt.token = "COBALT_SESSION_TOKEN";
 ```
