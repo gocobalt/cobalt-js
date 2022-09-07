@@ -10,6 +10,7 @@ class Cobalt {
     constructor(options) {
         this.apiBaseUrl = options?.baseUrl || "https://api.gocobalt.io";
         this.template = {};
+        this.token(options?.token);
     }
 
     /**
