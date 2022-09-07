@@ -57,10 +57,11 @@ class Cobalt {
 
     /**
      * Install the given template.
+     * @property {string} templateId The ID of the template you want to install.
      * @returns {Promise<Workflow>}
      */
-    async installTemplate() {
-        const res = await fetch(`${this.baseUrl}/api/v1/template/install`, {
+    async installTemplate(templateId) {
+        const res = await fetch(`${this.baseUrl}/api/v1/template/install/${templateId}`, {
             method: "POST",
             headers: {
                 authorization: `Bearer ${this.token}`,
