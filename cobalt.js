@@ -119,6 +119,7 @@ class Cobalt {
             method: "PUT",
             headers: {
                 authorization: `Bearer ${this.token}`,
+                "content-type": "application/json",
             },
             body: JSON.stringify({
                 input_data: inputData,
