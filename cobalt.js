@@ -57,6 +57,11 @@ class Cobalt {
      */
 
     /**
+     * @typedef {object} AppAuthStatus The auth status of the user for an application.
+     * @property {boolean} status Whether the user has authenticated with this application.
+     */
+
+    /**
      * Install the given template.
      * @property {string} templateId The ID of the template you want to install.
      * @returns {Promise<Workflow>}
@@ -69,6 +74,37 @@ class Cobalt {
             },
         });
         return await res.json();
+    }
+
+    /**
+     * Returns the auth status of the user for the specified application.
+     * @property {string} application The application type.
+     * @returns {Promise<boolean>} The auth status of the user.
+     */
+    async getAppAuthStatus(application) {
+        const res = await fetch(`${this.baseUrl}/api/v1/linked-acc/integration/auth?integration_type=${application}`, {
+            headers: {
+                authorization: `Bearer ${this.token}`,
+            },
+        });
+        const data = await res.json();
+        return !!data?.status;
+    }
+
+    /**
+     * Returns the auth URL that users can use to authenticate themselves to the
+     * specified application.
+     * @property {string} application The application type.
+     * @returns {Promise<string>} The auth URL where users can authenticate themselves.
+     */
+    async getAppAuthUrl(application) {
+        const res = await fetch(`${this.baseUrl}/api/v1/google/integrate?type=${application}`, {
+            headers: {
+                authorization: `Bearer ${this.token}`,
+            },
+        });
+        const data = await res.json();
+        return data?.auth_url;
     }
 
     /**
