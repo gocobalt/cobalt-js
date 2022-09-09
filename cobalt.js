@@ -127,6 +127,21 @@ class Cobalt {
         });
         return await res.json();
     }
+
+    /**
+     * Toggle the status of the specified workflow.
+     * @property {string} workflowId The ID of the workflow.
+     * @returns {Promise<Workflow>}
+     */
+    async toggleWorkflowStatus(workflowId) {
+        const res = await fetch(`${this.baseUrl}/api/v2/workflow/${workflowId}/toggle-status`, {
+            method: "PUT",
+            headers: {
+                authorization: `Bearer ${this.token}`,
+            },
+        });
+        return await res.json();
+    }
 }
 
 module.exports = Cobalt;
