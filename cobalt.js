@@ -73,6 +73,11 @@ class Cobalt {
                 authorization: `Bearer ${this.token}`,
             },
         });
+
+        if (res.status >= 400 && res.status < 600) {
+            throw new Error(res.statusText);
+        }
+
         return await res.json();
     }
 
@@ -87,6 +92,11 @@ class Cobalt {
                 authorization: `Bearer ${this.token}`,
             },
         });
+
+        if (res.status >= 400 && res.status < 600) {
+            throw new Error(res.statusText);
+        }
+
         const data = await res.json();
         return !!data?.status;
     }
@@ -103,6 +113,11 @@ class Cobalt {
                 authorization: `Bearer ${this.token}`,
             },
         });
+
+        if (res.status >= 400 && res.status < 600) {
+            throw new Error(res.statusText);
+        }
+
         const data = await res.json();
         return data?.auth_url;
     }
@@ -125,6 +140,11 @@ class Cobalt {
                 input_data: inputData,
             }),
         });
+
+        if (res.status >= 400 && res.status < 600) {
+            throw new Error(res.statusText);
+        }
+
         return await res.json();
     }
 
@@ -140,6 +160,11 @@ class Cobalt {
                 authorization: `Bearer ${this.token}`,
             },
         });
+
+        if (res.status >= 400 && res.status < 600) {
+            throw new Error(res.statusText);
+        }
+
         return await res.json();
     }
 
@@ -155,6 +180,11 @@ class Cobalt {
                 authorization: `Bearer ${this.token}`,
             },
         });
+
+        if (res.status >= 400 && res.status < 600) {
+            throw new Error(res.statusText);
+        }
+
         return await res.json();
     }
 }
