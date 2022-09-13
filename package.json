@@ -5,7 +5,7 @@
   "main": "./cobalt.js",
   "scripts": {
     "build": "uglifyjs cobalt.js -o cobalt.min.js",
-    "docgen": "jsdoc . -R README.md -d docs",
+    "docgen": "jsdoc2md cobalt.js > docs.md",
     "test": "echo \"Warn: no test specified\""
   },
   "repository": {
@@ -29,10 +29,9 @@
   },
   "homepage": "https://github.com/Breakout-Embed/cobalt-js#readme",
   "devDependencies": {
+    "foodoc": "^0.0.9",
     "jsdoc": "^3.6.11",
+    "jsdoc-to-markdown": "^7.1.1",
     "uglify-js": "^3.17.0"
-  },
-  "dependencies": {
-    "foodoc": "^0.0.9"
   }
 }
