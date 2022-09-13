@@ -142,6 +142,21 @@ class Cobalt {
         });
         return await res.json();
     }
+
+    /**
+     * Delete the specified workflow.
+     * @property {string} workflowId The ID of the workflow.
+     * @returns {Promise<unknown>}
+     */
+    async deleteWorkflow(workflowId) {
+        const res = await fetch(`${this.baseUrl}/api/v1/workflow/${workflowId}`, {
+            method: "DELETE",
+            headers: {
+                authorization: `Bearer ${this.token}`,
+            },
+        });
+        return await res.json();
+    }
 }
 
 module.exports = Cobalt;
