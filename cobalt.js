@@ -123,6 +123,24 @@ class Cobalt {
     }
 
     /**
+     * Unauthorize the specified application and remove any associated data from Cobalt.
+     * @property {string} application The application type.
+     * @returns {Promise<void>}
+     */
+    async removeAppAuth(application) {
+        const res = await fetch(`${this.baseUrl}/api/v1/linked-acc/integration/${application}`, {
+            method: "DELETE",
+            headers: {
+                authorization: `Bearer ${this.token}`,
+            },
+        });
+
+        if (res.status >= 400 && res.status < 600) {
+            throw new Error(res.statusText);
+        }
+    }
+
+    /**
      * Save the input data for the specified node.
      * @property {string} workflowId The ID of the workflow.
      * @property {string} nodeId The ID of the node.
