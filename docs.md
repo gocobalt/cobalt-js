@@ -38,6 +38,7 @@ Cobalt Frontend SDK
     * [.installTemplate()](#Cobalt+installTemplate) ⇒ [<code>Promise.&lt;Workflow&gt;</code>](#Workflow)
     * [.getAppAuthStatus()](#Cobalt+getAppAuthStatus) ⇒ <code>Promise.&lt;boolean&gt;</code>
     * [.getAppAuthUrl()](#Cobalt+getAppAuthUrl) ⇒ <code>Promise.&lt;string&gt;</code>
+    * [.removeAppAuth()](#Cobalt+removeAppAuth) ⇒ <code>Promise.&lt;void&gt;</code>
     * [.saveNode()](#Cobalt+saveNode) ⇒ [<code>Promise.&lt;Workflow&gt;</code>](#Workflow)
     * [.toggleWorkflowStatus()](#Cobalt+toggleWorkflowStatus) ⇒ [<code>Promise.&lt;Workflow&gt;</code>](#Workflow)
     * [.deleteWorkflow()](#Cobalt+deleteWorkflow) ⇒ <code>Promise.&lt;unknown&gt;</code>
@@ -102,6 +103,18 @@ specified application.
 
 **Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
 **Returns**: <code>Promise.&lt;string&gt;</code> - The auth URL where users can authenticate themselves.  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| application | <code>string</code> | The application type. |
+
+<a name="Cobalt+removeAppAuth"></a>
+
+### cobalt.removeAppAuth() ⇒ <code>Promise.&lt;void&gt;</code>
+Unauthorize the specified application and remove any associated data from Cobalt.
+
+**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
 **Properties**
 
 | Name | Type | Description |
