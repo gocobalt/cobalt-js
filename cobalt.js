@@ -141,6 +141,34 @@ class Cobalt {
     }
 
     /**
+     * Returns the node configuration data for dynamic fields.
+     * @property {string} workflowId The ID of the workflow.
+     * @property {string} nodeId The ID of the node.
+     * @property {string} fieldName The field name for which config data is required.
+     * @property {object} selectedValues The input data already selected for the node.
+     * @returns {Promise<Field[]>}
+     */
+     async getNodeConfiguration(workflowId, nodeId, fieldName, selectedValues = {}) {
+        const res = await fetch(`${this.baseUrl}/api/v1/workflow/${workflowId}/node/${nodeId}/configuration`, {
+            method: "POST",
+            headers: {
+                authorization: `Bearer ${this.token}`,
+                "content-type": "application/json",
+            },
+            body: JSON.stringify({
+                fieldName,
+                selectedValues,
+            }),
+        });
+
+        if (res.status >= 400 && res.status < 600) {
+            throw new Error(res.statusText);
+        }
+
+        return await res.json();
+    }
+
+    /**
      * Save the input data for the specified node.
      * @property {string} workflowId The ID of the workflow.
      * @property {string} nodeId The ID of the node.
@@ -175,7 +203,6 @@ class Cobalt {
         const res = await fetch(`${this.baseUrl}/api/v2/workflow/${workflowId}/configuration`, {
             headers: {
                 authorization: `Bearer ${this.token}`,
-                "content-type": "application/json",
             },
         });
 
