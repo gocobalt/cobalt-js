@@ -39,7 +39,9 @@ Cobalt Frontend SDK
     * [.getAppAuthStatus()](#Cobalt+getAppAuthStatus) ⇒ <code>Promise.&lt;boolean&gt;</code>
     * [.getAppAuthUrl()](#Cobalt+getAppAuthUrl) ⇒ <code>Promise.&lt;string&gt;</code>
     * [.removeAppAuth()](#Cobalt+removeAppAuth) ⇒ <code>Promise.&lt;void&gt;</code>
+    * [.getNodeConfiguration()](#Cobalt+getNodeConfiguration) ⇒ <code>Promise.&lt;Array.&lt;Field&gt;&gt;</code>
     * [.saveNode()](#Cobalt+saveNode) ⇒ [<code>Promise.&lt;Workflow&gt;</code>](#Workflow)
+    * [.getWorkflowConfiguration()](#Cobalt+getWorkflowConfiguration) ⇒ [<code>Promise.&lt;Workflow&gt;</code>](#Workflow)
     * [.toggleWorkflowStatus()](#Cobalt+toggleWorkflowStatus) ⇒ [<code>Promise.&lt;Workflow&gt;</code>](#Workflow)
     * [.deleteWorkflow()](#Cobalt+deleteWorkflow) ⇒ <code>Promise.&lt;unknown&gt;</code>
 
@@ -121,6 +123,21 @@ Unauthorize the specified application and remove any associated data from Cobalt
 | --- | --- | --- |
 | application | <code>string</code> | The application type. |
 
+<a name="Cobalt+getNodeConfiguration"></a>
+
+### cobalt.getNodeConfiguration() ⇒ <code>Promise.&lt;Array.&lt;Field&gt;&gt;</code>
+Returns the node configuration data for dynamic fields.
+
+**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| workflowId | <code>string</code> | The ID of the workflow. |
+| nodeId | <code>string</code> | The ID of the node. |
+| fieldName | <code>string</code> | The field name for which config data is required. |
+| selectedValues | <code>object</code> | The input data already selected for the node. |
+
 <a name="Cobalt+saveNode"></a>
 
 ### cobalt.saveNode() ⇒ [<code>Promise.&lt;Workflow&gt;</code>](#Workflow)
@@ -134,6 +151,18 @@ Save the input data for the specified node.
 | workflowId | <code>string</code> | The ID of the workflow. |
 | nodeId | <code>string</code> | The ID of the node. |
 | inputData | <code>object</code> | The input data for the node. |
+
+<a name="Cobalt+getWorkflowConfiguration"></a>
+
+### cobalt.getWorkflowConfiguration() ⇒ [<code>Promise.&lt;Workflow&gt;</code>](#Workflow)
+Returns the workflow configuration data.
+
+**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| workflowId | <code>string</code> | The ID of the workflow. |
 
 <a name="Cobalt+toggleWorkflowStatus"></a>
 
