@@ -167,6 +167,26 @@ class Cobalt {
     }
 
     /**
+     * Returns the workflow configuration data.
+     * @property {string} workflowId The ID of the workflow.
+     * @returns {Promise<Workflow>}
+     */
+    async getWorkflowConfiguration(workflowId) {
+        const res = await fetch(`${this.baseUrl}/api/v2/workflow/${workflowId}/configuration`, {
+            headers: {
+                authorization: `Bearer ${this.token}`,
+                "content-type": "application/json",
+            },
+        });
+
+        if (res.status >= 400 && res.status < 600) {
+            throw new Error(res.statusText);
+        }
+
+        return await res.json();
+    }
+
+    /**
      * Toggle the status of the specified workflow.
      * @property {string} workflowId The ID of the workflow.
      * @returns {Promise<Workflow>}
