@@ -42,6 +42,7 @@ Cobalt Frontend SDK
     * [.getNodeConfiguration()](#Cobalt+getNodeConfiguration) ⇒ <code>Promise.&lt;Array.&lt;Field&gt;&gt;</code>
     * [.saveNode()](#Cobalt+saveNode) ⇒ [<code>Promise.&lt;Workflow&gt;</code>](#Workflow)
     * [.getWorkflowConfiguration()](#Cobalt+getWorkflowConfiguration) ⇒ [<code>Promise.&lt;Workflow&gt;</code>](#Workflow)
+    * [.activateWorkflow()](#Cobalt+activateWorkflow) ⇒ <code>Promise.&lt;void&gt;</code>
     * [.toggleWorkflowStatus()](#Cobalt+toggleWorkflowStatus) ⇒ [<code>Promise.&lt;Workflow&gt;</code>](#Workflow)
     * [.deleteWorkflow()](#Cobalt+deleteWorkflow) ⇒ <code>Promise.&lt;unknown&gt;</code>
 
@@ -163,6 +164,18 @@ Returns the workflow configuration data.
 | Name | Type | Description |
 | --- | --- | --- |
 | workflowId | <code>string</code> | The ID of the workflow. |
+
+<a name="Cobalt+activateWorkflow"></a>
+
+### cobalt.activateWorkflow() ⇒ <code>Promise.&lt;void&gt;</code>
+Activate the given installed workflow.
+
+**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| workflowId | <code>string</code> | The ID of the workflow you want to activate. |
 
 <a name="Cobalt+toggleWorkflowStatus"></a>
 
