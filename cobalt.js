@@ -64,14 +64,17 @@ class Cobalt {
     /**
      * Install the given template.
      * @property {string} templateId The ID of the template you want to install.
+     * @property {object} udf Custom key value pairs you want to store with the installed worklfow.
      * @returns {Promise<Workflow>}
      */
-    async installTemplate(templateId) {
+    async installTemplate(templateId, udf = {}) {
         const res = await fetch(`${this.baseUrl}/api/v1/template/install/${templateId}`, {
             method: "POST",
             headers: {
                 authorization: `Bearer ${this.token}`,
+                "content-type": "application/json",
             },
+            body: JSON.stringify(udf),
         });
 
         if (res.status >= 400 && res.status < 600) {
