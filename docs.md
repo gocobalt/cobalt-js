@@ -84,6 +84,7 @@ Install the given template.
 | Name | Type | Description |
 | --- | --- | --- |
 | templateId | <code>string</code> | The ID of the template you want to install. |
+| udf | <code>object</code> | Custom key value pairs you want to store with the installed worklfow. |
 
 <a name="Cobalt+getAppAuthStatus"></a>
 
