@@ -111,7 +111,7 @@ class Cobalt {
      * @returns {Promise<string>} The auth URL where users can authenticate themselves.
      */
     async getAppAuthUrl(application) {
-        const res = await fetch(`${this.baseUrl}/api/v1/google/integrate?type=${application}`, {
+        const res = await fetch(`${this.baseUrl}/api/v1/${application}/integrate`, {
             headers: {
                 authorization: `Bearer ${this.token}`,
             },
