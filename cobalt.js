@@ -74,7 +74,7 @@ class Cobalt {
                 authorization: `Bearer ${this.token}`,
                 "content-type": "application/json",
             },
-            body: JSON.stringify(udf),
+            body: JSON.stringify({ udf }),
         });
 
         if (res.status >= 400 && res.status < 600) {
