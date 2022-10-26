@@ -88,6 +88,7 @@ Cobalt Frontend SDK
     * [.installTemplate()](#Cobalt+installTemplate) ⇒ [<code>Promise.&lt;Workflow&gt;</code>](#Workflow)
     * [.getAppAuthStatus()](#Cobalt+getAppAuthStatus) ⇒ <code>Promise.&lt;boolean&gt;</code>
     * [.getAppAuthUrl()](#Cobalt+getAppAuthUrl) ⇒ <code>Promise.&lt;string&gt;</code>
+    * [.setAppAuthData()](#Cobalt+setAppAuthData) ⇒ <code>Promise.&lt;void&gt;</code>
     * [.removeAppAuth()](#Cobalt+removeAppAuth) ⇒ <code>Promise.&lt;void&gt;</code>
     * [.getNodeConfiguration()](#Cobalt+getNodeConfiguration) ⇒ <code>Promise.&lt;Array.&lt;Field&gt;&gt;</code>
     * [.saveNode()](#Cobalt+saveNode) ⇒ [<code>Promise.&lt;Workflow&gt;</code>](#Workflow)
@@ -162,6 +163,20 @@ specified application.
 | Name | Type | Description |
 | --- | --- | --- |
 | application | <code>string</code> | The application type. |
+
+<a name="Cobalt+setAppAuthData"></a>
+
+### cobalt.setAppAuthData() ⇒ <code>Promise.&lt;void&gt;</code>
+Save the auth data that user provides to authenticate themselves to the
+specified application.
+
+**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| application | <code>string</code> | The application type. |
+| payload | <code>object</code> | The key value pairs of auth data. |
 
 <a name="Cobalt+removeAppAuth"></a>
 
