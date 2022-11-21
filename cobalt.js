@@ -132,8 +132,8 @@ class Cobalt {
      * @property {object} payload The key value pairs of auth data.
      * @returns {Promise<void>}
      */
-    async setAppAuthData(application, payload) {
-        const res = await fetch(`${this.baseUrl}/api/v1/${application}/save`, {
+    async setAppAuthData(application, payload, appId) {
+        const res = await fetch(appId ? `${this.baseUrl}/api/v1/${application}/${appId}/save` : `${this.baseUrl}/api/v1/${application}/save`, {
             method: "POST",
             headers: {
                 authorization: `Bearer ${this.token}`,
@@ -157,8 +157,8 @@ class Cobalt {
      * @property {string} application The application type.
      * @returns {Promise<void>}
      */
-    async removeAppAuth(application) {
-        const res = await fetch(`${this.baseUrl}/api/v1/linked-acc/integration/${application}`, {
+    async removeAppAuth(application, appId) {
+        const res = await fetch(`${this.baseUrl}/api/v1/linked-acc/integration/${application}?app_id=${appId}`, {
             method: "DELETE",
             headers: {
                 authorization: `Bearer ${this.token}`,
