@@ -127,6 +127,7 @@ specified application.
 | --- | --- | --- |
 | application | <code>string</code> | The application type. |
 | payload | <code>object</code> | The key value pairs of auth data. |
+| appId | <code>object</code> | The application ID in case of custom applications. |
 
 <a name="Cobalt+removeAppAuth"></a>
 
@@ -139,6 +140,7 @@ Unauthorize the specified application and remove any associated data from Cobalt
 | Name | Type | Description |
 | --- | --- | --- |
 | application | <code>string</code> | The application type. |
+| appId | <code>string</code> | The application ID in case of custom applications. |
 
 <a name="Cobalt+getNodeConfiguration"></a>
 
