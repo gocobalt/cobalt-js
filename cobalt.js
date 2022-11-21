@@ -130,6 +130,7 @@ class Cobalt {
      * specified application.
      * @property {string} application The application type.
      * @property {object} payload The key value pairs of auth data.
+     * @property {object} appId The application ID in case of custom applications.
      * @returns {Promise<void>}
      */
     async setAppAuthData(application, payload, appId) {
@@ -155,6 +156,7 @@ class Cobalt {
     /**
      * Unauthorize the specified application and remove any associated data from Cobalt.
      * @property {string} application The application type.
+     * @property {string} appId The application ID in case of custom applications.
      * @returns {Promise<void>}
      */
     async removeAppAuth(application, appId) {
