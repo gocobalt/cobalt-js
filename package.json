@@ -30,8 +30,8 @@
   "homepage": "https://github.com/Breakout-Embed/cobalt-js#readme",
   "devDependencies": {
     "foodoc": "^0.0.9",
-    "jsdoc": "^3.6.11",
-    "jsdoc-to-markdown": "^7.1.1",
-    "uglify-js": "^3.17.0"
+    "jsdoc": "^4.0.0",
+    "jsdoc-to-markdown": "^8.0.0",
+    "uglify-js": "^3.17.4"
   }
 }
