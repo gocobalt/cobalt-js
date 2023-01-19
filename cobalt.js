@@ -126,6 +126,49 @@ class Cobalt {
     }
 
     /**
+     * Handle OAuth for the specified application.
+     * @property {string} application The application type.
+     * @returns {Promise<boolean>} Whether the user authenticated.
+     */
+    async oauth(application) {
+        return new Promise((resolve, reject) => {
+            this.getAppAuthUrl(application)
+            .then(oauthUrl => {
+                const connectWindow = window.open(oauthUrl);
+
+                // keep checking connection status
+                const interval = setInterval(() => {
+                    this.getAppAuthStatus(application)
+                    .then(connected => {
+                        if (connected === true) {
+                            // close auth window
+                            connectWindow?.close();
+                            // clear interval
+                            clearInterval(interval);
+                            // resovle status
+                            resolve(true);
+                        } else {
+                            // user closed oauth window without authenticating
+                            if (connectWindow?.closed) {
+                                // clear interval
+                                clearInterval(interval);
+                                // resolve status
+                                resolve(false);
+                            }
+                        }
+                    })
+                    .catch(e => {
+                        console.error(e);
+                        clearInterval(interval);
+                        reject(e);
+                    });
+                }, 3e3);
+            })
+            .catch(reject);
+        });
+    }
+
+    /**
      * Save the auth data that user provides to authenticate themselves to the
      * specified application.
      * @property {string} application The application type.
@@ -250,7 +293,7 @@ class Cobalt {
      * @property {string} workflowId The ID of the workflow you want to activate.
      * @returns {Promise<void>}
      */
-     async activateWorkflow(workflowId) {
+    async activateWorkflow(workflowId) {
         const res = await fetch(`${this.baseUrl}/api/v2/workflow/${workflowId}/install/success`, {
             method: "PUT",
             headers: {
