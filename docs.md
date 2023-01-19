@@ -38,6 +38,7 @@ Cobalt Frontend SDK
     * [.installTemplate()](#Cobalt+installTemplate) ⇒ [<code>Promise.&lt;Workflow&gt;</code>](#Workflow)
     * [.getAppAuthStatus()](#Cobalt+getAppAuthStatus) ⇒ <code>Promise.&lt;boolean&gt;</code>
     * [.getAppAuthUrl()](#Cobalt+getAppAuthUrl) ⇒ <code>Promise.&lt;string&gt;</code>
+    * [.oauth()](#Cobalt+oauth) ⇒ <code>Promise.&lt;boolean&gt;</code>
     * [.setAppAuthData()](#Cobalt+setAppAuthData) ⇒ <code>Promise.&lt;void&gt;</code>
     * [.removeAppAuth()](#Cobalt+removeAppAuth) ⇒ <code>Promise.&lt;void&gt;</code>
     * [.getNodeConfiguration()](#Cobalt+getNodeConfiguration) ⇒ <code>Promise.&lt;Array.&lt;Field&gt;&gt;</code>
@@ -108,6 +109,19 @@ specified application.
 
 **Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
 **Returns**: <code>Promise.&lt;string&gt;</code> - The auth URL where users can authenticate themselves.  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| application | <code>string</code> | The application type. |
+
+<a name="Cobalt+oauth"></a>
+
+### cobalt.oauth() ⇒ <code>Promise.&lt;boolean&gt;</code>
+Handle OAuth for the specified application.
+
+**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
+**Returns**: <code>Promise.&lt;boolean&gt;</code> - Whether the user authenticated.  
 **Properties**
 
 | Name | Type | Description |
