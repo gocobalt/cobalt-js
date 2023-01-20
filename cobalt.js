@@ -223,7 +223,7 @@ class Cobalt {
      * @property {object} selectedValues The input data already selected for the node.
      * @returns {Promise<Field[]>}
      */
-     async getNodeConfiguration(workflowId, nodeId, fieldName, selectedValues = {}) {
+    async getNodeConfiguration(workflowId, nodeId, fieldName, selectedValues = {}) {
         const res = await fetch(`${this.baseUrl}/api/v1/workflow/${workflowId}/node/${nodeId}/configuration`, {
             method: "POST",
             headers: {
@@ -251,6 +251,14 @@ class Cobalt {
      * @returns {Promise<Workflow>}
      */
     async saveNode(workflowId, nodeId, inputData = {}) {
+        const payload = {};
+        for (const key in inputData) {
+            if (Object.hasOwnProperty.call(inputData, key)) {
+                const value = inputData[key];
+                payload[key] = { value };
+            }
+        }
+
         const res = await fetch(`${this.baseUrl}/api/v2/workflow/${workflowId}/node/${nodeId}`, {
             method: "PUT",
             headers: {
@@ -258,7 +266,7 @@ class Cobalt {
                 "content-type": "application/json",
             },
             body: JSON.stringify({
-                input_data: inputData,
+                input_data: payload,
             }),
         });
 
