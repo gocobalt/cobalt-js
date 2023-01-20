@@ -309,6 +309,29 @@ class Cobalt {
     }
 
     /**
+     * Activate the given installed workflows.
+     * @property {string} workflowIds The list of IDs of the workflows you want to activate.
+     * @returns {Promise<void>}
+     */
+    async activateWorkflows(workflowIds = []) {
+        const res = await fetch(`${this.baseUrl}/api/v2/workflow/install/success`, {
+            method: "PUT",
+            headers: {
+                authorization: `Bearer ${this.token}`,
+            },
+            body: JSON.stringify({
+                workflow_ids: workflowIds,
+            }),
+        });
+
+        if (res.status >= 400 && res.status < 600) {
+            throw new Error(res.statusText);
+        }
+
+        return await res.json();
+    }
+
+    /**
      * Toggle the status of the specified workflow.
      * @property {string} workflowId The ID of the workflow.
      * @returns {Promise<Workflow>}
