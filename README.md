@@ -88,12 +88,14 @@ Cobalt Frontend SDK
     * [.installTemplate()](#Cobalt+installTemplate) ⇒ [<code>Promise.&lt;Workflow&gt;</code>](#Workflow)
     * [.getAppAuthStatus()](#Cobalt+getAppAuthStatus) ⇒ <code>Promise.&lt;boolean&gt;</code>
     * [.getAppAuthUrl()](#Cobalt+getAppAuthUrl) ⇒ <code>Promise.&lt;string&gt;</code>
+    * [.oauth()](#Cobalt+oauth) ⇒ <code>Promise.&lt;boolean&gt;</code>
     * [.setAppAuthData()](#Cobalt+setAppAuthData) ⇒ <code>Promise.&lt;void&gt;</code>
     * [.removeAppAuth()](#Cobalt+removeAppAuth) ⇒ <code>Promise.&lt;void&gt;</code>
     * [.getNodeConfiguration()](#Cobalt+getNodeConfiguration) ⇒ <code>Promise.&lt;Array.&lt;Field&gt;&gt;</code>
     * [.saveNode()](#Cobalt+saveNode) ⇒ [<code>Promise.&lt;Workflow&gt;</code>](#Workflow)
     * [.getWorkflowConfiguration()](#Cobalt+getWorkflowConfiguration) ⇒ [<code>Promise.&lt;Workflow&gt;</code>](#Workflow)
     * [.activateWorkflow()](#Cobalt+activateWorkflow) ⇒ <code>Promise.&lt;void&gt;</code>
+    * [.activateWorkflows()](#Cobalt+activateWorkflows) ⇒ <code>Promise.&lt;void&gt;</code>
     * [.toggleWorkflowStatus()](#Cobalt+toggleWorkflowStatus) ⇒ [<code>Promise.&lt;Workflow&gt;</code>](#Workflow)
     * [.deleteWorkflow()](#Cobalt+deleteWorkflow) ⇒ <code>Promise.&lt;unknown&gt;</code>
 
@@ -164,6 +166,19 @@ specified application.
 | --- | --- | --- |
 | application | <code>string</code> | The application type. |
 
+<a name="Cobalt+oauth"></a>
+
+### cobalt.oauth() ⇒ <code>Promise.&lt;boolean&gt;</code>
+Handle OAuth for the specified application.
+
+**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)
+**Returns**: <code>Promise.&lt;boolean&gt;</code> - Whether the user authenticated.
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| application | <code>string</code> | The application type. |
+
 <a name="Cobalt+setAppAuthData"></a>
 
 ### cobalt.setAppAuthData() ⇒ <code>Promise.&lt;void&gt;</code>
@@ -177,6 +192,7 @@ specified application.
 | --- | --- | --- |
 | application | <code>string</code> | The application type. |
 | payload | <code>object</code> | The key value pairs of auth data. |
+| appId | <code>object</code> | The application ID in case of custom applications. |
 
 <a name="Cobalt+removeAppAuth"></a>
 
@@ -189,6 +205,7 @@ Unauthorize the specified application and remove any associated data from Cobalt
 | Name | Type | Description |
 | --- | --- | --- |
 | application | <code>string</code> | The application type. |
+| appId | <code>string</code> | The application ID in case of custom applications. |
 
 <a name="Cobalt+getNodeConfiguration"></a>
 
@@ -242,6 +259,18 @@ Activate the given installed workflow.
 | Name | Type | Description |
 | --- | --- | --- |
 | workflowId | <code>string</code> | The ID of the workflow you want to activate. |
+
+<a name="Cobalt+activateWorkflows"></a>
+
+### cobalt.activateWorkflows() ⇒ <code>Promise.&lt;void&gt;</code>
+Activate the given installed workflows.
+
+**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| workflowIds | <code>string</code> | The list of IDs of the workflows you want to activate. |
 
 <a name="Cobalt+toggleWorkflowStatus"></a>
 
