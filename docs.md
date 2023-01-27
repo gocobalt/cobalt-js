@@ -21,6 +21,9 @@
 <dt><a href="#AppAuthStatus">AppAuthStatus</a> : <code>object</code></dt>
 <dd><p>The auth status of the user for an application.</p>
 </dd>
+<dt><a href="#AppConfig">AppConfig</a> : <code>object</code></dt>
+<dd><p>The configuration data for an application.</p>
+</dd>
 </dl>
 
 <a name="Cobalt"></a>
@@ -36,6 +39,7 @@ Cobalt Frontend SDK
     * [.token](#Cobalt+token) ⇒ <code>string</code>
     * [.baseUrl](#Cobalt+baseUrl) ⇒ <code>string</code>
     * [.installTemplate()](#Cobalt+installTemplate) ⇒ [<code>Promise.&lt;Workflow&gt;</code>](#Workflow)
+    * [.getAppConfig(application)](#Cobalt+getAppConfig) ⇒ [<code>Promise.&lt;AppConfig&gt;</code>](#AppConfig)
     * [.getAppAuthStatus()](#Cobalt+getAppAuthStatus) ⇒ <code>Promise.&lt;boolean&gt;</code>
     * [.getAppAuthUrl()](#Cobalt+getAppAuthUrl) ⇒ <code>Promise.&lt;string&gt;</code>
     * [.oauth()](#Cobalt+oauth) ⇒ <code>Promise.&lt;boolean&gt;</code>
@@ -88,6 +92,18 @@ Install the given template.
 | --- | --- | --- |
 | templateId | <code>string</code> | The ID of the template you want to install. |
 | udf | <code>object</code> | Custom key value pairs you want to store with the installed worklfow. |
+
+<a name="Cobalt+getAppConfig"></a>
+
+### cobalt.getAppConfig(application) ⇒ [<code>Promise.&lt;AppConfig&gt;</code>](#AppConfig)
+Returns the configuration data for the specified application.
+
+**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
+**Returns**: [<code>Promise.&lt;AppConfig&gt;</code>](#AppConfig) - The specified application's configuration data.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| application | <code>string</code> | The application ID. |
 
 <a name="Cobalt+getAppAuthStatus"></a>
 
@@ -300,4 +316,17 @@ The auth status of the user for an application.
 | Name | Type | Description |
 | --- | --- | --- |
 | status | <code>boolean</code> | Whether the user has authenticated with this application. |
+
+<a name="AppConfig"></a>
+
+## AppConfig : <code>object</code>
+The configuration data for an application.
+
+**Kind**: global typedef  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| application_data_slots | <code>Array.&lt;DataSlot&gt;</code> | Array of application data slots. |
+| templates | <code>Array.&lt;Template&gt;</code> | Array of workflow templates. |
 
