@@ -62,6 +62,12 @@ class Cobalt {
      */
 
     /**
+     * @typedef {object} AppConfig The configuration data for an application.
+     * @property {DataSlot[]} application_data_slots Array of application data slots.
+     * @property {Template[]} templates Array of workflow templates.
+     */
+
+    /**
      * Install the given template.
      * @property {string} templateId The ID of the template you want to install.
      * @property {object} udf Custom key value pairs you want to store with the installed worklfow.
@@ -75,6 +81,25 @@ class Cobalt {
                 "content-type": "application/json",
             },
             body: JSON.stringify({ udf }),
+        });
+
+        if (res.status >= 400 && res.status < 600) {
+            throw new Error(res.statusText);
+        }
+
+        return await res.json();
+    }
+
+    /**
+     * Returns the configuration data for the specified application.
+     * @param {string} application The application ID.
+     * @returns {Promise<AppConfig>} The specified application's configuration data.
+     */
+    async getAppConfig(application) {
+        const res = await fetch(`${this.baseUrl}/api/v1/application/${application}/config`, {
+            headers: {
+                authorization: `Bearer ${this.token}`,
+            },
         });
 
         if (res.status >= 400 && res.status < 600) {
