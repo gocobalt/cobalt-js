@@ -206,7 +206,7 @@ class Cobalt {
      * @param {AppInstance} payload The install payload.
      * @returns {Promise<AppInstance>} The specified application installation.
      */
-    async installApp(applicationId, payload = {}) {
+    async install(applicationId, payload = {}) {
         const res = await fetch(`${this.baseUrl}/api/v1/application/${applicationId}/install`, {
             method: "POST",
             headers: {
@@ -229,7 +229,7 @@ class Cobalt {
      * @param {String} installationId The installation ID of the application instance.
      * @returns {Promise<AppInstance>} The specified application installation.
      */
-    async getAppInstallation(applicationId, installationId) {
+    async getInstallation(applicationId, installationId) {
         const res = await fetch(`${this.baseUrl}/api/v1/application/${applicationId}/installation/${installationId}`, {
             headers: {
                 authorization: `Bearer ${this.token}`,
@@ -250,7 +250,7 @@ class Cobalt {
      * @param {AppInstance} payload The update payload.
      * @returns {Promise<AppInstance>} The specified application installation.
      */
-    async updateAppInstallation(applicationId, installationId, payload = {}) {
+    async updateInstallation(applicationId, installationId, payload = {}) {
         const res = await fetch(`${this.baseUrl}/api/v1/application/${applicationId}/installation/${installationId}`, {
             method: "PUT",
             headers: {
@@ -273,7 +273,7 @@ class Cobalt {
      * @param {String} installationId The installation ID of the application instance.
      * @returns {Promise<unknown>}
      */
-    async deleteAppInstallation(applicationId, installationId) {
+    async deleteInstallation(applicationId, installationId) {
         const res = await fetch(`${this.baseUrl}/api/v1/application/${applicationId}/installation/${installationId}`, {
             method: "DELETE",
             headers: {
