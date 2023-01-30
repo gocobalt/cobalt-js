@@ -110,6 +110,108 @@ class Cobalt {
     }
 
     /**
+     * @typedef {Object} AppInstance An installed application.
+     * @property {String} [intallation_id] Unique ID for the installation.
+     * @property {Object.<string, string | number | boolean>} application_data_slots A map of application data slots and their values.
+     * @property {WorkflowTemplate[]} templates Whether the workflow template is enabled.
+     */
+
+    /**
+     * @typedef {Object} WorkflowTemplate The workflow template.
+     * @property {String} id The ID of the workflow template.
+     * @property {Boolean} enabled Whether the workflow template is enabled.
+     * @property {Object.<string, string | number | boolean>} data_slots A map of workflow template's data slots and their values.
+     */
+
+    /**
+     * Install the specified application.
+     * @param {String} applicationId The application ID.
+     * @param {AppInstance} payload The install payload.
+     * @returns {Promise<AppInstance>} The specified application installation.
+     */
+    async installApp(applicationId, payload = {}) {
+        const res = await fetch(`${this.baseUrl}/api/v1/application/${applicationId}/install`, {
+            method: "POST",
+            headers: {
+                authorization: `Bearer ${this.token}`,
+                "content-type": "application/json",
+            },
+            body: JSON.stringify(payload),
+        });
+
+        if (res.status >= 400 && res.status < 600) {
+            throw new Error(res.statusText);
+        }
+
+        return await res.json();
+    }
+
+    /**
+     * Returns the specified application installation.
+     * @param {String} applicationId The application ID.
+     * @param {String} installationId The installation ID of the application instance.
+     * @returns {Promise<AppInstance>} The specified application installation.
+     */
+    async getAppInstallation(applicationId, installationId) {
+        const res = await fetch(`${this.baseUrl}/api/v1/application/${applicationId}/installation/${installationId}`, {
+            headers: {
+                authorization: `Bearer ${this.token}`,
+            },
+        });
+
+        if (res.status >= 400 && res.status < 600) {
+            throw new Error(res.statusText);
+        }
+
+        return await res.json();
+    }
+
+    /**
+     * Update the specified application installation.
+     * @param {String} applicationId The application ID.
+     * @param {String} installationId The installation ID of the application instance.
+     * @param {AppInstance} payload The update payload.
+     * @returns {Promise<AppInstance>} The specified application installation.
+     */
+    async updateAppInstallation(applicationId, installationId, payload = {}) {
+        const res = await fetch(`${this.baseUrl}/api/v1/application/${applicationId}/installation/${installationId}`, {
+            method: "PUT",
+            headers: {
+                authorization: `Bearer ${this.token}`,
+                "content-type": "application/json",
+            },
+            body: JSON.stringify(payload),
+        });
+
+        if (res.status >= 400 && res.status < 600) {
+            throw new Error(res.statusText);
+        }
+
+        return await res.json();
+    }
+
+    /**
+     * Delete the specified installation.
+     * @param {String} applicationId The application ID.
+     * @param {String} installationId The installation ID of the application instance.
+     * @returns {Promise<unknown>}
+     */
+    async deleteAppInstallation(applicationId, installationId) {
+        const res = await fetch(`${this.baseUrl}/api/v1/application/${applicationId}/installation/${installationId}`, {
+            method: "DELETE",
+            headers: {
+                authorization: `Bearer ${this.token}`,
+            },
+        });
+
+        if (res.status >= 400 && res.status < 600) {
+            throw new Error(res.statusText);
+        }
+
+        return await res.json();
+    }
+
+    /**
      * Returns the auth status of the user for the specified application.
      * @property {string} application The application type.
      * @returns {Promise<boolean>} The auth status of the user.
