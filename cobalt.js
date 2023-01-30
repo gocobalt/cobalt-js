@@ -184,10 +184,11 @@ class Cobalt {
     /**
      * Returns the auth URL that users can use to authenticate themselves to the
      * specified application.
+     * @private
      * @property {string} application The application type.
      * @returns {Promise<string>} The auth URL where users can authenticate themselves.
      */
-    async getAppAuthUrl(application) {
+    async getOAuthUrl(application) {
         const res = await fetch(`${this.baseUrl}/api/v1/${application}/integrate`, {
             headers: {
                 authorization: `Bearer ${this.token}`,
@@ -209,7 +210,7 @@ class Cobalt {
      */
     async oauth(application) {
         return new Promise((resolve, reject) => {
-            this.getAppAuthUrl(application)
+            this.getOAuthUrl(application)
             .then(oauthUrl => {
                 const connectWindow = window.open(oauthUrl);
 
