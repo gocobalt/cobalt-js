@@ -1,13 +1,13 @@
 /**
  * Cobalt Frontend SDK
- * @property {string} token The session token.
+ * @property {String} token The session token.
  */
 class Cobalt {
     /**
      * Cobalt Frontend SDK
-     * @param {object} options The options to configure the Cobalt SDK.
-     * @param {string} [options.token] The session token.
-     * @param {string} [options.baseUrl=https://api.gocobalt.io] The base URL of your Cobalt API.
+     * @param {Object} options The options to configure the Cobalt SDK.
+     * @param {String} [options.token] The session token.
+     * @param {String} [options.baseUrl=https://api.gocobalt.io] The base URL of your Cobalt API.
      */
     constructor(options) {
         this.apiBaseUrl = options?.baseUrl || "https://api.gocobalt.io";
@@ -23,7 +23,7 @@ class Cobalt {
     };
 
     /**
-     * @returns {string} The base URL of cobalt API.
+     * @returns {String} The base URL of cobalt API.
      */
     get baseUrl() {
         return this.apiBaseUrl;
@@ -145,10 +145,10 @@ class Cobalt {
     /**
      * Unauthorize the specified application and remove any associated data from Cobalt.
      * @param {String} application The application type.
-     * @param {String} applicationId The application ID in case of custom applications.
+     * @param {String} [applicationId] The application ID in case of custom applications.
      * @returns {Promise<void>}
      */
-    async removeAppAuth(application, applicationId) {
+    async removeAuth(application, applicationId) {
         const res = await fetch(`${this.baseUrl}/api/v1/linked-acc/integration/${application}?app_id=${applicationId}`, {
             method: "DELETE",
             headers: {
@@ -169,7 +169,7 @@ class Cobalt {
 
     /**
      * Returns the configuration data for the specified application.
-     * @param {string} application The application ID.
+     * @param {String} application The application ID.
      * @returns {Promise<AppConfig>} The specified application's configuration data.
      */
     async getAppConfig(application) {
