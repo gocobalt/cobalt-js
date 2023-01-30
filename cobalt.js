@@ -52,7 +52,7 @@ class Cobalt {
     }
 
     /**
-     * Handle OAuth for the specified application.
+     * Handle OAuth for the specified native application.
      * @param {String} application The application type.
      * @returns {Promise<Boolean>} Whether the user authenticated.
      */
@@ -96,14 +96,40 @@ class Cobalt {
 
     /**
      * Save the auth data that user provides to authenticate themselves to the
-     * specified application.
+     * specified native application.
      * @param {String} application The application type.
      * @param {Object.<string, string | number | boolean>} payload The key value pairs of auth data.
-     * @param {String} applicationId The application ID in case of custom applications.
      * @returns {Promise<unknown>}
      */
-    async setAppAuthData(application, payload, applicationId) {
-        const res = await fetch(applicationId ? `${this.baseUrl}/api/v1/${application}/${applicationId}/save` : `${this.baseUrl}/api/v1/${application}/save`, {
+    async auth(application, payload) {
+        const res = await fetch(`${this.baseUrl}/api/v1/${application}/save`, {
+            method: "POST",
+            headers: {
+                authorization: `Bearer ${this.token}`,
+                "content-type": "application/json",
+            },
+            body: JSON.stringify({
+                ...payload,
+            }),
+        });
+
+        if (res.status >= 400 && res.status < 600) {
+            throw new Error(res.statusText);
+        }
+
+        const data = await res.json();
+        return data;
+    }
+
+    /**
+     * Save the auth data that user provides to authenticate themselves to the
+     * specified custom application.
+     * @param {String} applicationId The application ID of the custom application.
+     * @param {Object.<string, string | number | boolean>} payload The key value pairs of auth data.
+     * @returns {Promise<unknown>}
+     */
+    async authCustom(applicationId, payload) {
+        const res = await fetch(`${this.baseUrl}/api/v1/custom/${applicationId}/save`, {
             method: "POST",
             headers: {
                 authorization: `Bearer ${this.token}`,
