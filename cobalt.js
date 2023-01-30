@@ -7,10 +7,10 @@ class Cobalt {
      * Cobalt Frontend SDK
      * @param {Object} options The options to configure the Cobalt SDK.
      * @param {String} [options.token] The session token.
-     * @param {String} [options.baseUrl=https://api.gocobalt.io] The base URL of your Cobalt API.
+     * @param {String} [options.baseUrl=https://api.gocobalt.io] The base URL of the Cobalt API.
      */
     constructor(options) {
-        this.apiBaseUrl = options?.baseUrl || "https://api.gocobalt.io";
+        this.baseUrl = options?.baseUrl || "https://api.gocobalt.io";
         this.token = options?.token;
     }
 
@@ -20,13 +20,6 @@ class Cobalt {
 
     set token(token) {
         return this.sessionToken = typeof token === "string" ? token : "";
-    };
-
-    /**
-     * @returns {String} The base URL of cobalt API.
-     */
-    get baseUrl() {
-        return this.apiBaseUrl;
     };
 
     /**
