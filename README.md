@@ -80,21 +80,21 @@ Cobalt Frontend SDK
 
 | Name | Type | Description |
 | --- | --- | --- |
-| token | <code>string</code> | The session token. |
+| token | <code>String</code> | The session token. |
 
 
 * [Cobalt](#Cobalt)
     * [new Cobalt(options)](#new_Cobalt_new)
-    * [.baseUrl](#Cobalt+baseUrl) ⇒ <code>string</code>
     * [.oauth(application)](#Cobalt+oauth) ⇒ <code>Promise.&lt;Boolean&gt;</code>
-    * [.setAppAuthData(application, payload, applicationId)](#Cobalt+setAppAuthData) ⇒ <code>Promise.&lt;unknown&gt;</code>
-    * [.getAuthStatus(application)](#Cobalt+getAuthStatus) ⇒ <code>Promise.&lt;Boolean&gt;</code>
-    * [.removeAppAuth(application, applicationId)](#Cobalt+removeAppAuth) ⇒ <code>Promise.&lt;void&gt;</code>
+    * [.auth(application, payload)](#Cobalt+auth) ⇒ <code>Promise.&lt;unknown&gt;</code>
+    * [.authCustom(applicationId, payload)](#Cobalt+authCustom) ⇒ <code>Promise.&lt;unknown&gt;</code>
+    * [.checkAuth(application)](#Cobalt+checkAuth) ⇒ <code>Promise.&lt;Boolean&gt;</code>
+    * [.removeAuth(application, [applicationId])](#Cobalt+removeAuth) ⇒ <code>Promise.&lt;void&gt;</code>
     * [.getAppConfig(application)](#Cobalt+getAppConfig) ⇒ [<code>Promise.&lt;AppConfig&gt;</code>](#AppConfig)
-    * [.installApp(applicationId, payload)](#Cobalt+installApp) ⇒ [<code>Promise.&lt;AppInstance&gt;</code>](#AppInstance)
-    * [.getAppInstallation(applicationId, installationId)](#Cobalt+getAppInstallation) ⇒ [<code>Promise.&lt;AppInstance&gt;</code>](#AppInstance)
-    * [.updateAppInstallation(applicationId, installationId, payload)](#Cobalt+updateAppInstallation) ⇒ [<code>Promise.&lt;AppInstance&gt;</code>](#AppInstance)
-    * [.deleteAppInstallation(applicationId, installationId)](#Cobalt+deleteAppInstallation) ⇒ <code>Promise.&lt;unknown&gt;</code>
+    * [.install(applicationId, payload)](#Cobalt+install) ⇒ [<code>Promise.&lt;AppInstance&gt;</code>](#AppInstance)
+    * [.getInstallation(applicationId, installationId)](#Cobalt+getInstallation) ⇒ [<code>Promise.&lt;AppInstance&gt;</code>](#AppInstance)
+    * [.updateInstallation(applicationId, installationId, payload)](#Cobalt+updateInstallation) ⇒ [<code>Promise.&lt;AppInstance&gt;</code>](#AppInstance)
+    * [.deleteInstallation(applicationId, installationId)](#Cobalt+deleteInstallation) ⇒ <code>Promise.&lt;unknown&gt;</code>
 
 <a name="new_Cobalt_new"></a>
 
@@ -104,19 +104,14 @@ Cobalt Frontend SDK
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| options | <code>object</code> |  | The options to configure the Cobalt SDK. |
-| [options.token] | <code>string</code> |  | The session token. |
-| [options.baseUrl] | <code>string</code> | <code>&quot;https://api.gocobalt.io&quot;</code> | The base URL of your Cobalt API. |
+| options | <code>Object</code> |  | The options to configure the Cobalt SDK. |
+| [options.token] | <code>String</code> |  | The session token. |
+| [options.baseUrl] | <code>String</code> | <code>https://api.gocobalt.io</code> | The base URL of the Cobalt API. |
 
-<a name="Cobalt+baseUrl"></a>
-
-### cobalt.baseUrl ⇒ <code>string</code>
-**Kind**: instance property of [<code>Cobalt</code>](#Cobalt)
-**Returns**: <code>string</code> - The base URL of cobalt API.
 <a name="Cobalt+oauth"></a>
 
 ### cobalt.oauth(application) ⇒ <code>Promise.&lt;Boolean&gt;</code>
-Handle OAuth for the specified application.
+Handle OAuth for the specified native application.
 
 **Kind**: instance method of [<code>Cobalt</code>](#Cobalt)
 **Returns**: <code>Promise.&lt;Boolean&gt;</code> - Whether the user authenticated.
@@ -125,11 +120,11 @@ Handle OAuth for the specified application.
 | --- | --- | --- |
 | application | <code>String</code> | The application type. |
 
-<a name="Cobalt+setAppAuthData"></a>
+<a name="Cobalt+auth"></a>
 
-### cobalt.setAppAuthData(application, payload, applicationId) ⇒ <code>Promise.&lt;unknown&gt;</code>
+### cobalt.auth(application, payload) ⇒ <code>Promise.&lt;unknown&gt;</code>
 Save the auth data that user provides to authenticate themselves to the
-specified application.
+specified native application.
 
 **Kind**: instance method of [<code>Cobalt</code>](#Cobalt)
 
@@ -137,11 +132,23 @@ specified application.
 | --- | --- | --- |
 | application | <code>String</code> | The application type. |
 | payload | <code>Object.&lt;string, (string\|number\|boolean)&gt;</code> | The key value pairs of auth data. |
-| applicationId | <code>String</code> | The application ID in case of custom applications. |
 
-<a name="Cobalt+getAuthStatus"></a>
+<a name="Cobalt+authCustom"></a>
 
-### cobalt.getAuthStatus(application) ⇒ <code>Promise.&lt;Boolean&gt;</code>
+### cobalt.authCustom(applicationId, payload) ⇒ <code>Promise.&lt;unknown&gt;</code>
+Save the auth data that user provides to authenticate themselves to the
+specified custom application.
+
+**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)
+
+| Param | Type | Description |
+| --- | --- | --- |
+| applicationId | <code>String</code> | The application ID of the custom application. |
+| payload | <code>Object.&lt;string, (string\|number\|boolean)&gt;</code> | The key value pairs of auth data. |
+
+<a name="Cobalt+checkAuth"></a>
+
+### cobalt.checkAuth(application) ⇒ <code>Promise.&lt;Boolean&gt;</code>
 Returns the auth status of the user for the specified application.
 
 **Kind**: instance method of [<code>Cobalt</code>](#Cobalt)
@@ -151,9 +158,9 @@ Returns the auth status of the user for the specified application.
 | --- | --- | --- |
 | application | <code>String</code> | The application type. |
 
-<a name="Cobalt+removeAppAuth"></a>
+<a name="Cobalt+removeAuth"></a>
 
-### cobalt.removeAppAuth(application, applicationId) ⇒ <code>Promise.&lt;void&gt;</code>
+### cobalt.removeAuth(application, [applicationId]) ⇒ <code>Promise.&lt;void&gt;</code>
 Unauthorize the specified application and remove any associated data from Cobalt.
 
 **Kind**: instance method of [<code>Cobalt</code>](#Cobalt)
@@ -161,7 +168,7 @@ Unauthorize the specified application and remove any associated data from Cobalt
 | Param | Type | Description |
 | --- | --- | --- |
 | application | <code>String</code> | The application type. |
-| applicationId | <code>String</code> | The application ID in case of custom applications. |
+| [applicationId] | <code>String</code> | The application ID in case of custom applications. |
 
 <a name="Cobalt+getAppConfig"></a>
 
@@ -173,11 +180,11 @@ Returns the configuration data for the specified application.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| application | <code>string</code> | The application ID. |
+| application | <code>String</code> | The application ID. |
 
-<a name="Cobalt+installApp"></a>
+<a name="Cobalt+install"></a>
 
-### cobalt.installApp(applicationId, payload) ⇒ [<code>Promise.&lt;AppInstance&gt;</code>](#AppInstance)
+### cobalt.install(applicationId, payload) ⇒ [<code>Promise.&lt;AppInstance&gt;</code>](#AppInstance)
 Install the specified application.
 
 **Kind**: instance method of [<code>Cobalt</code>](#Cobalt)
@@ -188,9 +195,9 @@ Install the specified application.
 | applicationId | <code>String</code> | The application ID. |
 | payload | [<code>AppInstance</code>](#AppInstance) | The install payload. |
 
-<a name="Cobalt+getAppInstallation"></a>
+<a name="Cobalt+getInstallation"></a>
 
-### cobalt.getAppInstallation(applicationId, installationId) ⇒ [<code>Promise.&lt;AppInstance&gt;</code>](#AppInstance)
+### cobalt.getInstallation(applicationId, installationId) ⇒ [<code>Promise.&lt;AppInstance&gt;</code>](#AppInstance)
 Returns the specified application installation.
 
 **Kind**: instance method of [<code>Cobalt</code>](#Cobalt)
@@ -201,9 +208,9 @@ Returns the specified application installation.
 | applicationId | <code>String</code> | The application ID. |
 | installationId | <code>String</code> | The installation ID of the application instance. |
 
-<a name="Cobalt+updateAppInstallation"></a>
+<a name="Cobalt+updateInstallation"></a>
 
-### cobalt.updateAppInstallation(applicationId, installationId, payload) ⇒ [<code>Promise.&lt;AppInstance&gt;</code>](#AppInstance)
+### cobalt.updateInstallation(applicationId, installationId, payload) ⇒ [<code>Promise.&lt;AppInstance&gt;</code>](#AppInstance)
 Update the specified application installation.
 
 **Kind**: instance method of [<code>Cobalt</code>](#Cobalt)
@@ -215,9 +222,9 @@ Update the specified application installation.
 | installationId | <code>String</code> | The installation ID of the application instance. |
 | payload | [<code>AppInstance</code>](#AppInstance) | The update payload. |
 
-<a name="Cobalt+deleteAppInstallation"></a>
+<a name="Cobalt+deleteInstallation"></a>
 
-### cobalt.deleteAppInstallation(applicationId, installationId) ⇒ <code>Promise.&lt;unknown&gt;</code>
+### cobalt.deleteInstallation(applicationId, installationId) ⇒ <code>Promise.&lt;unknown&gt;</code>
 Delete the specified installation.
 
 **Kind**: instance method of [<code>Cobalt</code>](#Cobalt)
