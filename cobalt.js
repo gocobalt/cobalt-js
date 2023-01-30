@@ -1,5 +1,6 @@
 /**
  * Cobalt Frontend SDK
+ * @property {string} token The session token.
  */
 class Cobalt {
     /**
@@ -13,16 +14,10 @@ class Cobalt {
         this.token = options?.token;
     }
 
-    /**
-     * @returns {string} The session token.
-     */
     get token() {
         return this.sessionToken;
     };
 
-    /**
-     * @returns {string} The session token.
-     */
     set token(token) {
         return this.sessionToken = typeof token === "string" ? token : "";
     };
@@ -163,8 +158,8 @@ class Cobalt {
 
     /**
      * Returns the auth status of the user for the specified application.
-     * @property {string} application The application type.
-     * @returns {Promise<boolean>} The auth status of the user.
+     * @param {String} application The application type.
+     * @returns {Promise<Boolean>} The auth status of the user.
      */
     async getAppAuthStatus(application) {
         const res = await fetch(`${this.baseUrl}/api/v1/linked-acc/integration/auth?integration_type=${application}`, {
@@ -185,8 +180,8 @@ class Cobalt {
      * Returns the auth URL that users can use to authenticate themselves to the
      * specified application.
      * @private
-     * @property {string} application The application type.
-     * @returns {Promise<string>} The auth URL where users can authenticate themselves.
+     * @param {String} application The application type.
+     * @returns {Promise<String>} The auth URL where users can authenticate themselves.
      */
     async getOAuthUrl(application) {
         const res = await fetch(`${this.baseUrl}/api/v1/${application}/integrate`, {
@@ -205,8 +200,8 @@ class Cobalt {
 
     /**
      * Handle OAuth for the specified application.
-     * @property {string} application The application type.
-     * @returns {Promise<boolean>} Whether the user authenticated.
+     * @param {String} application The application type.
+     * @returns {Promise<Boolean>} Whether the user authenticated.
      */
     async oauth(application) {
         return new Promise((resolve, reject) => {
@@ -249,13 +244,13 @@ class Cobalt {
     /**
      * Save the auth data that user provides to authenticate themselves to the
      * specified application.
-     * @property {string} application The application type.
-     * @property {object} payload The key value pairs of auth data.
-     * @property {object} appId The application ID in case of custom applications.
-     * @returns {Promise<void>}
+     * @param {String} application The application type.
+     * @param {Object.<string, string | number | boolean>} payload The key value pairs of auth data.
+     * @param {String} applicationId The application ID in case of custom applications.
+     * @returns {Promise<unknown>}
      */
-    async setAppAuthData(application, payload, appId) {
-        const res = await fetch(appId ? `${this.baseUrl}/api/v1/${application}/${appId}/save` : `${this.baseUrl}/api/v1/${application}/save`, {
+    async setAppAuthData(application, payload, applicationId) {
+        const res = await fetch(applicationId ? `${this.baseUrl}/api/v1/${application}/${applicationId}/save` : `${this.baseUrl}/api/v1/${application}/save`, {
             method: "POST",
             headers: {
                 authorization: `Bearer ${this.token}`,
@@ -276,12 +271,12 @@ class Cobalt {
 
     /**
      * Unauthorize the specified application and remove any associated data from Cobalt.
-     * @property {string} application The application type.
-     * @property {string} appId The application ID in case of custom applications.
+     * @param {String} application The application type.
+     * @param {String} applicationId The application ID in case of custom applications.
      * @returns {Promise<void>}
      */
-    async removeAppAuth(application, appId) {
-        const res = await fetch(`${this.baseUrl}/api/v1/linked-acc/integration/${application}?app_id=${appId}`, {
+    async removeAppAuth(application, applicationId) {
+        const res = await fetch(`${this.baseUrl}/api/v1/linked-acc/integration/${application}?app_id=${applicationId}`, {
             method: "DELETE",
             headers: {
                 authorization: `Bearer ${this.token}`,
