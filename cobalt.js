@@ -64,7 +64,7 @@ class Cobalt {
 
                 // keep checking connection status
                 const interval = setInterval(() => {
-                    this.getAuthStatus(application)
+                    this.checkAuth(application)
                     .then(connected => {
                         if (connected === true) {
                             // close auth window
@@ -127,7 +127,7 @@ class Cobalt {
      * @param {String} application The application type.
      * @returns {Promise<Boolean>} The auth status of the user.
      */
-    async getAuthStatus(application) {
+    async checkAuth(application) {
         const res = await fetch(`${this.baseUrl}/api/v1/linked-acc/integration/auth?integration_type=${application}`, {
             headers: {
                 authorization: `Bearer ${this.token}`,
