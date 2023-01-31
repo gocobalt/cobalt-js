@@ -257,7 +257,7 @@ An installed application.
 
 | Name | Type | Description |
 | --- | --- | --- |
-| [intallation_id] | <code>String</code> | Unique ID for the installation. |
+| [installation_id] | <code>String</code> | Unique ID for the installation. |
 | application_data_slots | <code>Object.&lt;string, (string\|number\|boolean)&gt;</code> | A map of application data slots and their values. |
 | templates | [<code>Array.&lt;WorkflowTemplate&gt;</code>](#WorkflowTemplate) | Whether the workflow template is enabled. |
 

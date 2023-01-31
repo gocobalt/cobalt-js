@@ -207,7 +207,7 @@ class Cobalt {
 
     /**
      * @typedef {Object} AppInstance An installed application.
-     * @property {String} [intallation_id] Unique ID for the installation.
+     * @property {String} [installation_id] Unique ID for the installation.
      * @property {Object.<string, string | number | boolean>} application_data_slots A map of application data slots and their values.
      * @property {WorkflowTemplate[]} templates Whether the workflow template is enabled.
      */
