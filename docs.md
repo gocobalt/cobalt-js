@@ -15,8 +15,8 @@
 <dt><a href="#AppInstance">AppInstance</a> : <code>Object</code></dt>
 <dd><p>An installed application.</p>
 </dd>
-<dt><a href="#WorkflowTemplate">WorkflowTemplate</a> : <code>Object</code></dt>
-<dd><p>The workflow template.</p>
+<dt><a href="#Workflow">Workflow</a> : <code>Object</code></dt>
+<dd><p>The workflow.</p>
 </dd>
 </dl>
 
@@ -25,7 +25,7 @@
 ## Cobalt
 Cobalt Frontend SDK
 
-**Kind**: global class
+**Kind**: global class  
 **Properties**
 
 | Name | Type | Description |
@@ -63,8 +63,8 @@ Cobalt Frontend SDK
 ### cobalt.oauth(application) ⇒ <code>Promise.&lt;Boolean&gt;</code>
 Handle OAuth for the specified native application.
 
-**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)
-**Returns**: <code>Promise.&lt;Boolean&gt;</code> - Whether the user authenticated.
+**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
+**Returns**: <code>Promise.&lt;Boolean&gt;</code> - Whether the user authenticated.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -76,7 +76,7 @@ Handle OAuth for the specified native application.
 Save the auth data that user provides to authenticate themselves to the
 specified native application.
 
-**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)
+**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -89,7 +89,7 @@ specified native application.
 Save the auth data that user provides to authenticate themselves to the
 specified custom application.
 
-**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)
+**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -101,8 +101,8 @@ specified custom application.
 ### cobalt.checkAuth(application) ⇒ <code>Promise.&lt;Boolean&gt;</code>
 Returns the auth status of the user for the specified application.
 
-**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)
-**Returns**: <code>Promise.&lt;Boolean&gt;</code> - The auth status of the user.
+**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
+**Returns**: <code>Promise.&lt;Boolean&gt;</code> - The auth status of the user.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -113,7 +113,7 @@ Returns the auth status of the user for the specified application.
 ### cobalt.removeAuth(application, [applicationId]) ⇒ <code>Promise.&lt;void&gt;</code>
 Unauthorize the specified application and remove any associated data from Cobalt.
 
-**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)
+**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -125,8 +125,8 @@ Unauthorize the specified application and remove any associated data from Cobalt
 ### cobalt.getAppConfig(application) ⇒ [<code>Promise.&lt;AppConfig&gt;</code>](#AppConfig)
 Returns the configuration data for the specified application.
 
-**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)
-**Returns**: [<code>Promise.&lt;AppConfig&gt;</code>](#AppConfig) - The specified application's configuration data.
+**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
+**Returns**: [<code>Promise.&lt;AppConfig&gt;</code>](#AppConfig) - The specified application's configuration data.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -137,8 +137,8 @@ Returns the configuration data for the specified application.
 ### cobalt.install(applicationId, payload) ⇒ [<code>Promise.&lt;AppInstance&gt;</code>](#AppInstance)
 Install the specified application.
 
-**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)
-**Returns**: [<code>Promise.&lt;AppInstance&gt;</code>](#AppInstance) - The specified application installation.
+**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
+**Returns**: [<code>Promise.&lt;AppInstance&gt;</code>](#AppInstance) - The specified application installation.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -150,8 +150,8 @@ Install the specified application.
 ### cobalt.getInstallation(applicationId, installationId) ⇒ [<code>Promise.&lt;AppInstance&gt;</code>](#AppInstance)
 Returns the specified application installation.
 
-**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)
-**Returns**: [<code>Promise.&lt;AppInstance&gt;</code>](#AppInstance) - The specified application installation.
+**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
+**Returns**: [<code>Promise.&lt;AppInstance&gt;</code>](#AppInstance) - The specified application installation.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -163,8 +163,8 @@ Returns the specified application installation.
 ### cobalt.updateInstallation(applicationId, installationId, payload) ⇒ [<code>Promise.&lt;AppInstance&gt;</code>](#AppInstance)
 Update the specified application installation.
 
-**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)
-**Returns**: [<code>Promise.&lt;AppInstance&gt;</code>](#AppInstance) - The specified application installation.
+**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
+**Returns**: [<code>Promise.&lt;AppInstance&gt;</code>](#AppInstance) - The specified application installation.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -177,7 +177,7 @@ Update the specified application installation.
 ### cobalt.deleteInstallation(applicationId, installationId) ⇒ <code>Promise.&lt;unknown&gt;</code>
 Delete the specified installation.
 
-**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)
+**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -189,38 +189,39 @@ Delete the specified installation.
 ## AppConfig : <code>object</code>
 The configuration data for an application.
 
-**Kind**: global typedef
+**Kind**: global typedef  
 **Properties**
 
 | Name | Type | Description |
 | --- | --- | --- |
 | application_data_slots | <code>Array.&lt;DataSlot&gt;</code> | Array of application data slots. |
-| templates | <code>Array.&lt;Template&gt;</code> | Array of workflow templates. |
+| workflows | [<code>Array.&lt;Workflow&gt;</code>](#Workflow) | Array of workflows. |
 
 <a name="AppInstance"></a>
 
 ## AppInstance : <code>Object</code>
 An installed application.
 
-**Kind**: global typedef
+**Kind**: global typedef  
 **Properties**
 
 | Name | Type | Description |
 | --- | --- | --- |
 | [installation_id] | <code>String</code> | Unique ID for the installation. |
 | application_data_slots | <code>Object.&lt;string, (string\|number\|boolean)&gt;</code> | A map of application data slots and their values. |
-| templates | [<code>Array.&lt;WorkflowTemplate&gt;</code>](#WorkflowTemplate) | Whether the workflow template is enabled. |
+| workflows | [<code>Array.&lt;Workflow&gt;</code>](#Workflow) | Whether the workflow is enabled. |
 
-<a name="WorkflowTemplate"></a>
+<a name="Workflow"></a>
 
-## WorkflowTemplate : <code>Object</code>
-The workflow template.
+## Workflow : <code>Object</code>
+The workflow.
 
-**Kind**: global typedef
+**Kind**: global typedef  
 **Properties**
 
 | Name | Type | Description |
 | --- | --- | --- |
-| id | <code>String</code> | The ID of the workflow template. |
-| enabled | <code>Boolean</code> | Whether the workflow template is enabled. |
-| data_slots | <code>Object.&lt;string, (string\|number\|boolean)&gt;</code> | A map of workflow template's data slots and their values. |
+| id | <code>String</code> | The ID of the workflow. |
+| enabled | <code>Boolean</code> | Whether the workflow is enabled. |
+| data_slots | <code>Object.&lt;string, (string\|number\|boolean)&gt;</code> | A map of workflow's data slots and their values. |
+
