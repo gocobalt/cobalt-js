@@ -65,8 +65,8 @@ cobalt.token = "COBALT_SESSION_TOKEN";
 <dt><a href="#AppInstance">AppInstance</a> : <code>Object</code></dt>
 <dd><p>An installed application.</p>
 </dd>
-<dt><a href="#WorkflowTemplate">WorkflowTemplate</a> : <code>Object</code></dt>
-<dd><p>The workflow template.</p>
+<dt><a href="#Workflow">Workflow</a> : <code>Object</code></dt>
+<dd><p>The workflow.</p>
 </dd>
 </dl>
 
@@ -245,7 +245,7 @@ The configuration data for an application.
 | Name | Type | Description |
 | --- | --- | --- |
 | application_data_slots | <code>Array.&lt;DataSlot&gt;</code> | Array of application data slots. |
-| templates | <code>Array.&lt;Template&gt;</code> | Array of workflow templates. |
+| workflows | [<code>Array.&lt;Workflow&gt;</code>](#Workflow) | Array of workflows. |
 
 <a name="AppInstance"></a>
 
@@ -259,18 +259,18 @@ An installed application.
 | --- | --- | --- |
 | [installation_id] | <code>String</code> | Unique ID for the installation. |
 | application_data_slots | <code>Object.&lt;string, (string\|number\|boolean)&gt;</code> | A map of application data slots and their values. |
-| templates | [<code>Array.&lt;WorkflowTemplate&gt;</code>](#WorkflowTemplate) | Whether the workflow template is enabled. |
+| workflows | [<code>Array.&lt;Workflow&gt;</code>](#Workflow) | Whether the workflow is enabled. |
 
-<a name="WorkflowTemplate"></a>
+<a name="Workflow"></a>
 
-## WorkflowTemplate : <code>Object</code>
-The workflow template.
+## Workflow : <code>Object</code>
+The workflow.
 
 **Kind**: global typedef
 **Properties**
 
 | Name | Type | Description |
 | --- | --- | --- |
-| id | <code>String</code> | The ID of the workflow template. |
-| enabled | <code>Boolean</code> | Whether the workflow template is enabled. |
-| data_slots | <code>Object.&lt;string, (string\|number\|boolean)&gt;</code> | A map of workflow template's data slots and their values. |
+| id | <code>String</code> | The ID of the workflow. |
+| enabled | <code>Boolean</code> | Whether the workflow is enabled. |
+| data_slots | <code>Object.&lt;string, (string\|number\|boolean)&gt;</code> | A map of workflow's data slots and their values. |
