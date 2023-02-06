@@ -183,7 +183,7 @@ class Cobalt {
     /**
      * @typedef {object} AppConfig The configuration data for an application.
      * @property {DataSlot[]} application_data_slots Array of application data slots.
-     * @property {Template[]} templates Array of workflow templates.
+     * @property {Workflow[]} workflows Array of workflows.
      */
 
     /**
@@ -209,14 +209,14 @@ class Cobalt {
      * @typedef {Object} AppInstance An installed application.
      * @property {String} [installation_id] Unique ID for the installation.
      * @property {Object.<string, string | number | boolean>} application_data_slots A map of application data slots and their values.
-     * @property {WorkflowTemplate[]} templates Whether the workflow template is enabled.
+     * @property {Workflow[]} workflows Whether the workflow is enabled.
      */
 
     /**
-     * @typedef {Object} WorkflowTemplate The workflow template.
-     * @property {String} id The ID of the workflow template.
-     * @property {Boolean} enabled Whether the workflow template is enabled.
-     * @property {Object.<string, string | number | boolean>} data_slots A map of workflow template's data slots and their values.
+     * @typedef {Object} Workflow The workflow.
+     * @property {String} id The ID of the workflow.
+     * @property {Boolean} enabled Whether the workflow is enabled.
+     * @property {Object.<string, string | number | boolean>} data_slots A map of workflow's data slots and their values.
      */
 
     /**
