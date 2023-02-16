@@ -181,7 +181,7 @@ class Cobalt {
     }
 
     /**
-     * @typedef {object} AppConfig The configuration data for an application.
+     * @typedef {object} Config The configuration data for an application.
      * @property {DataSlot[]} application_data_slots Array of application data slots.
      * @property {Workflow[]} workflows Array of workflows.
      */
@@ -189,9 +189,9 @@ class Cobalt {
     /**
      * Returns the configuration data for the specified application.
      * @param {String} application The application ID.
-     * @returns {Promise<AppConfig>} The specified application's configuration data.
+     * @returns {Promise<Config>} The specified application's configuration data.
      */
-    async getAppConfig(application) {
+    async getConfig(application) {
         const res = await fetch(`${this.baseUrl}/api/v1/application/${application}/config`, {
             headers: {
                 authorization: `Bearer ${this.token}`,
@@ -206,8 +206,8 @@ class Cobalt {
     }
 
     /**
-     * @typedef {Object} AppInstance An installed application.
-     * @property {String} [installation_id] Unique ID for the installation.
+     * @typedef {Object} SavedConfig An saved config.
+     * @property {String} [config_id] Unique ID for the saved config.
      * @property {Object.<string, string | number | boolean>} application_data_slots A map of application data slots and their values.
      * @property {Workflow[]} workflows Whether the workflow is enabled.
      */
@@ -220,12 +220,12 @@ class Cobalt {
      */
 
     /**
-     * Install the specified application.
+     * Save the specified config.
      * @param {String} applicationId The application ID.
-     * @param {AppInstance} payload The install payload.
-     * @returns {Promise<AppInstance>} The specified application installation.
+     * @param {SavedConfig} payload The config payload.
+     * @returns {Promise<SavedConfig>} The specified saved config.
      */
-    async install(applicationId, payload = {}) {
+    async saveConfig(applicationId, payload = {}) {
         const res = await fetch(`${this.baseUrl}/api/v1/application/${applicationId}/install`, {
             method: "POST",
             headers: {
@@ -243,13 +243,13 @@ class Cobalt {
     }
 
     /**
-     * Returns the specified application installation.
+     * Returns the specified saved config.
      * @param {String} applicationId The application ID.
-     * @param {String} installationId The installation ID of the application instance.
-     * @returns {Promise<AppInstance>} The specified application installation.
+     * @param {String} configId The config ID of the saved config.
+     * @returns {Promise<SavedConfig>} The specified saved config.
      */
-    async getInstallation(applicationId, installationId) {
-        const res = await fetch(`${this.baseUrl}/api/v1/application/${applicationId}/installation/${installationId}`, {
+    async getSavedConfig(applicationId, configId) {
+        const res = await fetch(`${this.baseUrl}/api/v1/application/${applicationId}/installation/${configId}`, {
             headers: {
                 authorization: `Bearer ${this.token}`,
             },
@@ -263,14 +263,14 @@ class Cobalt {
     }
 
     /**
-     * Update the specified application installation.
+     * Update the specified saved config.
      * @param {String} applicationId The application ID.
-     * @param {String} installationId The installation ID of the application instance.
-     * @param {AppInstance} payload The update payload.
-     * @returns {Promise<AppInstance>} The specified application installation.
+     * @param {String} configId The config ID of the saved config.
+     * @param {SavedConfig} payload The update payload.
+     * @returns {Promise<SavedConfig>} The specified saved config.
      */
-    async updateInstallation(applicationId, installationId, payload = {}) {
-        const res = await fetch(`${this.baseUrl}/api/v1/application/${applicationId}/installation/${installationId}`, {
+    async updateSavedConfig(applicationId, configId, payload = {}) {
+        const res = await fetch(`${this.baseUrl}/api/v1/application/${applicationId}/installation/${configId}`, {
             method: "PUT",
             headers: {
                 authorization: `Bearer ${this.token}`,
@@ -287,13 +287,13 @@ class Cobalt {
     }
 
     /**
-     * Delete the specified installation.
+     * Delete the specified saved config.
      * @param {String} applicationId The application ID.
-     * @param {String} installationId The installation ID of the application instance.
+     * @param {String} configId The config ID of the saved config.
      * @returns {Promise<unknown>}
      */
-    async deleteInstallation(applicationId, installationId) {
-        const res = await fetch(`${this.baseUrl}/api/v1/application/${applicationId}/installation/${installationId}`, {
+    async deleteSavedConfig(applicationId, configId) {
+        const res = await fetch(`${this.baseUrl}/api/v1/application/${applicationId}/installation/${configId}`, {
             method: "DELETE",
             headers: {
                 authorization: `Bearer ${this.token}`,
