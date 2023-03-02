@@ -194,7 +194,7 @@ class Cobalt {
 
     /**
      * @typedef {Object} DynamicFields The dynamic fields payload.
-     * @property {Object.<string, Label[]>} map_field_object desc.
+     * @property {Object.<string, Label[]>} map_fields_object desc.
      */
 
     /**
@@ -209,6 +209,7 @@ class Cobalt {
             method: "POST",
             headers: {
                 authorization: `Bearer ${this.token}`,
+                "content-type": "application/json",
             },
             body: JSON.stringify(fields),
         });
