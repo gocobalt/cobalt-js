@@ -241,7 +241,7 @@ The dynamic fields payload.
 
 | Name | Type | Description |
 | --- | --- | --- |
-| map_field_object | <code>Object.&lt;string, Array.&lt;Label&gt;&gt;</code> | desc. |
+| map_fields_object | <code>Object.&lt;string, Array.&lt;Label&gt;&gt;</code> | desc. |
 
 <a name="SavedConfig"></a>
 
