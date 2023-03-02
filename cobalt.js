@@ -187,6 +187,40 @@ class Cobalt {
      */
 
     /**
+     * @typedef {Object} Label Field Mapping Label
+     * @property {string} name The Label name.
+     * @property {string | number | boolean} value The Label value.
+     */
+
+    /**
+     * @typedef {Object} DynamicFields The dynamic fields payload.
+     * @property {Object.<string, Label[]>} map_field_object desc.
+     */
+
+    /**
+     * Returns the specified saved config, or creates one if it doesn't exist.
+     * @param {String} applicationId The application ID.
+     * @param {String} configId The config ID of the saved config.
+     * @param {DynamicFields} fields The dynamic fields payload.
+     * @returns {Promise<SavedConfig>} The specified saved config.
+     */
+    async config(applicationId, configId, fields = {}) {
+        const res = await fetch(`${this.baseUrl}/api/v2/application/${applicationId}/installation/${configId}`, {
+            method: "POST",
+            headers: {
+                authorization: `Bearer ${this.token}`,
+            },
+            body: JSON.stringify(fields),
+        });
+
+        if (res.status >= 400 && res.status < 600) {
+            throw new Error(res.statusText);
+        }
+
+        return await res.json();
+    }
+
+    /**
      * Returns the configuration data for the specified application.
      * @param {String} application The application ID.
      * @returns {Promise<Config>} The specified application's configuration data.
