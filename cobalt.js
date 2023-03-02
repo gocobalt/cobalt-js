@@ -9,9 +9,9 @@ class Cobalt {
      * @param {String} [options.token] The session token.
      * @param {String} [options.baseUrl=https://api.gocobalt.io] The base URL of the Cobalt API.
      */
-    constructor(options) {
-        this.baseUrl = options?.baseUrl || "https://api.gocobalt.io";
-        this.token = options?.token;
+    constructor(options = {}) {
+        this.baseUrl = options.baseUrl || "https://api.gocobalt.io";
+        this.token = options.token;
     }
 
     get token() {
