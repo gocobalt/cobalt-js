@@ -20,8 +20,11 @@ yarn add @cobaltio/cobalt-js
 ### Include
 
 #### Browser
-```js
-<script src="https://cdn.jsdelivr.net/npm/@cobaltio/cobalt-js@1"></script>
+```html
+<!-- import the latest version -->
+<script src="https://cdn.jsdelivr.net/npm/@cobaltio/cobalt-js"></script>
+<!-- import a specific version -->
+<script src="https://cdn.jsdelivr.net/npm/@cobaltio/cobalt-js@2"></script>
 ```
 
 #### Node
