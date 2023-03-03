@@ -41,7 +41,7 @@ class Cobalt {
         }
 
         const data = await res.json();
-        return data?.auth_url;
+        return data.auth_url;
     }
 
     /**
@@ -61,14 +61,14 @@ class Cobalt {
                     .then(connected => {
                         if (connected === true) {
                             // close auth window
-                            connectWindow?.close();
+                            connectWindow && connectWindow.close();
                             // clear interval
                             clearInterval(interval);
                             // resovle status
                             resolve(true);
                         } else {
                             // user closed oauth window without authenticating
-                            if (connectWindow?.closed) {
+                            if (connectWindow && connectWindow.closed) {
                                 // clear interval
                                 clearInterval(interval);
                                 // resolve status
@@ -158,7 +158,7 @@ class Cobalt {
         }
 
         const data = await res.json();
-        return !!data?.status;
+        return !!data.status;
     }
 
     /**
