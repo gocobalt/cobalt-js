@@ -68,6 +68,9 @@ cobalt.token = "COBALT_SESSION_TOKEN";
 <dt><a href="#Label">Label</a> : <code>Object</code></dt>
 <dd><p>Field Mapping Label</p>
 </dd>
+<dt><a href="#DynamicField">DynamicField</a> : <code>Object</code></dt>
+<dd><p>Field Mapping Label</p>
+</dd>
 <dt><a href="#DynamicFields">DynamicFields</a> : <code>Object</code></dt>
 <dd><p>The dynamic fields payload.</p>
 </dd>
@@ -284,6 +287,18 @@ Field Mapping Label
 | name | <code>string</code> | The Label name. |
 | value | <code>string</code> \| <code>number</code> \| <code>boolean</code> | The Label value. |
 
+<a name="DynamicField"></a>
+
+## DynamicField : <code>Object</code>
+Field Mapping Label
+
+**Kind**: global typedef
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| fields | [<code>Array.&lt;Label&gt;</code>](#Label) | The Label name. |
+
 <a name="DynamicFields"></a>
 
 ## DynamicFields : <code>Object</code>
@@ -294,7 +309,7 @@ The dynamic fields payload.
 
 | Name | Type | Description |
 | --- | --- | --- |
-| map_fields_object | <code>Object.&lt;string, Array.&lt;Label&gt;&gt;</code> | desc. |
+| map_fields_object | <code>Object.&lt;string, DynamicField&gt;</code> | desc. |
 
 <a name="SavedConfig"></a>
 
