@@ -193,8 +193,13 @@ class Cobalt {
      */
 
     /**
+     * @typedef {Object} DynamicField Field Mapping Label
+     * @property {Label[]} fields The Label name.
+     */
+
+    /**
      * @typedef {Object} DynamicFields The dynamic fields payload.
-     * @property {Object.<string, Label[]>} map_fields_object desc.
+     * @property {Object.<string, DynamicField>} map_fields_object desc.
      */
 
     /**
