@@ -4,7 +4,6 @@
   "description": "Cobalt frontend SDK",
   "main": "./cobalt.js",
   "scripts": {
-    "build": "uglifyjs cobalt.js -o cobalt.min.js",
     "docgen": "jsdoc2md cobalt.js > docs.md",
     "test": "echo \"Warn: no test specified\""
   },
