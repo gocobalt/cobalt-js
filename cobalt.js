@@ -113,7 +113,7 @@ class Cobalt {
      * Connect the specified application, optionally with the auth data that user provides.
      * @param {String} slug The application slug.
      * @param {Object.<string, string | number | boolean>} [payload={}] The key value pairs of auth data.
-     * @returns {Promise<unknown>}
+     * @returns {Promise<Boolean>} Whether the connection was successful.
      */
     async connect(slug, payload) {
         if (payload) {
@@ -134,7 +134,7 @@ class Cobalt {
             }
 
             const data = await res.json();
-            return data;
+            return data.success;
         } else {
             // oauth
             return this.oauth(slug);
