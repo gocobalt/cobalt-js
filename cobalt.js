@@ -47,11 +47,11 @@ class Cobalt {
      * Returns the auth URL that users can use to authenticate themselves to the
      * specified application.
      * @private
-     * @param {String} application The application type.
+     * @param {String} slug The application slug.
      * @returns {Promise<String>} The auth URL where users can authenticate themselves.
      */
-    async getOAuthUrl(application) {
-        const res = await fetch(`${this.baseUrl}/api/v1/${application}/integrate`, {
+    async getOAuthUrl(slug) {
+        const res = await fetch(`${this.baseUrl}/api/v1/${slug}/integrate`, {
             headers: {
                 authorization: `Bearer ${this.token}`,
             },
@@ -67,18 +67,19 @@ class Cobalt {
 
     /**
      * Handle OAuth for the specified native application.
-     * @param {String} application The application type.
+     * @private
+     * @param {String} slug The application slug.
      * @returns {Promise<Boolean>} Whether the user authenticated.
      */
-    async oauth(application) {
+    async oauth(slug) {
         return new Promise((resolve, reject) => {
-            this.getOAuthUrl(application)
+            this.getOAuthUrl(slug)
             .then(oauthUrl => {
                 const connectWindow = window.open(oauthUrl);
 
                 // keep checking connection status
                 const interval = setInterval(() => {
-                    this.checkAuth(application)
+                    this.checkAuth(slug)
                     .then(connected => {
                         if (connected === true) {
                             // close auth window
@@ -110,56 +111,35 @@ class Cobalt {
 
     /**
      * Save the auth data that user provides to authenticate themselves to the
-     * specified native application.
-     * @param {String} application The application type.
-     * @param {Object.<string, string | number | boolean>} payload The key value pairs of auth data.
+     * specified application.
+     * @param {String} slug The application slug.
+     * @param {Object.<string, string | number | boolean>} [payload={}] The key value pairs of auth data.
      * @returns {Promise<unknown>}
      */
-    async auth(application, payload) {
-        const res = await fetch(`${this.baseUrl}/api/v1/${application}/save`, {
-            method: "POST",
-            headers: {
-                authorization: `Bearer ${this.token}`,
-                "content-type": "application/json",
-            },
-            body: JSON.stringify({
-                ...payload,
-            }),
-        });
+    async auth(slug, payload) {
+        if (payload) {
+            // save auth
+            const res = await fetch(`${this.baseUrl}/api/v2/app/${slug}/save`, {
+                method: "POST",
+                headers: {
+                    authorization: `Bearer ${this.token}`,
+                    "content-type": "application/json",
+                },
+                body: JSON.stringify({
+                    ...payload,
+                }),
+            });
 
-        if (res.status >= 400 && res.status < 600) {
-            throw new Error(res.statusText);
+            if (res.status >= 400 && res.status < 600) {
+                throw new Error(res.statusText);
+            }
+
+            const data = await res.json();
+            return data;
+        } else {
+            // oauth
+            return this.oauth(slug);
         }
-
-        const data = await res.json();
-        return data;
-    }
-
-    /**
-     * Save the auth data that user provides to authenticate themselves to the
-     * specified custom application.
-     * @param {String} applicationId The application ID of the custom application.
-     * @param {Object.<string, string | number | boolean>} payload The key value pairs of auth data.
-     * @returns {Promise<unknown>}
-     */
-    async authCustom(applicationId, payload) {
-        const res = await fetch(`${this.baseUrl}/api/v1/custom/${applicationId}/save`, {
-            method: "POST",
-            headers: {
-                authorization: `Bearer ${this.token}`,
-                "content-type": "application/json",
-            },
-            body: JSON.stringify({
-                ...payload,
-            }),
-        });
-
-        if (res.status >= 400 && res.status < 600) {
-            throw new Error(res.statusText);
-        }
-
-        const data = await res.json();
-        return data;
     }
 
     /**
