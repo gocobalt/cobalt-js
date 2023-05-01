@@ -182,7 +182,7 @@ class Cobalt {
      * @param {DynamicFields} fields The dynamic fields payload.
      * @returns {Promise<Config>} The specified config.
      */
-    async config(slug, configId, fields = {}) {
+    async config(slug, configId, fields) {
         const res = await fetch(`${this.baseUrl}/api/v2/application/${slug}/installation/${configId}`, {
             method: "POST",
             headers: {
