@@ -179,7 +179,7 @@ class Cobalt {
      * Returns the specified config, or creates one if it doesn't exist.
      * @param {String} slug The application slug.
      * @param {String} configId A unique ID for the config.
-     * @param {DynamicFields} fields The dynamic fields payload.
+     * @param {DynamicFields} [fields] The dynamic fields payload.
      * @returns {Promise<Config>} The specified config.
      */
     async config(slug, configId, fields) {
