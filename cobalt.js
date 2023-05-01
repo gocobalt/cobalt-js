@@ -109,13 +109,12 @@ class Cobalt {
     }
 
     /**
-     * Save the auth data that user provides to authenticate themselves to the
-     * specified application.
+     * Connect the specified application, optionally with the auth data that user provides.
      * @param {String} slug The application slug.
      * @param {Object.<string, string | number | boolean>} [payload={}] The key value pairs of auth data.
      * @returns {Promise<unknown>}
      */
-    async auth(slug, payload) {
+    async connect(slug, payload) {
         if (payload) {
             // save auth
             const res = await fetch(`${this.baseUrl}/api/v2/app/${slug}/save`, {
