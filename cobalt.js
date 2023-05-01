@@ -144,12 +144,11 @@ class Cobalt {
 
     /**
      * Unauthorize the specified application and remove any associated data from Cobalt.
-     * @param {String} application The application type.
-     * @param {String} [applicationId] The application ID in case of custom applications.
+     * @param {String} slug The application slug.
      * @returns {Promise<void>}
      */
-    async removeAuth(application, applicationId) {
-        const res = await fetch(`${this.baseUrl}/api/v1/linked-acc/integration/${application}?app_id=${applicationId}`, {
+    async unauth(slug) {
+        const res = await fetch(`${this.baseUrl}/api/v1/linked-acc/integration/${slug}`, {
             method: "DELETE",
             headers: {
                 authorization: `Bearer ${this.token}`,
