@@ -228,25 +228,6 @@ class Cobalt {
     }
 
     /**
-     * Returns the configuration data for the specified application.
-     * @param {String} application The application ID.
-     * @returns {Promise<Config>} The specified application's configuration data.
-     */
-    async getConfig(application) {
-        const res = await fetch(`${this.baseUrl}/api/v1/application/${application}/config`, {
-            headers: {
-                authorization: `Bearer ${this.token}`,
-            },
-        });
-
-        if (res.status >= 400 && res.status < 600) {
-            throw new Error(res.statusText);
-        }
-
-        return await res.json();
-    }
-
-    /**
      * @typedef {Object} SavedConfig An saved config.
      * @property {String} [config_id] Unique ID for the saved config.
      * @property {Object.<string, string | number | boolean>} application_data_slots A map of application data slots and their values.
@@ -259,29 +240,6 @@ class Cobalt {
      * @property {Boolean} enabled Whether the workflow is enabled.
      * @property {Object.<string, string | number | boolean>} data_slots A map of workflow's data slots and their values.
      */
-
-    /**
-     * Save the specified config.
-     * @param {String} applicationId The application ID.
-     * @param {SavedConfig} payload The config payload.
-     * @returns {Promise<SavedConfig>} The specified saved config.
-     */
-    async saveConfig(applicationId, payload = {}) {
-        const res = await fetch(`${this.baseUrl}/api/v1/application/${applicationId}/install`, {
-            method: "POST",
-            headers: {
-                authorization: `Bearer ${this.token}`,
-                "content-type": "application/json",
-            },
-            body: JSON.stringify(payload),
-        });
-
-        if (res.status >= 400 && res.status < 600) {
-            throw new Error(res.statusText);
-        }
-
-        return await res.json();
-    }
 
     /**
      * Returns the specified saved config.
