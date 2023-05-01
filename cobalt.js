@@ -142,11 +142,11 @@ class Cobalt {
     }
 
     /**
-     * Unauthorize the specified application and remove any associated data from Cobalt.
+     * Disconnect the specified application and remove any associated data from Cobalt.
      * @param {String} slug The application slug.
      * @returns {Promise<void>}
      */
-    async unauth(slug) {
+    async disconnect(slug) {
         const res = await fetch(`${this.baseUrl}/api/v1/linked-acc/integration/${slug}`, {
             method: "DELETE",
             headers: {
