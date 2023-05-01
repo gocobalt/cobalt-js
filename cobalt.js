@@ -78,9 +78,9 @@ class Cobalt {
 
                 // keep checking connection status
                 const interval = setInterval(() => {
-                    this.checkAuth(slug)
-                    .then(connected => {
-                        if (connected === true) {
+                    this.getApp(slug)
+                    .then(app => {
+                        if (app && app.connected === true) {
                             // close auth window
                             connectWindow && connectWindow.close();
                             // clear interval
