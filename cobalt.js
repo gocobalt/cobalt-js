@@ -143,26 +143,6 @@ class Cobalt {
     }
 
     /**
-     * Returns the auth status of the user for the specified application.
-     * @param {String} application The application type.
-     * @returns {Promise<Boolean>} The auth status of the user.
-     */
-    async checkAuth(application) {
-        const res = await fetch(`${this.baseUrl}/api/v1/linked-acc/integration/auth?integration_type=${application}`, {
-            headers: {
-                authorization: `Bearer ${this.token}`,
-            },
-        });
-
-        if (res.status >= 400 && res.status < 600) {
-            throw new Error(res.statusText);
-        }
-
-        const data = await res.json();
-        return !!data.status;
-    }
-
-    /**
      * Unauthorize the specified application and remove any associated data from Cobalt.
      * @param {String} application The application type.
      * @param {String} [applicationId] The application ID in case of custom applications.
