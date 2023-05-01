@@ -184,13 +184,13 @@ class Cobalt {
 
     /**
      * Returns the specified saved config, or creates one if it doesn't exist.
-     * @param {String} applicationId The application ID.
-     * @param {String} configId The config ID of the saved config.
+     * @param {String} slug The application slug.
+     * @param {String} configId A unique ID for the config.
      * @param {DynamicFields} fields The dynamic fields payload.
      * @returns {Promise<SavedConfig>} The specified saved config.
      */
-    async config(applicationId, configId, fields = {}) {
-        const res = await fetch(`${this.baseUrl}/api/v2/application/${applicationId}/installation/${configId}`, {
+    async config(slug, configId, fields = {}) {
+        const res = await fetch(`${this.baseUrl}/api/v2/application/${slug}/installation/${configId}`, {
             method: "POST",
             headers: {
                 authorization: `Bearer ${this.token}`,
@@ -222,12 +222,12 @@ class Cobalt {
 
     /**
      * Returns the specified saved config.
-     * @param {String} applicationId The application ID.
-     * @param {String} configId The config ID of the saved config.
+     * @param {String} slug The application slug.
+     * @param {String} configId The unique ID of the config.
      * @returns {Promise<SavedConfig>} The specified saved config.
      */
-    async getSavedConfig(applicationId, configId) {
-        const res = await fetch(`${this.baseUrl}/api/v1/application/${applicationId}/installation/${configId}`, {
+    async getSavedConfig(slug, configId) {
+        const res = await fetch(`${this.baseUrl}/api/v1/application/${slug}/installation/${configId}`, {
             headers: {
                 authorization: `Bearer ${this.token}`,
             },
@@ -242,13 +242,13 @@ class Cobalt {
 
     /**
      * Update the specified saved config.
-     * @param {String} applicationId The application ID.
-     * @param {String} configId The config ID of the saved config.
+     * @param {String} slug The application slug.
+     * @param {String} configId The unique ID of the config.
      * @param {SavedConfig} payload The update payload.
      * @returns {Promise<SavedConfig>} The specified saved config.
      */
-    async updateSavedConfig(applicationId, configId, payload = {}) {
-        const res = await fetch(`${this.baseUrl}/api/v1/application/${applicationId}/installation/${configId}`, {
+    async updateSavedConfig(slug, configId, payload = {}) {
+        const res = await fetch(`${this.baseUrl}/api/v1/application/${slug}/installation/${configId}`, {
             method: "PUT",
             headers: {
                 authorization: `Bearer ${this.token}`,
@@ -266,12 +266,12 @@ class Cobalt {
 
     /**
      * Delete the specified saved config.
-     * @param {String} applicationId The application ID.
-     * @param {String} configId The config ID of the saved config.
+     * @param {String} slug The application slug.
+     * @param {String} configId The unique ID of the config.
      * @returns {Promise<unknown>}
      */
-    async deleteSavedConfig(applicationId, configId) {
-        const res = await fetch(`${this.baseUrl}/api/v1/application/${applicationId}/installation/${configId}`, {
+    async deleteSavedConfig(slug, configId) {
+        const res = await fetch(`${this.baseUrl}/api/v1/application/${slug}/installation/${configId}`, {
             method: "DELETE",
             headers: {
                 authorization: `Bearer ${this.token}`,
