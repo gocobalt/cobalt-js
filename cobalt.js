@@ -161,12 +161,6 @@ class Cobalt {
     }
 
     /**
-     * @typedef {object} Config The configuration data for an application.
-     * @property {DataSlot[]} application_data_slots Array of application data slots.
-     * @property {Workflow[]} workflows Array of workflows.
-     */
-
-    /**
      * @typedef {Object} Label Field Mapping Label
      * @property {string} name The Label name.
      * @property {string | number | boolean} value The Label value.
@@ -183,11 +177,11 @@ class Cobalt {
      */
 
     /**
-     * Returns the specified saved config, or creates one if it doesn't exist.
+     * Returns the specified config, or creates one if it doesn't exist.
      * @param {String} slug The application slug.
      * @param {String} configId A unique ID for the config.
      * @param {DynamicFields} fields The dynamic fields payload.
-     * @returns {Promise<SavedConfig>} The specified saved config.
+     * @returns {Promise<Config>} The specified config.
      */
     async config(slug, configId, fields = {}) {
         const res = await fetch(`${this.baseUrl}/api/v2/application/${slug}/installation/${configId}`, {
@@ -207,8 +201,8 @@ class Cobalt {
     }
 
     /**
-     * @typedef {Object} SavedConfig An saved config.
-     * @property {String} [config_id] Unique ID for the saved config.
+     * @typedef {Object} Config The configuration data for an application.
+     * @property {String} [config_id] Unique ID for the config.
      * @property {Object.<string, string | number | boolean>} application_data_slots A map of application data slots and their values.
      * @property {Workflow[]} workflows Whether the workflow is enabled.
      */
@@ -221,12 +215,12 @@ class Cobalt {
      */
 
     /**
-     * Returns the specified saved config.
+     * Returns the specified config.
      * @param {String} slug The application slug.
      * @param {String} configId The unique ID of the config.
-     * @returns {Promise<SavedConfig>} The specified saved config.
+     * @returns {Promise<Config>} The specified config.
      */
-    async getSavedConfig(slug, configId) {
+    async getConfig(slug, configId) {
         const res = await fetch(`${this.baseUrl}/api/v1/application/${slug}/installation/${configId}`, {
             headers: {
                 authorization: `Bearer ${this.token}`,
@@ -241,13 +235,13 @@ class Cobalt {
     }
 
     /**
-     * Update the specified saved config.
+     * Update the specified config.
      * @param {String} slug The application slug.
      * @param {String} configId The unique ID of the config.
-     * @param {SavedConfig} payload The update payload.
-     * @returns {Promise<SavedConfig>} The specified saved config.
+     * @param {Config} payload The update payload.
+     * @returns {Promise<Config>} The specified config.
      */
-    async updateSavedConfig(slug, configId, payload = {}) {
+    async updateConfig(slug, configId, payload = {}) {
         const res = await fetch(`${this.baseUrl}/api/v1/application/${slug}/installation/${configId}`, {
             method: "PUT",
             headers: {
@@ -265,12 +259,12 @@ class Cobalt {
     }
 
     /**
-     * Delete the specified saved config.
+     * Delete the specified config.
      * @param {String} slug The application slug.
      * @param {String} configId The unique ID of the config.
      * @returns {Promise<unknown>}
      */
-    async deleteSavedConfig(slug, configId) {
+    async deleteConfig(slug, configId) {
         const res = await fetch(`${this.baseUrl}/api/v1/application/${slug}/installation/${configId}`, {
             method: "DELETE",
             headers: {
