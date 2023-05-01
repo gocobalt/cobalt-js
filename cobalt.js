@@ -1,6 +1,5 @@
 /**
  * Cobalt Frontend SDK
- * @property {String} token The session token.
  */
 class Cobalt {
     /**
