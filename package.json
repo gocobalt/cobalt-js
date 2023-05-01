@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/Breakout-Embed/cobalt-js#readme",
   "devDependencies": {
-    "jsdoc": "^4.0.0",
+    "jsdoc": "^4.0.2",
     "jsdoc-to-markdown": "^8.0.0"
   }
 }
