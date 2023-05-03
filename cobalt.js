@@ -29,7 +29,7 @@ class Cobalt {
      * @returns {Promise<Application>} The application details.
      */
     async getApp(slug) {
-        const res = await fetch(`${this.baseUrl}/api/v1/application/${slug}/enabled`, {
+        const res = await fetch(`${this.baseUrl}/api/v1/linked-acc/application/${slug}`, {
             headers: {
                 authorization: `Bearer ${this.token}`,
             },
