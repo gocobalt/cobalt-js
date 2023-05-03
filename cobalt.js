@@ -1,6 +1,5 @@
 /**
  * Cobalt Frontend SDK
- * @property {String} token The session token.
  */
 class Cobalt {
     /**
@@ -23,14 +22,36 @@ class Cobalt {
     };
 
     /**
+     * Returns the application details for the specified application, provided
+     * the application is enabled in Cobalt.
+     * @private
+     * @param {String} slug The application slug.
+     * @returns {Promise<Application>} The application details.
+     */
+    async getApp(slug) {
+        const res = await fetch(`${this.baseUrl}/api/v1/linked-acc/application/${slug}`, {
+            headers: {
+                authorization: `Bearer ${this.token}`,
+            },
+        });
+
+        if (res.status >= 400 && res.status < 600) {
+            throw new Error(res.statusText);
+        }
+
+        const data = await res.json();
+        return data;
+    }
+
+    /**
      * Returns the auth URL that users can use to authenticate themselves to the
      * specified application.
      * @private
-     * @param {String} application The application type.
+     * @param {String} slug The application slug.
      * @returns {Promise<String>} The auth URL where users can authenticate themselves.
      */
-    async getOAuthUrl(application) {
-        const res = await fetch(`${this.baseUrl}/api/v1/${application}/integrate`, {
+    async getOAuthUrl(slug) {
+        const res = await fetch(`${this.baseUrl}/api/v1/${slug}/integrate`, {
             headers: {
                 authorization: `Bearer ${this.token}`,
             },
@@ -46,20 +67,21 @@ class Cobalt {
 
     /**
      * Handle OAuth for the specified native application.
-     * @param {String} application The application type.
+     * @private
+     * @param {String} slug The application slug.
      * @returns {Promise<Boolean>} Whether the user authenticated.
      */
-    async oauth(application) {
+    async oauth(slug) {
         return new Promise((resolve, reject) => {
-            this.getOAuthUrl(application)
+            this.getOAuthUrl(slug)
             .then(oauthUrl => {
                 const connectWindow = window.open(oauthUrl);
 
                 // keep checking connection status
                 const interval = setInterval(() => {
-                    this.checkAuth(application)
-                    .then(connected => {
-                        if (connected === true) {
+                    this.getApp(slug)
+                    .then(app => {
+                        if (app && app.connected === true) {
                             // close auth window
                             connectWindow && connectWindow.close();
                             // clear interval
@@ -88,87 +110,44 @@ class Cobalt {
     }
 
     /**
-     * Save the auth data that user provides to authenticate themselves to the
-     * specified native application.
-     * @param {String} application The application type.
-     * @param {Object.<string, string | number | boolean>} payload The key value pairs of auth data.
-     * @returns {Promise<unknown>}
+     * Connect the specified application, optionally with the auth data that user provides.
+     * @param {String} slug The application slug.
+     * @param {Object.<string, string | number | boolean>} [payload={}] The key value pairs of auth data.
+     * @returns {Promise<Boolean>} Whether the connection was successful.
      */
-    async auth(application, payload) {
-        const res = await fetch(`${this.baseUrl}/api/v1/${application}/save`, {
-            method: "POST",
-            headers: {
-                authorization: `Bearer ${this.token}`,
-                "content-type": "application/json",
-            },
-            body: JSON.stringify({
-                ...payload,
-            }),
-        });
+    async connect(slug, payload) {
+        if (payload) {
+            // save auth
+            const res = await fetch(`${this.baseUrl}/api/v2/app/${slug}/save`, {
+                method: "POST",
+                headers: {
+                    authorization: `Bearer ${this.token}`,
+                    "content-type": "application/json",
+                },
+                body: JSON.stringify({
+                    ...payload,
+                }),
+            });
 
-        if (res.status >= 400 && res.status < 600) {
-            throw new Error(res.statusText);
+            if (res.status >= 400 && res.status < 600) {
+                throw new Error(res.statusText);
+            }
+
+            const data = await res.json();
+            return data.success;
+        } else {
+            // oauth
+            return this.oauth(slug);
         }
-
-        const data = await res.json();
-        return data;
     }
 
     /**
-     * Save the auth data that user provides to authenticate themselves to the
-     * specified custom application.
-     * @param {String} applicationId The application ID of the custom application.
-     * @param {Object.<string, string | number | boolean>} payload The key value pairs of auth data.
-     * @returns {Promise<unknown>}
-     */
-    async authCustom(applicationId, payload) {
-        const res = await fetch(`${this.baseUrl}/api/v1/custom/${applicationId}/save`, {
-            method: "POST",
-            headers: {
-                authorization: `Bearer ${this.token}`,
-                "content-type": "application/json",
-            },
-            body: JSON.stringify({
-                ...payload,
-            }),
-        });
-
-        if (res.status >= 400 && res.status < 600) {
-            throw new Error(res.statusText);
-        }
-
-        const data = await res.json();
-        return data;
-    }
-
-    /**
-     * Returns the auth status of the user for the specified application.
-     * @param {String} application The application type.
-     * @returns {Promise<Boolean>} The auth status of the user.
-     */
-    async checkAuth(application) {
-        const res = await fetch(`${this.baseUrl}/api/v1/linked-acc/integration/auth?integration_type=${application}`, {
-            headers: {
-                authorization: `Bearer ${this.token}`,
-            },
-        });
-
-        if (res.status >= 400 && res.status < 600) {
-            throw new Error(res.statusText);
-        }
-
-        const data = await res.json();
-        return !!data.status;
-    }
-
-    /**
-     * Unauthorize the specified application and remove any associated data from Cobalt.
-     * @param {String} application The application type.
-     * @param {String} [applicationId] The application ID in case of custom applications.
+     * Disconnect the specified application and remove any associated data from Cobalt.
+     * @param {String} slug The application slug.
      * @returns {Promise<void>}
      */
-    async removeAuth(application, applicationId) {
-        const res = await fetch(`${this.baseUrl}/api/v1/linked-acc/integration/${application}?app_id=${applicationId}`, {
+    async disconnect(slug) {
+        const res = await fetch(`${this.baseUrl}/api/v1/linked-acc/integration/${slug}`, {
             method: "DELETE",
             headers: {
                 authorization: `Bearer ${this.token}`,
@@ -179,12 +158,6 @@ class Cobalt {
             throw new Error(res.statusText);
         }
     }
-
-    /**
-     * @typedef {object} Config The configuration data for an application.
-     * @property {DataSlot[]} application_data_slots Array of application data slots.
-     * @property {Workflow[]} workflows Array of workflows.
-     */
 
     /**
      * @typedef {Object} Label Field Mapping Label
@@ -203,14 +176,14 @@ class Cobalt {
      */
 
     /**
-     * Returns the specified saved config, or creates one if it doesn't exist.
-     * @param {String} applicationId The application ID.
-     * @param {String} configId The config ID of the saved config.
-     * @param {DynamicFields} fields The dynamic fields payload.
-     * @returns {Promise<SavedConfig>} The specified saved config.
+     * Returns the specified config, or creates one if it doesn't exist.
+     * @param {String} slug The application slug.
+     * @param {String} configId A unique ID for the config.
+     * @param {DynamicFields} [fields] The dynamic fields payload.
+     * @returns {Promise<Config>} The specified config.
      */
-    async config(applicationId, configId, fields = {}) {
-        const res = await fetch(`${this.baseUrl}/api/v2/application/${applicationId}/installation/${configId}`, {
+    async config(slug, configId, fields) {
+        const res = await fetch(`${this.baseUrl}/api/v2/application/${slug}/installation/${configId}`, {
             method: "POST",
             headers: {
                 authorization: `Bearer ${this.token}`,
@@ -227,27 +200,8 @@ class Cobalt {
     }
 
     /**
-     * Returns the configuration data for the specified application.
-     * @param {String} application The application ID.
-     * @returns {Promise<Config>} The specified application's configuration data.
-     */
-    async getConfig(application) {
-        const res = await fetch(`${this.baseUrl}/api/v1/application/${application}/config`, {
-            headers: {
-                authorization: `Bearer ${this.token}`,
-            },
-        });
-
-        if (res.status >= 400 && res.status < 600) {
-            throw new Error(res.statusText);
-        }
-
-        return await res.json();
-    }
-
-    /**
-     * @typedef {Object} SavedConfig An saved config.
-     * @property {String} [config_id] Unique ID for the saved config.
+     * @typedef {Object} Config The configuration data for an application.
+     * @property {String} [config_id] Unique ID for the config.
      * @property {Object.<string, string | number | boolean>} application_data_slots A map of application data slots and their values.
      * @property {Workflow[]} workflows Whether the workflow is enabled.
      */
@@ -260,36 +214,13 @@ class Cobalt {
      */
 
     /**
-     * Save the specified config.
-     * @param {String} applicationId The application ID.
-     * @param {SavedConfig} payload The config payload.
-     * @returns {Promise<SavedConfig>} The specified saved config.
+     * Returns the specified config.
+     * @param {String} slug The application slug.
+     * @param {String} configId The unique ID of the config.
+     * @returns {Promise<Config>} The specified config.
      */
-    async saveConfig(applicationId, payload = {}) {
-        const res = await fetch(`${this.baseUrl}/api/v1/application/${applicationId}/install`, {
-            method: "POST",
-            headers: {
-                authorization: `Bearer ${this.token}`,
-                "content-type": "application/json",
-            },
-            body: JSON.stringify(payload),
-        });
-
-        if (res.status >= 400 && res.status < 600) {
-            throw new Error(res.statusText);
-        }
-
-        return await res.json();
-    }
-
-    /**
-     * Returns the specified saved config.
-     * @param {String} applicationId The application ID.
-     * @param {String} configId The config ID of the saved config.
-     * @returns {Promise<SavedConfig>} The specified saved config.
-     */
-    async getSavedConfig(applicationId, configId) {
-        const res = await fetch(`${this.baseUrl}/api/v1/application/${applicationId}/installation/${configId}`, {
+    async getConfig(slug, configId) {
+        const res = await fetch(`${this.baseUrl}/api/v1/application/${slug}/installation/${configId}`, {
             headers: {
                 authorization: `Bearer ${this.token}`,
             },
@@ -303,14 +234,14 @@ class Cobalt {
     }
 
     /**
-     * Update the specified saved config.
-     * @param {String} applicationId The application ID.
-     * @param {String} configId The config ID of the saved config.
-     * @param {SavedConfig} payload The update payload.
-     * @returns {Promise<SavedConfig>} The specified saved config.
+     * Update the specified config.
+     * @param {String} slug The application slug.
+     * @param {String} configId The unique ID of the config.
+     * @param {Config} payload The update payload.
+     * @returns {Promise<Config>} The specified config.
      */
-    async updateSavedConfig(applicationId, configId, payload = {}) {
-        const res = await fetch(`${this.baseUrl}/api/v1/application/${applicationId}/installation/${configId}`, {
+    async updateConfig(slug, configId, payload = {}) {
+        const res = await fetch(`${this.baseUrl}/api/v1/application/${slug}/installation/${configId}`, {
             method: "PUT",
             headers: {
                 authorization: `Bearer ${this.token}`,
@@ -327,13 +258,13 @@ class Cobalt {
     }
 
     /**
-     * Delete the specified saved config.
-     * @param {String} applicationId The application ID.
-     * @param {String} configId The config ID of the saved config.
+     * Delete the specified config.
+     * @param {String} slug The application slug.
+     * @param {String} configId The unique ID of the config.
      * @returns {Promise<unknown>}
      */
-    async deleteSavedConfig(applicationId, configId) {
-        const res = await fetch(`${this.baseUrl}/api/v1/application/${applicationId}/installation/${configId}`, {
+    async deleteConfig(slug, configId) {
+        const res = await fetch(`${this.baseUrl}/api/v1/application/${slug}/installation/${configId}`, {
             method: "DELETE",
             headers: {
                 authorization: `Bearer ${this.token}`,

@@ -9,9 +9,6 @@
 ## Typedefs
 
 <dl>
-<dt><a href="#Config">Config</a> : <code>object</code></dt>
-<dd><p>The configuration data for an application.</p>
-</dd>
 <dt><a href="#Label">Label</a> : <code>Object</code></dt>
 <dd><p>Field Mapping Label</p>
 </dd>
@@ -21,8 +18,8 @@
 <dt><a href="#DynamicFields">DynamicFields</a> : <code>Object</code></dt>
 <dd><p>The dynamic fields payload.</p>
 </dd>
-<dt><a href="#SavedConfig">SavedConfig</a> : <code>Object</code></dt>
-<dd><p>An saved config.</p>
+<dt><a href="#Config">Config</a> : <code>Object</code></dt>
+<dd><p>The configuration data for an application.</p>
 </dd>
 <dt><a href="#Workflow">Workflow</a> : <code>Object</code></dt>
 <dd><p>The workflow.</p>
@@ -35,26 +32,15 @@
 Cobalt Frontend SDK
 
 **Kind**: global class  
-**Properties**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| token | <code>String</code> | The session token. |
-
 
 * [Cobalt](#Cobalt)
     * [new Cobalt(options)](#new_Cobalt_new)
-    * [.oauth(application)](#Cobalt+oauth) ⇒ <code>Promise.&lt;Boolean&gt;</code>
-    * [.auth(application, payload)](#Cobalt+auth) ⇒ <code>Promise.&lt;unknown&gt;</code>
-    * [.authCustom(applicationId, payload)](#Cobalt+authCustom) ⇒ <code>Promise.&lt;unknown&gt;</code>
-    * [.checkAuth(application)](#Cobalt+checkAuth) ⇒ <code>Promise.&lt;Boolean&gt;</code>
-    * [.removeAuth(application, [applicationId])](#Cobalt+removeAuth) ⇒ <code>Promise.&lt;void&gt;</code>
-    * [.config(applicationId, configId, fields)](#Cobalt+config) ⇒ [<code>Promise.&lt;SavedConfig&gt;</code>](#SavedConfig)
-    * [.getConfig(application)](#Cobalt+getConfig) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
-    * [.saveConfig(applicationId, payload)](#Cobalt+saveConfig) ⇒ [<code>Promise.&lt;SavedConfig&gt;</code>](#SavedConfig)
-    * [.getSavedConfig(applicationId, configId)](#Cobalt+getSavedConfig) ⇒ [<code>Promise.&lt;SavedConfig&gt;</code>](#SavedConfig)
-    * [.updateSavedConfig(applicationId, configId, payload)](#Cobalt+updateSavedConfig) ⇒ [<code>Promise.&lt;SavedConfig&gt;</code>](#SavedConfig)
-    * [.deleteSavedConfig(applicationId, configId)](#Cobalt+deleteSavedConfig) ⇒ <code>Promise.&lt;unknown&gt;</code>
+    * [.connect(slug, [payload])](#Cobalt+connect) ⇒ <code>Promise.&lt;Boolean&gt;</code>
+    * [.disconnect(slug)](#Cobalt+disconnect) ⇒ <code>Promise.&lt;void&gt;</code>
+    * [.config(slug, configId, [fields])](#Cobalt+config) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
+    * [.getConfig(slug, configId)](#Cobalt+getConfig) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
+    * [.updateConfig(slug, configId, payload)](#Cobalt+updateConfig) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
+    * [.deleteConfig(slug, configId)](#Cobalt+deleteConfig) ⇒ <code>Promise.&lt;unknown&gt;</code>
 
 <a name="new_Cobalt_new"></a>
 
@@ -68,158 +54,82 @@ Cobalt Frontend SDK
 | [options.token] | <code>String</code> |  | The session token. |
 | [options.baseUrl] | <code>String</code> | <code>https://api.gocobalt.io</code> | The base URL of the Cobalt API. |
 
-<a name="Cobalt+oauth"></a>
+<a name="Cobalt+connect"></a>
 
-### cobalt.oauth(application) ⇒ <code>Promise.&lt;Boolean&gt;</code>
-Handle OAuth for the specified native application.
-
-**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
-**Returns**: <code>Promise.&lt;Boolean&gt;</code> - Whether the user authenticated.  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| application | <code>String</code> | The application type. |
-
-<a name="Cobalt+auth"></a>
-
-### cobalt.auth(application, payload) ⇒ <code>Promise.&lt;unknown&gt;</code>
-Save the auth data that user provides to authenticate themselves to the
-specified native application.
+### cobalt.connect(slug, [payload]) ⇒ <code>Promise.&lt;Boolean&gt;</code>
+Connect the specified application, optionally with the auth data that user provides.
 
 **Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
+**Returns**: <code>Promise.&lt;Boolean&gt;</code> - Whether the connection was successful.  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| application | <code>String</code> | The application type. |
-| payload | <code>Object.&lt;string, (string\|number\|boolean)&gt;</code> | The key value pairs of auth data. |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| slug | <code>String</code> |  | The application slug. |
+| [payload] | <code>Object.&lt;string, (string\|number\|boolean)&gt;</code> | <code>{}</code> | The key value pairs of auth data. |
 
-<a name="Cobalt+authCustom"></a>
+<a name="Cobalt+disconnect"></a>
 
-### cobalt.authCustom(applicationId, payload) ⇒ <code>Promise.&lt;unknown&gt;</code>
-Save the auth data that user provides to authenticate themselves to the
-specified custom application.
+### cobalt.disconnect(slug) ⇒ <code>Promise.&lt;void&gt;</code>
+Disconnect the specified application and remove any associated data from Cobalt.
 
 **Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| applicationId | <code>String</code> | The application ID of the custom application. |
-| payload | <code>Object.&lt;string, (string\|number\|boolean)&gt;</code> | The key value pairs of auth data. |
-
-<a name="Cobalt+checkAuth"></a>
-
-### cobalt.checkAuth(application) ⇒ <code>Promise.&lt;Boolean&gt;</code>
-Returns the auth status of the user for the specified application.
-
-**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
-**Returns**: <code>Promise.&lt;Boolean&gt;</code> - The auth status of the user.  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| application | <code>String</code> | The application type. |
-
-<a name="Cobalt+removeAuth"></a>
-
-### cobalt.removeAuth(application, [applicationId]) ⇒ <code>Promise.&lt;void&gt;</code>
-Unauthorize the specified application and remove any associated data from Cobalt.
-
-**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| application | <code>String</code> | The application type. |
-| [applicationId] | <code>String</code> | The application ID in case of custom applications. |
+| slug | <code>String</code> | The application slug. |
 
 <a name="Cobalt+config"></a>
 
-### cobalt.config(applicationId, configId, fields) ⇒ [<code>Promise.&lt;SavedConfig&gt;</code>](#SavedConfig)
-Returns the specified saved config, or creates one if it doesn't exist.
+### cobalt.config(slug, configId, [fields]) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
+Returns the specified config, or creates one if it doesn't exist.
 
 **Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
-**Returns**: [<code>Promise.&lt;SavedConfig&gt;</code>](#SavedConfig) - The specified saved config.  
+**Returns**: [<code>Promise.&lt;Config&gt;</code>](#Config) - The specified config.  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| applicationId | <code>String</code> | The application ID. |
-| configId | <code>String</code> | The config ID of the saved config. |
-| fields | [<code>DynamicFields</code>](#DynamicFields) | The dynamic fields payload. |
+| slug | <code>String</code> | The application slug. |
+| configId | <code>String</code> | A unique ID for the config. |
+| [fields] | [<code>DynamicFields</code>](#DynamicFields) | The dynamic fields payload. |
 
 <a name="Cobalt+getConfig"></a>
 
-### cobalt.getConfig(application) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
-Returns the configuration data for the specified application.
+### cobalt.getConfig(slug, configId) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
+Returns the specified config.
 
 **Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
-**Returns**: [<code>Promise.&lt;Config&gt;</code>](#Config) - The specified application's configuration data.  
+**Returns**: [<code>Promise.&lt;Config&gt;</code>](#Config) - The specified config.  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| application | <code>String</code> | The application ID. |
+| slug | <code>String</code> | The application slug. |
+| configId | <code>String</code> | The unique ID of the config. |
 
-<a name="Cobalt+saveConfig"></a>
+<a name="Cobalt+updateConfig"></a>
 
-### cobalt.saveConfig(applicationId, payload) ⇒ [<code>Promise.&lt;SavedConfig&gt;</code>](#SavedConfig)
-Save the specified config.
+### cobalt.updateConfig(slug, configId, payload) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
+Update the specified config.
 
 **Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
-**Returns**: [<code>Promise.&lt;SavedConfig&gt;</code>](#SavedConfig) - The specified saved config.  
+**Returns**: [<code>Promise.&lt;Config&gt;</code>](#Config) - The specified config.  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| applicationId | <code>String</code> | The application ID. |
-| payload | [<code>SavedConfig</code>](#SavedConfig) | The config payload. |
+| slug | <code>String</code> | The application slug. |
+| configId | <code>String</code> | The unique ID of the config. |
+| payload | [<code>Config</code>](#Config) | The update payload. |
 
-<a name="Cobalt+getSavedConfig"></a>
+<a name="Cobalt+deleteConfig"></a>
 
-### cobalt.getSavedConfig(applicationId, configId) ⇒ [<code>Promise.&lt;SavedConfig&gt;</code>](#SavedConfig)
-Returns the specified saved config.
-
-**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
-**Returns**: [<code>Promise.&lt;SavedConfig&gt;</code>](#SavedConfig) - The specified saved config.  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| applicationId | <code>String</code> | The application ID. |
-| configId | <code>String</code> | The config ID of the saved config. |
-
-<a name="Cobalt+updateSavedConfig"></a>
-
-### cobalt.updateSavedConfig(applicationId, configId, payload) ⇒ [<code>Promise.&lt;SavedConfig&gt;</code>](#SavedConfig)
-Update the specified saved config.
-
-**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
-**Returns**: [<code>Promise.&lt;SavedConfig&gt;</code>](#SavedConfig) - The specified saved config.  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| applicationId | <code>String</code> | The application ID. |
-| configId | <code>String</code> | The config ID of the saved config. |
-| payload | [<code>SavedConfig</code>](#SavedConfig) | The update payload. |
-
-<a name="Cobalt+deleteSavedConfig"></a>
-
-### cobalt.deleteSavedConfig(applicationId, configId) ⇒ <code>Promise.&lt;unknown&gt;</code>
-Delete the specified saved config.
+### cobalt.deleteConfig(slug, configId) ⇒ <code>Promise.&lt;unknown&gt;</code>
+Delete the specified config.
 
 **Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| applicationId | <code>String</code> | The application ID. |
-| configId | <code>String</code> | The config ID of the saved config. |
-
-<a name="Config"></a>
-
-## Config : <code>object</code>
-The configuration data for an application.
-
-**Kind**: global typedef  
-**Properties**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| application_data_slots | <code>Array.&lt;DataSlot&gt;</code> | Array of application data slots. |
-| workflows | [<code>Array.&lt;Workflow&gt;</code>](#Workflow) | Array of workflows. |
+| slug | <code>String</code> | The application slug. |
+| configId | <code>String</code> | The unique ID of the config. |
 
 <a name="Label"></a>
 
@@ -258,17 +168,17 @@ The dynamic fields payload.
 | --- | --- | --- |
 | map_fields_object | <code>Object.&lt;string, DynamicField&gt;</code> | desc. |
 
-<a name="SavedConfig"></a>
+<a name="Config"></a>
 
-## SavedConfig : <code>Object</code>
-An saved config.
+## Config : <code>Object</code>
+The configuration data for an application.
 
 **Kind**: global typedef  
 **Properties**
 
 | Name | Type | Description |
 | --- | --- | --- |
-| [config_id] | <code>String</code> | Unique ID for the saved config. |
+| [config_id] | <code>String</code> | Unique ID for the config. |
 | application_data_slots | <code>Object.&lt;string, (string\|number\|boolean)&gt;</code> | A map of application data slots and their values. |
 | workflows | [<code>Array.&lt;Workflow&gt;</code>](#Workflow) | Whether the workflow is enabled. |
 
