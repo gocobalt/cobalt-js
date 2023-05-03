@@ -91,9 +91,11 @@ Cobalt Frontend SDK
     * [.connect(slug, [payload])](#Cobalt+connect) ⇒ <code>Promise.&lt;Boolean&gt;</code>
     * [.disconnect(slug)](#Cobalt+disconnect) ⇒ <code>Promise.&lt;void&gt;</code>
     * [.config(slug, configId, [fields])](#Cobalt+config) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
-    * [.getConfig(slug, configId)](#Cobalt+getConfig) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
     * [.updateConfig(slug, configId, payload)](#Cobalt+updateConfig) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
     * [.deleteConfig(slug, configId)](#Cobalt+deleteConfig) ⇒ <code>Promise.&lt;unknown&gt;</code>
+* Additional Methods:
+    * [.getApp(slug)](#Cobalt+getApp) ⇒ <code>Promise.&lt;Application&gt;</code>
+    * [.getConfig(slug, configId)](#Cobalt+getConfig) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
 
 <a name="new_Cobalt_new"></a>
 
@@ -106,6 +108,19 @@ Cobalt Frontend SDK
 | options | <code>Object</code> |  | The options to configure the Cobalt SDK. |
 | [options.token] | <code>String</code> |  | The session token. |
 | [options.baseUrl] | <code>String</code> | <code>https://api.gocobalt.io</code> | The base URL of the Cobalt API. |
+
+<a name="Cobalt+getApp"></a>
+
+### cobalt.getApp(slug) ⇒ <code>Promise.&lt;Application&gt;</code>
+Returns the application details for the specified application, provided
+the application is enabled in Cobalt.
+
+**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)
+**Returns**: <code>Promise.&lt;Application&gt;</code> - The application details.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| slug | <code>String</code> | The application slug. |
 
 <a name="Cobalt+connect"></a>
 
