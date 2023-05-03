@@ -24,7 +24,6 @@ class Cobalt {
     /**
      * Returns the application details for the specified application, provided
      * the application is enabled in Cobalt.
-     * @private
      * @param {String} slug The application slug.
      * @returns {Promise<Application>} The application details.
      */
