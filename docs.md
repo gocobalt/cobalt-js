@@ -2,8 +2,7 @@
 
 <dl>
 <dt><a href="#Cobalt">Cobalt</a></dt>
-<dd><p>Cobalt Frontend SDK</p>
-</dd>
+<dd></dd>
 </dl>
 
 ## Typedefs
@@ -12,14 +11,8 @@
 <dt><a href="#Application">Application</a> : <code>Object</code></dt>
 <dd><p>An application in Cobalt.</p>
 </dd>
-<dt><a href="#Label">Label</a> : <code>Object</code></dt>
-<dd><p>Field Mapping Label</p>
-</dd>
-<dt><a href="#DynamicField">DynamicField</a> : <code>Object</code></dt>
-<dd><p>Field Mapping Label</p>
-</dd>
-<dt><a href="#DynamicFields">DynamicFields</a> : <code>Object</code></dt>
-<dd><p>The dynamic fields payload.</p>
+<dt><a href="#InputField">InputField</a> : <code>Object</code></dt>
+<dd><p>An Input field to take input from the user.</p>
 </dd>
 <dt><a href="#Config">Config</a> : <code>Object</code></dt>
 <dd><p>The configuration data for an application.</p>
@@ -27,13 +20,20 @@
 <dt><a href="#Workflow">Workflow</a> : <code>Object</code></dt>
 <dd><p>The workflow.</p>
 </dd>
+<dt><a href="#DynamicFields">DynamicFields</a> : <code>Object</code></dt>
+<dd><p>The dynamic fields payload.</p>
+</dd>
+<dt><a href="#DynamicField">DynamicField</a> : <code>Object</code></dt>
+<dd><p>Field Mapping Label</p>
+</dd>
+<dt><a href="#Label">Label</a> : <code>Object</code></dt>
+<dd><p>Field Mapping Label</p>
+</dd>
 </dl>
 
 <a name="Cobalt"></a>
 
 ## Cobalt
-Cobalt Frontend SDK
-
 **Kind**: global class  
 
 * [Cobalt](#Cobalt)
@@ -166,43 +166,23 @@ An application in Cobalt.
 | [slug] | <code>String</code> | The application slug for custom apps. |
 | auth_type | <code>&quot;oauth2&quot;</code> \| <code>&quot;keybased&quot;</code> | The type of auth used by application. |
 | [connected] | <code>Boolean</code> | Whether the user has connected the application. |
+| [auth_input_map] | [<code>Array.&lt;InputField&gt;</code>](#InputField) | The fields required from the user to connect the application (for `keybased` auth type). |
 
-<a name="Label"></a>
+<a name="InputField"></a>
 
-## Label : <code>Object</code>
-Field Mapping Label
-
-**Kind**: global typedef  
-**Properties**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| name | <code>string</code> | The Label name. |
-| value | <code>string</code> \| <code>number</code> \| <code>boolean</code> | The Label value. |
-
-<a name="DynamicField"></a>
-
-## DynamicField : <code>Object</code>
-Field Mapping Label
+## InputField : <code>Object</code>
+An Input field to take input from the user.
 
 **Kind**: global typedef  
 **Properties**
 
 | Name | Type | Description |
 | --- | --- | --- |
-| fields | [<code>Array.&lt;Label&gt;</code>](#Label) | The Label name. |
-
-<a name="DynamicFields"></a>
-
-## DynamicFields : <code>Object</code>
-The dynamic fields payload.
-
-**Kind**: global typedef  
-**Properties**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| map_fields_object | <code>Object.&lt;string, DynamicField&gt;</code> | desc. |
+| name | <code>String</code> | Key name of the field. |
+| type | <code>String</code> | Input type of the field. |
+| required | <code>String</code> | Whether the field is required. |
+| placeholder | <code>String</code> | The placeholder of the field. |
+| label | <code>String</code> | The label of the field. |
 
 <a name="Config"></a>
 
@@ -231,4 +211,41 @@ The workflow.
 | id | <code>String</code> | The ID of the workflow. |
 | enabled | <code>Boolean</code> | Whether the workflow is enabled. |
 | data_slots | <code>Object.&lt;string, (string\|number\|boolean)&gt;</code> | A map of workflow's data slots and their values. |
+
+<a name="DynamicFields"></a>
+
+## DynamicFields : <code>Object</code>
+The dynamic fields payload.
+
+**Kind**: global typedef  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| map_fields_object | <code>Object.&lt;string, DynamicField&gt;</code> | desc. |
+
+<a name="DynamicField"></a>
+
+## DynamicField : <code>Object</code>
+Field Mapping Label
+
+**Kind**: global typedef  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| fields | [<code>Array.&lt;Label&gt;</code>](#Label) | The Label name. |
+
+<a name="Label"></a>
+
+## Label : <code>Object</code>
+Field Mapping Label
+
+**Kind**: global typedef  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| name | <code>string</code> | The Label name. |
+| value | <code>string</code> \| <code>number</code> \| <code>boolean</code> | The Label value. |
 
