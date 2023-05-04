@@ -66,6 +66,9 @@ cobalt.token = "COBALT_SESSION_TOKEN";
 ## Typedefs
 
 <dl>
+<dt><a href="#Application">Application</a> : <code>Object</code></dt>
+<dd><p>An application in Cobalt.</p>
+</dd>
 <dt><a href="#Label">Label</a> : <code>Object</code></dt>
 <dd><p>Field Mapping Label</p>
 </dd>
@@ -98,7 +101,7 @@ Cobalt Frontend SDK
     * [.updateConfig(slug, configId, payload)](#Cobalt+updateConfig) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
     * [.deleteConfig(slug, configId)](#Cobalt+deleteConfig) ⇒ <code>Promise.&lt;unknown&gt;</code>
 * Additional Methods:
-    * [.getApp(slug)](#Cobalt+getApp) ⇒ <code>Promise.&lt;Application&gt;</code>
+    * [.getApp(slug)](#Cobalt+getApp) ⇒ [<code>Promise.&lt;Application&gt;</code>](#Application)
     * [.getConfig(slug, configId)](#Cobalt+getConfig) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
 
 <a name="new_Cobalt_new"></a>
@@ -115,12 +118,12 @@ Cobalt Frontend SDK
 
 <a name="Cobalt+getApp"></a>
 
-### cobalt.getApp(slug) ⇒ <code>Promise.&lt;Application&gt;</code>
+### cobalt.getApp(slug) ⇒ [<code>Promise.&lt;Application&gt;</code>](#Application)
 Returns the application details for the specified application, provided
 the application is enabled in Cobalt.
 
 **Kind**: instance method of [<code>Cobalt</code>](#Cobalt)
-**Returns**: <code>Promise.&lt;Application&gt;</code> - The application details.
+**Returns**: [<code>Promise.&lt;Application&gt;</code>](#Application) - The application details.
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -202,6 +205,24 @@ Delete the specified config.
 | --- | --- | --- |
 | slug | <code>String</code> | The application slug. |
 | configId | <code>String</code> | The unique ID of the config. |
+
+<a name="Application"></a>
+
+## Application : <code>Object</code>
+An application in Cobalt.
+
+**Kind**: global typedef
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| name | <code>String</code> | The application name. |
+| description | <code>String</code> | The application description. |
+| icon | <code>String</code> | The application icon. |
+| type | <code>String</code> | The application slug for native apps. |
+| [slug] | <code>String</code> | The application slug for custom apps. |
+| auth_type | <code>&quot;oauth2&quot;</code> \| <code>&quot;keybased&quot;</code> | The type of auth used by application. |
+| [connected] | <code>Boolean</code> | Whether the user has connected the application. |
 
 <a name="Label"></a>
 
