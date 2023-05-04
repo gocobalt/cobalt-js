@@ -68,9 +68,9 @@ it returns all the enabled applications.
 **Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
 **Returns**: [<code>Promise.&lt;Application&gt;</code>](#Application) - The application details.  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| [slug] | <code>String</code> | The application slug. |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [slug] | <code>String</code> | <code>&quot;*&quot;</code> | The application slug. |
 
 <a name="Cobalt+connect"></a>
 
