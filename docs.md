@@ -38,7 +38,7 @@ Cobalt Frontend SDK
 
 * [Cobalt](#Cobalt)
     * [new Cobalt(options)](#new_Cobalt_new)
-    * [.getApp(slug)](#Cobalt+getApp) ⇒ [<code>Promise.&lt;Application&gt;</code>](#Application)
+    * [.getApp([slug])](#Cobalt+getApp) ⇒ [<code>Promise.&lt;Application&gt;</code>](#Application)
     * [.connect(slug, [payload])](#Cobalt+connect) ⇒ <code>Promise.&lt;Boolean&gt;</code>
     * [.disconnect(slug)](#Cobalt+disconnect) ⇒ <code>Promise.&lt;void&gt;</code>
     * [.config(slug, configId, [fields])](#Cobalt+config) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
@@ -60,16 +60,17 @@ Cobalt Frontend SDK
 
 <a name="Cobalt+getApp"></a>
 
-### cobalt.getApp(slug) ⇒ [<code>Promise.&lt;Application&gt;</code>](#Application)
+### cobalt.getApp([slug]) ⇒ [<code>Promise.&lt;Application&gt;</code>](#Application)
 Returns the application details for the specified application, provided
-the application is enabled in Cobalt.
+the application is enabled in Cobalt. If no application is specified,
+it returns all the enabled applications.
 
 **Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
 **Returns**: [<code>Promise.&lt;Application&gt;</code>](#Application) - The application details.  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| slug | <code>String</code> | The application slug. |
+| [slug] | <code>String</code> | The application slug. |
 
 <a name="Cobalt+connect"></a>
 
