@@ -100,7 +100,7 @@ cobalt.token = "COBALT_SESSION_TOKEN";
     * [.config(slug, configId, [fields])](#Cobalt+config) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
     * [.updateConfig(slug, configId, payload)](#Cobalt+updateConfig) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
     * [.deleteConfig(slug, configId)](#Cobalt+deleteConfig) ⇒ <code>Promise.&lt;unknown&gt;</code>
-Additional Methods:
+* Additional Methods:
     * [.getApp([slug])](#Cobalt+getApp) ⇒ [<code>Promise.&lt;Application&gt;</code>](#Application)
     * [.getConfig(slug, configId)](#Cobalt+getConfig) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
 
