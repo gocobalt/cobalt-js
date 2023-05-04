@@ -34,12 +34,13 @@ class Cobalt {
 
     /**
      * Returns the application details for the specified application, provided
-     * the application is enabled in Cobalt.
-     * @param {String} slug The application slug.
+     * the application is enabled in Cobalt. If no application is specified,
+     * it returns all the enabled applications.
+     * @param {String} [slug] The application slug.
      * @returns {Promise<Application>} The application details.
      */
     async getApp(slug) {
-        const res = await fetch(`${this.baseUrl}/api/v1/linked-acc/application/${slug}`, {
+        const res = await fetch(`${this.baseUrl}/api/v1/linked-acc/application` + (slug ? `/${slug}` : ""), {
             headers: {
                 authorization: `Bearer ${this.token}`,
             },
