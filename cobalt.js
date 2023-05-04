@@ -22,6 +22,17 @@ class Cobalt {
     };
 
     /**
+     * @typedef {Object} Application An application in Cobalt.
+     * @property {String} name The application name.
+     * @property {String} description The application description.
+     * @property {String} icon The application icon.
+     * @property {String} type The application slug for native apps.
+     * @property {String} [slug] The application slug for custom apps.
+     * @property {"oauth2"|"keybased"} auth_type The type of auth used by application.
+     * @property {Boolean} [connected] Whether the user has connected the application.
+     */
+
+    /**
      * Returns the application details for the specified application, provided
      * the application is enabled in Cobalt.
      * @param {String} slug The application slug.
