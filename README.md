@@ -100,8 +100,8 @@ Cobalt Frontend SDK
     * [.config(slug, configId, [fields])](#Cobalt+config) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
     * [.updateConfig(slug, configId, payload)](#Cobalt+updateConfig) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
     * [.deleteConfig(slug, configId)](#Cobalt+deleteConfig) ⇒ <code>Promise.&lt;unknown&gt;</code>
-* Additional Methods:
-    * [.getApp(slug)](#Cobalt+getApp) ⇒ [<code>Promise.&lt;Application&gt;</code>](#Application)
+Additional Methods:
+    * [.getApp([slug])](#Cobalt+getApp) ⇒ [<code>Promise.&lt;Application&gt;</code>](#Application)
     * [.getConfig(slug, configId)](#Cobalt+getConfig) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
 
 <a name="new_Cobalt_new"></a>
@@ -118,16 +118,17 @@ Cobalt Frontend SDK
 
 <a name="Cobalt+getApp"></a>
 
-### cobalt.getApp(slug) ⇒ [<code>Promise.&lt;Application&gt;</code>](#Application)
+### cobalt.getApp([slug]) ⇒ [<code>Promise.&lt;Application&gt;</code>](#Application)
 Returns the application details for the specified application, provided
-the application is enabled in Cobalt.
+the application is enabled in Cobalt. If no application is specified,
+it returns all the enabled applications.
 
 **Kind**: instance method of [<code>Cobalt</code>](#Cobalt)
 **Returns**: [<code>Promise.&lt;Application&gt;</code>](#Application) - The application details.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| slug | <code>String</code> | The application slug. |
+| [slug] | <code>String</code> | The application slug. |
 
 <a name="Cobalt+connect"></a>
 
