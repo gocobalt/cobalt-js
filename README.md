@@ -95,14 +95,15 @@ cobalt.token = "COBALT_SESSION_TOKEN";
 
 * [Cobalt](#Cobalt)
     * [new Cobalt(options)](#new_Cobalt_new)
+    * [.getApp([slug])](#Cobalt+getApp) ⇒ [<code>Promise.&lt;Application&gt;</code>](#Application)
     * [.connect(slug, [payload])](#Cobalt+connect) ⇒ <code>Promise.&lt;Boolean&gt;</code>
     * [.disconnect(slug)](#Cobalt+disconnect) ⇒ <code>Promise.&lt;void&gt;</code>
-    * [.config(slug, configId, [fields])](#Cobalt+config) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
-    * [.updateConfig(slug, configId, payload)](#Cobalt+updateConfig) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
-    * [.deleteConfig(slug, configId)](#Cobalt+deleteConfig) ⇒ <code>Promise.&lt;unknown&gt;</code>
+    * [.config(slug, [fields])](#Cobalt+config) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
+    * [.updateConfig(slug, payload)](#Cobalt+updateConfig) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
+    * [.deleteConfig(slug, [configId])](#Cobalt+deleteConfig) ⇒ <code>Promise.&lt;unknown&gt;</code>
 * Additional Methods:
-    * [.getApp([slug])](#Cobalt+getApp) ⇒ [<code>Promise.&lt;Application&gt;</code>](#Application)
-    * [.getConfig(slug, configId)](#Cobalt+getConfig) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
+    * [.getConfig(slug, [configId])](#Cobalt+getConfig) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
+
 
 <a name="new_Cobalt_new"></a>
 
@@ -156,7 +157,7 @@ Disconnect the specified application and remove any associated data from Cobalt.
 
 <a name="Cobalt+config"></a>
 
-### cobalt.config(slug, configId, [fields]) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
+### cobalt.config(slug, [fields]) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
 Returns the specified config, or creates one if it doesn't exist.
 
 **Kind**: instance method of [<code>Cobalt</code>](#Cobalt)
@@ -165,12 +166,11 @@ Returns the specified config, or creates one if it doesn't exist.
 | Param | Type | Description |
 | --- | --- | --- |
 | slug | <code>String</code> | The application slug. |
-| configId | <code>String</code> | A unique ID for the config. |
 | [fields] | [<code>DynamicFields</code>](#DynamicFields) | The dynamic fields payload. |
 
 <a name="Cobalt+getConfig"></a>
 
-### cobalt.getConfig(slug, configId) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
+### cobalt.getConfig(slug, [configId]) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
 Returns the specified config.
 
 **Kind**: instance method of [<code>Cobalt</code>](#Cobalt)
@@ -179,11 +179,11 @@ Returns the specified config.
 | Param | Type | Description |
 | --- | --- | --- |
 | slug | <code>String</code> | The application slug. |
-| configId | <code>String</code> | The unique ID of the config. |
+| [configId] | <code>String</code> | The unique ID of the config. |
 
 <a name="Cobalt+updateConfig"></a>
 
-### cobalt.updateConfig(slug, configId, payload) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
+### cobalt.updateConfig(slug, payload) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
 Update the specified config.
 
 **Kind**: instance method of [<code>Cobalt</code>](#Cobalt)
@@ -192,12 +192,11 @@ Update the specified config.
 | Param | Type | Description |
 | --- | --- | --- |
 | slug | <code>String</code> | The application slug. |
-| configId | <code>String</code> | The unique ID of the config. |
 | payload | [<code>Config</code>](#Config) | The update payload. |
 
 <a name="Cobalt+deleteConfig"></a>
 
-### cobalt.deleteConfig(slug, configId) ⇒ <code>Promise.&lt;unknown&gt;</code>
+### cobalt.deleteConfig(slug, [configId]) ⇒ <code>Promise.&lt;unknown&gt;</code>
 Delete the specified config.
 
 **Kind**: instance method of [<code>Cobalt</code>](#Cobalt)
@@ -205,7 +204,7 @@ Delete the specified config.
 | Param | Type | Description |
 | --- | --- | --- |
 | slug | <code>String</code> | The application slug. |
-| configId | <code>String</code> | The unique ID of the config. |
+| [configId] | <code>String</code> | The unique ID of the config. |
 
 <a name="Application"></a>
 
