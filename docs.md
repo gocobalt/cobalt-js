@@ -41,7 +41,7 @@
     * [.getApp([slug])](#Cobalt+getApp) ⇒ [<code>Promise.&lt;Application&gt;</code>](#Application)
     * [.connect(slug, [payload])](#Cobalt+connect) ⇒ <code>Promise.&lt;Boolean&gt;</code>
     * [.disconnect(slug)](#Cobalt+disconnect) ⇒ <code>Promise.&lt;void&gt;</code>
-    * [.config(slug, [fields])](#Cobalt+config) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
+    * [.config(slug, [configId], [fields])](#Cobalt+config) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
     * [.getConfig(slug, [configId])](#Cobalt+getConfig) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
     * [.updateConfig(slug, payload)](#Cobalt+updateConfig) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
     * [.deleteConfig(slug, [configId])](#Cobalt+deleteConfig) ⇒ <code>Promise.&lt;unknown&gt;</code>
@@ -98,7 +98,7 @@ Disconnect the specified application and remove any associated data from Cobalt.
 
 <a name="Cobalt+config"></a>
 
-### cobalt.config(slug, [fields]) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
+### cobalt.config(slug, [configId], [fields]) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
 Returns the specified config, or creates one if it doesn't exist.
 
 **Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
@@ -107,6 +107,7 @@ Returns the specified config, or creates one if it doesn't exist.
 | Param | Type | Description |
 | --- | --- | --- |
 | slug | <code>String</code> | The application slug. |
+| [configId] | <code>String</code> | The unique ID of the config. |
 | [fields] | [<code>DynamicFields</code>](#DynamicFields) | The dynamic fields payload. |
 
 <a name="Cobalt+getConfig"></a>
