@@ -214,12 +214,11 @@ class Cobalt {
     /**
      * Returns the specified config, or creates one if it doesn't exist.
      * @param {String} slug The application slug.
-     * @param {String} configId A unique ID for the config.
      * @param {DynamicFields} [fields] The dynamic fields payload.
      * @returns {Promise<Config>} The specified config.
      */
-    async config(slug, configId, fields) {
-        const res = await fetch(`${this.baseUrl}/api/v2/application/${slug}/installation/${configId}`, {
+    async config(slug, fields) {
+        const res = await fetch(`${this.baseUrl}/api/v2/application/${slug}/installation`, {
             method: "POST",
             headers: {
                 authorization: `Bearer ${this.token}`,
@@ -238,11 +237,11 @@ class Cobalt {
     /**
      * Returns the specified config.
      * @param {String} slug The application slug.
-     * @param {String} configId The unique ID of the config.
+     * @param {String} [configId] The unique ID of the config.
      * @returns {Promise<Config>} The specified config.
      */
     async getConfig(slug, configId) {
-        const res = await fetch(`${this.baseUrl}/api/v1/application/${slug}/installation/${configId}`, {
+        const res = await fetch(`${this.baseUrl}/api/v1/application/${slug}/installation/${configId ? configId : ""}`, {
             headers: {
                 authorization: `Bearer ${this.token}`,
             },
@@ -262,8 +261,8 @@ class Cobalt {
      * @param {Config} payload The update payload.
      * @returns {Promise<Config>} The specified config.
      */
-    async updateConfig(slug, configId, payload = {}) {
-        const res = await fetch(`${this.baseUrl}/api/v1/application/${slug}/installation/${configId}`, {
+    async updateConfig(slug, payload = {}) {
+        const res = await fetch(`${this.baseUrl}/api/v1/application/${slug}/installation`, {
             method: "PUT",
             headers: {
                 authorization: `Bearer ${this.token}`,
@@ -282,11 +281,11 @@ class Cobalt {
     /**
      * Delete the specified config.
      * @param {String} slug The application slug.
-     * @param {String} configId The unique ID of the config.
+     * @param {String} [configId] The unique ID of the config.
      * @returns {Promise<unknown>}
      */
     async deleteConfig(slug, configId) {
-        const res = await fetch(`${this.baseUrl}/api/v1/application/${slug}/installation/${configId}`, {
+        const res = await fetch(`${this.baseUrl}/api/v1/application/${slug}/installation/${configId ? configId : ""}`, {
             method: "DELETE",
             headers: {
                 authorization: `Bearer ${this.token}`,
