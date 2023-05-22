@@ -214,11 +214,12 @@ class Cobalt {
     /**
      * Returns the specified config, or creates one if it doesn't exist.
      * @param {String} slug The application slug.
+     * @param {String} [configId] The unique ID of the config.
      * @param {DynamicFields} [fields] The dynamic fields payload.
      * @returns {Promise<Config>} The specified config.
      */
-    async config(slug, fields) {
-        const res = await fetch(`${this.baseUrl}/api/v2/application/${slug}/installation`, {
+    async config(slug, configId, fields) {
+        const res = await fetch(`${this.baseUrl}/api/v2/application/${slug}/installation/${configId ? configId : ""}`, {
             method: "POST",
             headers: {
                 authorization: `Bearer ${this.token}`,
