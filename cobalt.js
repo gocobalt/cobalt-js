@@ -38,8 +38,9 @@
  */
 
 /**
- * @typedef {Object} DynamicFields The dynamic fields payload.
- * @property {Object.<string, DynamicField>} map_fields_object desc.
+ * @typedef {Object} ConfigPayload The payload object for config.
+ * @property {String} [config_id] Unique ID for the config.
+ * @property {Object.<string, DynamicField>} map_fields_object Map fields object.
  */
 
 /**
@@ -214,18 +215,17 @@ class Cobalt {
     /**
      * Returns the specified config, or creates one if it doesn't exist.
      * @param {String} slug The application slug.
-     * @param {String} [configId] The unique ID of the config.
-     * @param {DynamicFields} [fields] The dynamic fields payload.
+     * @param {ConfigPayload} [payload] The payload object for config.
      * @returns {Promise<Config>} The specified config.
      */
-    async config(slug, configId, fields) {
+    async config(slug, configId, payload) {
         const res = await fetch(`${this.baseUrl}/api/v2/application/${slug}/installation/${configId ? configId : ""}`, {
             method: "POST",
             headers: {
                 authorization: `Bearer ${this.token}`,
                 "content-type": "application/json",
             },
-            body: JSON.stringify(fields),
+            body: JSON.stringify(payload),
         });
 
         if (res.status >= 400 && res.status < 600) {
