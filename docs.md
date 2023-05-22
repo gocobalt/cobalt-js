@@ -20,8 +20,8 @@
 <dt><a href="#Workflow">Workflow</a> : <code>Object</code></dt>
 <dd><p>The workflow.</p>
 </dd>
-<dt><a href="#DynamicFields">DynamicFields</a> : <code>Object</code></dt>
-<dd><p>The dynamic fields payload.</p>
+<dt><a href="#ConfigPayload">ConfigPayload</a> : <code>Object</code></dt>
+<dd><p>The payload object for config.</p>
 </dd>
 <dt><a href="#DynamicField">DynamicField</a> : <code>Object</code></dt>
 <dd><p>Field Mapping Label</p>
@@ -41,7 +41,7 @@
     * [.getApp([slug])](#Cobalt+getApp) ⇒ [<code>Promise.&lt;Application&gt;</code>](#Application)
     * [.connect(slug, [payload])](#Cobalt+connect) ⇒ <code>Promise.&lt;Boolean&gt;</code>
     * [.disconnect(slug)](#Cobalt+disconnect) ⇒ <code>Promise.&lt;void&gt;</code>
-    * [.config(slug, [configId], [fields])](#Cobalt+config) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
+    * [.config(slug, [payload])](#Cobalt+config) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
     * [.getConfig(slug, [configId])](#Cobalt+getConfig) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
     * [.updateConfig(slug, payload)](#Cobalt+updateConfig) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
     * [.deleteConfig(slug, [configId])](#Cobalt+deleteConfig) ⇒ <code>Promise.&lt;unknown&gt;</code>
@@ -98,7 +98,7 @@ Disconnect the specified application and remove any associated data from Cobalt.
 
 <a name="Cobalt+config"></a>
 
-### cobalt.config(slug, [configId], [fields]) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
+### cobalt.config(slug, [payload]) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
 Returns the specified config, or creates one if it doesn't exist.
 
 **Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
@@ -107,8 +107,7 @@ Returns the specified config, or creates one if it doesn't exist.
 | Param | Type | Description |
 | --- | --- | --- |
 | slug | <code>String</code> | The application slug. |
-| [configId] | <code>String</code> | The unique ID of the config. |
-| [fields] | [<code>DynamicFields</code>](#DynamicFields) | The dynamic fields payload. |
+| [payload] | [<code>ConfigPayload</code>](#ConfigPayload) | The payload object for config. |
 
 <a name="Cobalt+getConfig"></a>
 
@@ -211,17 +210,18 @@ The workflow.
 | enabled | <code>Boolean</code> | Whether the workflow is enabled. |
 | data_slots | <code>Object.&lt;string, (string\|number\|boolean)&gt;</code> | A map of workflow's data slots and their values. |
 
-<a name="DynamicFields"></a>
+<a name="ConfigPayload"></a>
 
-## DynamicFields : <code>Object</code>
-The dynamic fields payload.
+## ConfigPayload : <code>Object</code>
+The payload object for config.
 
 **Kind**: global typedef  
 **Properties**
 
 | Name | Type | Description |
 | --- | --- | --- |
-| map_fields_object | <code>Object.&lt;string, DynamicField&gt;</code> | desc. |
+| [config_id] | <code>String</code> | Unique ID for the config. |
+| map_fields_object | <code>Object.&lt;string, DynamicField&gt;</code> | Map fields object. |
 
 <a name="DynamicField"></a>
 
