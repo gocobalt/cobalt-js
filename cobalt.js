@@ -257,7 +257,6 @@ class Cobalt {
     /**
      * Update the specified config.
      * @param {String} slug The application slug.
-     * @param {String} configId The unique ID of the config.
      * @param {Config} payload The update payload.
      * @returns {Promise<Config>} The specified config.
      */
