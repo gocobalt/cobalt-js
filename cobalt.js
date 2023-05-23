@@ -218,8 +218,8 @@ class Cobalt {
      * @param {ConfigPayload} [payload] The payload object for config.
      * @returns {Promise<Config>} The specified config.
      */
-    async config(slug, configId, payload) {
-        const res = await fetch(`${this.baseUrl}/api/v2/application/${slug}/installation/${configId ? configId : ""}`, {
+    async config(slug, payload) {
+        const res = await fetch(`${this.baseUrl}/api/v2/application/${slug}/installation`, {
             method: "POST",
             headers: {
                 authorization: `Bearer ${this.token}`,
