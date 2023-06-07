@@ -75,6 +75,26 @@ class Cobalt {
     };
 
     /**
+     * Returns the org & customer details for the associated token.
+     * @private
+     * @returns {Promise<unknown>}
+     */
+    async getAccountDetails() {
+        const res = await fetch(`${this.baseUrl}/api/v3/org/basics`, {
+            headers: {
+                authorization: `Bearer ${this.token}`,
+            },
+        });
+
+        if (res.status >= 400 && res.status < 600) {
+            throw new Error(res.statusText);
+        }
+
+        const data = await res.json();
+        return data;
+    }
+
+    /**
      * Returns the application details for the specified application, provided
      * the application is enabled in Cobalt. If no application is specified,
      * it returns all the enabled applications.
