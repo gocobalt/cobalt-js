@@ -14,20 +14,17 @@
 <dt><a href="#InputField">InputField</a> : <code>Object</code></dt>
 <dd><p>An Input field to take input from the user.</p>
 </dd>
-<dt><a href="#Config">Config</a> : <code>Object</code></dt>
-<dd><p>The configuration data for an application.</p>
-</dd>
-<dt><a href="#Workflow">Workflow</a> : <code>Object</code></dt>
-<dd><p>The workflow.</p>
-</dd>
 <dt><a href="#ConfigPayload">ConfigPayload</a> : <code>Object</code></dt>
 <dd><p>The payload object for config.</p>
 </dd>
-<dt><a href="#DynamicField">DynamicField</a> : <code>Object</code></dt>
-<dd><p>Field Mapping Label</p>
-</dd>
 <dt><a href="#Label">Label</a> : <code>Object</code></dt>
-<dd><p>Field Mapping Label</p>
+<dd><p>Label Mapping</p>
+</dd>
+<dt><a href="#UpdateConfigPayload">UpdateConfigPayload</a> : <code>Object</code></dt>
+<dd><p>The configuration data for an application.</p>
+</dd>
+<dt><a href="#WorkflowPayload">WorkflowPayload</a> : <code>Object</code></dt>
+<dd><p>The workflow.</p>
 </dd>
 </dl>
 
@@ -41,9 +38,8 @@
     * [.getApp([slug])](#Cobalt+getApp) ⇒ [<code>Promise.&lt;Application&gt;</code>](#Application)
     * [.connect(slug, [payload])](#Cobalt+connect) ⇒ <code>Promise.&lt;Boolean&gt;</code>
     * [.disconnect(slug)](#Cobalt+disconnect) ⇒ <code>Promise.&lt;void&gt;</code>
-    * [.config(slug, [payload])](#Cobalt+config) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
-    * [.getConfig(slug, [configId])](#Cobalt+getConfig) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
-    * [.updateConfig(slug, payload)](#Cobalt+updateConfig) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
+    * [.config([payload])](#Cobalt+config) ⇒ <code>Promise.&lt;Config&gt;</code>
+    * [.updateConfig(slug, payload)](#Cobalt+updateConfig) ⇒ <code>Promise.&lt;Config&gt;</code>
     * [.deleteConfig(slug, [configId])](#Cobalt+deleteConfig) ⇒ <code>Promise.&lt;unknown&gt;</code>
 
 <a name="new_Cobalt_new"></a>
@@ -68,9 +64,9 @@ it returns all the enabled applications.
 **Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
 **Returns**: [<code>Promise.&lt;Application&gt;</code>](#Application) - The application details.  
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| [slug] | <code>String</code> | <code>&quot;*&quot;</code> | The application slug. |
+| Param | Type | Description |
+| --- | --- | --- |
+| [slug] | <code>String</code> | The application slug. |
 
 <a name="Cobalt+connect"></a>
 
@@ -98,42 +94,28 @@ Disconnect the specified application and remove any associated data from Cobalt.
 
 <a name="Cobalt+config"></a>
 
-### cobalt.config(slug, [payload]) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
+### cobalt.config([payload]) ⇒ <code>Promise.&lt;Config&gt;</code>
 Returns the specified config, or creates one if it doesn't exist.
 
 **Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
-**Returns**: [<code>Promise.&lt;Config&gt;</code>](#Config) - The specified config.  
+**Returns**: <code>Promise.&lt;Config&gt;</code> - The specified config.  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| slug | <code>String</code> | The application slug. |
 | [payload] | [<code>ConfigPayload</code>](#ConfigPayload) | The payload object for config. |
-
-<a name="Cobalt+getConfig"></a>
-
-### cobalt.getConfig(slug, [configId]) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
-Returns the specified config.
-
-**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
-**Returns**: [<code>Promise.&lt;Config&gt;</code>](#Config) - The specified config.  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| slug | <code>String</code> | The application slug. |
-| [configId] | <code>String</code> | The unique ID of the config. |
 
 <a name="Cobalt+updateConfig"></a>
 
-### cobalt.updateConfig(slug, payload) ⇒ [<code>Promise.&lt;Config&gt;</code>](#Config)
+### cobalt.updateConfig(slug, payload) ⇒ <code>Promise.&lt;Config&gt;</code>
 Update the specified config.
 
 **Kind**: instance method of [<code>Cobalt</code>](#Cobalt)  
-**Returns**: [<code>Promise.&lt;Config&gt;</code>](#Config) - The specified config.  
+**Returns**: <code>Promise.&lt;Config&gt;</code> - The specified config.  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | slug | <code>String</code> | The application slug. |
-| payload | [<code>Config</code>](#Config) | The update payload. |
+| payload | [<code>UpdateConfigPayload</code>](#UpdateConfigPayload) | The update payload. |
 
 <a name="Cobalt+deleteConfig"></a>
 
@@ -182,34 +164,6 @@ An Input field to take input from the user.
 | placeholder | <code>String</code> | The placeholder of the field. |
 | label | <code>String</code> | The label of the field. |
 
-<a name="Config"></a>
-
-## Config : <code>Object</code>
-The configuration data for an application.
-
-**Kind**: global typedef  
-**Properties**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| [config_id] | <code>String</code> | Unique ID for the config. |
-| application_data_slots | <code>Object.&lt;string, (string\|number\|boolean)&gt;</code> | A map of application data slots and their values. |
-| workflows | [<code>Array.&lt;Workflow&gt;</code>](#Workflow) | Whether the workflow is enabled. |
-
-<a name="Workflow"></a>
-
-## Workflow : <code>Object</code>
-The workflow.
-
-**Kind**: global typedef  
-**Properties**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| id | <code>String</code> | The ID of the workflow. |
-| enabled | <code>Boolean</code> | Whether the workflow is enabled. |
-| data_slots | <code>Object.&lt;string, (string\|number\|boolean)&gt;</code> | A map of workflow's data slots and their values. |
-
 <a name="ConfigPayload"></a>
 
 ## ConfigPayload : <code>Object</code>
@@ -220,31 +174,49 @@ The payload object for config.
 
 | Name | Type | Description |
 | --- | --- | --- |
+| slug | <code>String</code> | The application slug. |
 | [config_id] | <code>String</code> | Unique ID for the config. |
-| map_fields_object | <code>Object.&lt;string, DynamicField&gt;</code> | Map fields object. |
-
-<a name="DynamicField"></a>
-
-## DynamicField : <code>Object</code>
-Field Mapping Label
-
-**Kind**: global typedef  
-**Properties**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| fields | [<code>Array.&lt;Label&gt;</code>](#Label) | The Label name. |
+| labels | <code>Object.&lt;string, Array.&lt;Label&gt;&gt;</code> | The dynamic label mappings. |
 
 <a name="Label"></a>
 
 ## Label : <code>Object</code>
-Field Mapping Label
+Label Mapping
 
 **Kind**: global typedef  
 **Properties**
 
 | Name | Type | Description |
 | --- | --- | --- |
-| name | <code>string</code> | The Label name. |
-| value | <code>string</code> \| <code>number</code> \| <code>boolean</code> | The Label value. |
+| name | <code>string</code> | The label name. |
+| value | <code>string</code> \| <code>number</code> \| <code>boolean</code> | The label value. |
+
+<a name="UpdateConfigPayload"></a>
+
+## UpdateConfigPayload : <code>Object</code>
+The configuration data for an application.
+
+**Kind**: global typedef  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| slug | <code>String</code> | The application slug. |
+| [config_id] | <code>String</code> | Unique ID for the config. |
+| fields | <code>Object.&lt;string, (string\|number\|boolean)&gt;</code> | A map of application fields and their values. |
+| workflows | [<code>Array.&lt;WorkflowPayload&gt;</code>](#WorkflowPayload) | Whether the workflow is enabled. |
+
+<a name="WorkflowPayload"></a>
+
+## WorkflowPayload : <code>Object</code>
+The workflow.
+
+**Kind**: global typedef  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| id | <code>String</code> | The ID of the workflow. |
+| enabled | <code>Boolean</code> | Whether the workflow is enabled. |
+| fields | <code>Object.&lt;string, (string\|number\|boolean)&gt;</code> | A map of workflow fields and their values. |
 
