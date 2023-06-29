@@ -24,34 +24,31 @@
  */
 
 /**
- * @typedef {Object} Config The configuration data for an application.
+ * @typedef {Object} ConfigPayload The payload object for config.
+ * @property {String} slug The application slug.
  * @property {String} [config_id] Unique ID for the config.
- * @property {Object.<string, string | number | boolean>} application_data_slots A map of application data slots and their values.
- * @property {Workflow[]} workflows Whether the workflow is enabled.
+ * @property {Object.<string, Label[]>} labels The dynamic label mappings.
  */
 
 /**
- * @typedef {Object} Workflow The workflow.
+ * @typedef {Object} Label Label Mapping
+ * @property {string} name The label name.
+ * @property {string | number | boolean} value The label value.
+ */
+
+/**
+ * @typedef {Object} UpdateConfigPayload The configuration data for an application.
+ * @property {String} slug The application slug.
+ * @property {String} [config_id] Unique ID for the config.
+ * @property {Object.<string, string | number | boolean>} fields A map of application fields and their values.
+ * @property {WorkflowPayload[]} workflows Whether the workflow is enabled.
+ */
+
+/**
+ * @typedef {Object} WorkflowPayload The workflow.
  * @property {String} id The ID of the workflow.
  * @property {Boolean} enabled Whether the workflow is enabled.
- * @property {Object.<string, string | number | boolean>} data_slots A map of workflow's data slots and their values.
- */
-
-/**
- * @typedef {Object} ConfigPayload The payload object for config.
- * @property {String} [config_id] Unique ID for the config.
- * @property {Object.<string, DynamicField>} map_fields_object Map fields object.
- */
-
-/**
- * @typedef {Object} DynamicField Field Mapping Label
- * @property {Label[]} fields The Label name.
- */
-
-/**
- * @typedef {Object} Label Field Mapping Label
- * @property {string} name The Label name.
- * @property {string | number | boolean} value The Label value.
+ * @property {Object.<string, string | number | boolean>} fields A map of workflow fields and their values.
  */
 
 class Cobalt {
@@ -98,11 +95,11 @@ class Cobalt {
      * Returns the application details for the specified application, provided
      * the application is enabled in Cobalt. If no application is specified,
      * it returns all the enabled applications.
-     * @param {String} [slug="*"] The application slug.
+     * @param {String} [slug] The application slug.
      * @returns {Promise<Application>} The application details.
      */
-    async getApp(slug = "*") {
-        const res = await fetch(`${this.baseUrl}/api/v1/linked-acc/application` + (slug ? `/${slug}` : ""), {
+    async getApp(slug) {
+        const res = await fetch(`${this.baseUrl}/api/v2/f-sdk/application` + (slug ? `/${slug}` : ""), {
             headers: {
                 authorization: `Bearer ${this.token}`,
             },
@@ -234,12 +231,11 @@ class Cobalt {
 
     /**
      * Returns the specified config, or creates one if it doesn't exist.
-     * @param {String} slug The application slug.
      * @param {ConfigPayload} [payload] The payload object for config.
      * @returns {Promise<Config>} The specified config.
      */
-    async config(slug, payload) {
-        const res = await fetch(`${this.baseUrl}/api/v2/application/${slug}/installation`, {
+    async config(payload) {
+        const res = await fetch(`${this.baseUrl}/api/v2/f-sdk/config`, {
             method: "POST",
             headers: {
                 authorization: `Bearer ${this.token}`,
@@ -256,33 +252,13 @@ class Cobalt {
     }
 
     /**
-     * Returns the specified config.
-     * @param {String} slug The application slug.
-     * @param {String} [configId] The unique ID of the config.
-     * @returns {Promise<Config>} The specified config.
-     */
-    async getConfig(slug, configId) {
-        const res = await fetch(`${this.baseUrl}/api/v1/application/${slug}/installation/${configId ? configId : ""}`, {
-            headers: {
-                authorization: `Bearer ${this.token}`,
-            },
-        });
-
-        if (res.status >= 400 && res.status < 600) {
-            throw new Error(res.statusText);
-        }
-
-        return await res.json();
-    }
-
-    /**
      * Update the specified config.
      * @param {String} slug The application slug.
-     * @param {Config} payload The update payload.
+     * @param {UpdateConfigPayload} payload The update payload.
      * @returns {Promise<Config>} The specified config.
      */
-    async updateConfig(slug, payload = {}) {
-        const res = await fetch(`${this.baseUrl}/api/v1/application/${slug}/installation`, {
+    async updateConfig(payload) {
+        const res = await fetch(`${this.baseUrl}/api/v2/f-sdk/config`, {
             method: "PUT",
             headers: {
                 authorization: `Bearer ${this.token}`,
@@ -305,7 +281,7 @@ class Cobalt {
      * @returns {Promise<unknown>}
      */
     async deleteConfig(slug, configId) {
-        const res = await fetch(`${this.baseUrl}/api/v1/application/${slug}/installation/${configId ? configId : ""}`, {
+        const res = await fetch(`${this.baseUrl}/api/v2/f-sdk/slug/${slug}/config/${configId ? `/${configId}` : ""}`, {
             method: "DELETE",
             headers: {
                 authorization: `Bearer ${this.token}`,
