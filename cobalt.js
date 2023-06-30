@@ -253,7 +253,6 @@ class Cobalt {
 
     /**
      * Update the specified config.
-     * @param {String} slug The application slug.
      * @param {UpdateConfigPayload} payload The update payload.
      * @returns {Promise<Config>} The specified config.
      */
