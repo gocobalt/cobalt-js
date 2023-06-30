@@ -96,7 +96,7 @@ cobalt.token = "COBALT_SESSION_TOKEN";
     * [.connect(slug, [payload])](#Cobalt+connect) ⇒ <code>Promise.&lt;Boolean&gt;</code>
     * [.disconnect(slug)](#Cobalt+disconnect) ⇒ <code>Promise.&lt;void&gt;</code>
     * [.config([payload])](#Cobalt+config) ⇒ <code>Promise.&lt;Config&gt;</code>
-    * [.updateConfig(slug, payload)](#Cobalt+updateConfig) ⇒ <code>Promise.&lt;Config&gt;</code>
+    * [.updateConfig(payload)](#Cobalt+updateConfig) ⇒ <code>Promise.&lt;Config&gt;</code>
     * [.deleteConfig(slug, [configId])](#Cobalt+deleteConfig) ⇒ <code>Promise.&lt;unknown&gt;</code>
 
 <a name="new_Cobalt_new"></a>
@@ -163,7 +163,7 @@ Returns the specified config, or creates one if it doesn't exist.
 
 <a name="Cobalt+updateConfig"></a>
 
-### cobalt.updateConfig(slug, payload) ⇒ <code>Promise.&lt;Config&gt;</code>
+### cobalt.updateConfig(payload) ⇒ <code>Promise.&lt;Config&gt;</code>
 Update the specified config.
 
 **Kind**: instance method of [<code>Cobalt</code>](#Cobalt)
@@ -171,7 +171,6 @@ Update the specified config.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| slug | <code>String</code> | The application slug. |
 | payload | [<code>UpdateConfigPayload</code>](#UpdateConfigPayload) | The update payload. |
 
 <a name="Cobalt+deleteConfig"></a>
