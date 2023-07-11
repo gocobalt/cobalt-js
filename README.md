@@ -98,6 +98,8 @@ cobalt.token = "COBALT_SESSION_TOKEN";
     * [.config([payload])](#Cobalt+config) ⇒ <code>Promise.&lt;Config&gt;</code>
     * [.updateConfig(payload)](#Cobalt+updateConfig) ⇒ <code>Promise.&lt;Config&gt;</code>
     * [.deleteConfig(slug, [configId])](#Cobalt+deleteConfig) ⇒ <code>Promise.&lt;unknown&gt;</code>
+* Additional Methods
+    * [.getConfig(slug, [configId])](#Cobalt+getConfig) ⇒ <code>Promise.&lt;Config&gt;</code>
 
 <a name="new_Cobalt_new"></a>
 
@@ -160,6 +162,19 @@ Returns the specified config, or creates one if it doesn't exist.
 | Param | Type | Description |
 | --- | --- | --- |
 | [payload] | [<code>ConfigPayload</code>](#ConfigPayload) | The payload object for config. |
+
+<a name="Cobalt+getConfig"></a>
+
+### cobalt.getConfig(slug, [configId]) ⇒ <code>Promise.&lt;Config&gt;</code>
+Returns the specified config.
+
+**Kind**: instance method of [<code>Cobalt</code>](#Cobalt)
+**Returns**: <code>Promise.&lt;Config&gt;</code> - The specified config.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| slug | <code>String</code> | The application slug. |
+| [configId] | <code>String</code> | The unique ID of the config. |
 
 <a name="Cobalt+updateConfig"></a>
 
