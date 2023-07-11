@@ -95,7 +95,7 @@ cobalt.token = "COBALT_SESSION_TOKEN";
     * [.getApp([slug])](#Cobalt+getApp) ⇒ [<code>Promise.&lt;Application&gt;</code>](#Application)
     * [.connect(slug, [payload])](#Cobalt+connect) ⇒ <code>Promise.&lt;Boolean&gt;</code>
     * [.disconnect(slug)](#Cobalt+disconnect) ⇒ <code>Promise.&lt;void&gt;</code>
-    * [.config([payload])](#Cobalt+config) ⇒ <code>Promise.&lt;Config&gt;</code>
+    * [.config(payload)](#Cobalt+config) ⇒ <code>Promise.&lt;Config&gt;</code>
     * [.updateConfig(payload)](#Cobalt+updateConfig) ⇒ <code>Promise.&lt;Config&gt;</code>
     * [.deleteConfig(slug, [configId])](#Cobalt+deleteConfig) ⇒ <code>Promise.&lt;unknown&gt;</code>
 * Additional Methods
@@ -153,7 +153,7 @@ Disconnect the specified application and remove any associated data from Cobalt.
 
 <a name="Cobalt+config"></a>
 
-### cobalt.config([payload]) ⇒ <code>Promise.&lt;Config&gt;</code>
+### cobalt.config(payload) ⇒ <code>Promise.&lt;Config&gt;</code>
 Returns the specified config, or creates one if it doesn't exist.
 
 **Kind**: instance method of [<code>Cobalt</code>](#Cobalt)
@@ -161,7 +161,7 @@ Returns the specified config, or creates one if it doesn't exist.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [payload] | [<code>ConfigPayload</code>](#ConfigPayload) | The payload object for config. |
+| payload | [<code>ConfigPayload</code>](#ConfigPayload) | The payload object for config. |
 
 <a name="Cobalt+getConfig"></a>
 
