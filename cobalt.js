@@ -99,7 +99,7 @@ class Cobalt {
      * @returns {Promise<Application>} The application details.
      */
     async getApp(slug) {
-        const res = await fetch(`${this.baseUrl}/api/v2/f-sdk/application` + (slug ? `/${slug}` : ""), {
+        const res = await fetch(`${this.baseUrl}/api/v2/f-sdk/application${slug ? `/${slug}` : ""}`, {
             headers: {
                 authorization: `Bearer ${this.token}`,
             },
@@ -252,6 +252,26 @@ class Cobalt {
     }
 
     /**
+     * Returns the specified config.
+     * @param {String} slug The application slug.
+     * @param {String} [configId] The unique ID of the config.
+     * @returns {Promise<Config>} The specified config.
+     */
+    async getConfig(slug, configId) {
+        const res = await fetch(`${this.baseUrl}/api/v2/f-sdk/slug/${slug}/config${configId ? `/${configId}` : ""}`, {
+            headers: {
+                authorization: `Bearer ${this.token}`,
+            },
+        });
+
+        if (res.status >= 400 && res.status < 600) {
+            throw new Error(res.statusText);
+        }
+
+        return await res.json();
+    }
+
+    /**
      * Update the specified config.
      * @param {UpdateConfigPayload} payload The update payload.
      * @returns {Promise<Config>} The specified config.
@@ -280,7 +300,7 @@ class Cobalt {
      * @returns {Promise<unknown>}
      */
     async deleteConfig(slug, configId) {
-        const res = await fetch(`${this.baseUrl}/api/v2/f-sdk/slug/${slug}/config/${configId ? `/${configId}` : ""}`, {
+        const res = await fetch(`${this.baseUrl}/api/v2/f-sdk/slug/${slug}/config${configId ? `/${configId}` : ""}`, {
             method: "DELETE",
             headers: {
                 authorization: `Bearer ${this.token}`,
