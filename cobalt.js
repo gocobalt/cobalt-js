@@ -231,7 +231,7 @@ class Cobalt {
 
     /**
      * Returns the specified config, or creates one if it doesn't exist.
-     * @param {ConfigPayload} [payload] The payload object for config.
+     * @param {ConfigPayload} payload The payload object for config.
      * @returns {Promise<Config>} The specified config.
      */
     async config(payload) {
