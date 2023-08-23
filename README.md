@@ -1,4 +1,4 @@
-# cobalt.js
+# Cobalt Javascript SDK
 Cobalt frontend SDK.
 
 ## Install
