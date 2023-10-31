@@ -118,10 +118,11 @@ class Cobalt {
      * specified application.
      * @private
      * @param {String} slug The application slug.
+     * @param {Object.<string, string | number | boolean>} [params={}] The key value pairs of auth data.
      * @returns {Promise<String>} The auth URL where users can authenticate themselves.
      */
-    async getOAuthUrl(slug) {
-        const res = await fetch(`${this.baseUrl}/api/v1/${slug}/integrate`, {
+    async getOAuthUrl(slug, params) {
+        const res = await fetch(`${this.baseUrl}/api/v1/${slug}/integrate?${new URLSearchParams(params).toString()}`, {
             headers: {
                 authorization: `Bearer ${this.token}`,
             },
@@ -139,11 +140,12 @@ class Cobalt {
      * Handle OAuth for the specified native application.
      * @private
      * @param {String} slug The application slug.
+     * @param {Object.<string, string | number | boolean>} [params={}] The key value pairs of auth data.
      * @returns {Promise<Boolean>} Whether the user authenticated.
      */
-    async oauth(slug) {
+    async oauth(slug, params) {
         return new Promise((resolve, reject) => {
-            this.getOAuthUrl(slug)
+            this.getOAuthUrl(slug, params)
             .then(oauthUrl => {
                 const connectWindow = window.open(oauthUrl);
 
@@ -186,29 +188,38 @@ class Cobalt {
      * @returns {Promise<Boolean>} Whether the connection was successful.
      */
     async connect(slug, payload) {
-        if (payload) {
-            // save auth
-            const res = await fetch(`${this.baseUrl}/api/v2/app/${slug}/save`, {
-                method: "POST",
-                headers: {
-                    authorization: `Bearer ${this.token}`,
-                    "content-type": "application/json",
-                },
-                body: JSON.stringify({
-                    ...payload,
-                }),
-            });
+        return new Promise(async (resolve, reject) => {
+            try {
+                const app = await this.getApp(slug);
 
-            if (res.status >= 400 && res.status < 600) {
-                throw new Error(res.statusText);
+                // oauth
+                if (app?.auth_type ==="oauth2") {
+                    const connected = await this.oauth(slug, payload);
+                    resolve(connected);
+                // key based
+                } else {
+                    const res = await fetch(`${this.baseUrl}/api/v2/app/${slug}/save`, {
+                        method: "POST",
+                        headers: {
+                            authorization: `Bearer ${this.token}`,
+                            "content-type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            ...payload,
+                        }),
+                    });
+
+                    if (res.status >= 400 && res.status < 600) {
+                        reject(new Error(res.statusText));
+                    }
+
+                    const data = await res.json();
+                    resolve(data.success);
+                }
+            } catch (error) {
+                reject(error);
             }
-
-            const data = await res.json();
-            return data.success;
-        } else {
-            // oauth
-            return this.oauth(slug);
-        }
+        });
     }
 
     /**
