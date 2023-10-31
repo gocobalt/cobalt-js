@@ -22,10 +22,10 @@ yarn add @cobaltio/cobalt-js
 #### Browser
 ```html
 <!-- use a specific version -->
-<script src="https://cdn.jsdelivr.net/npm/@cobaltio/cobalt-js@3.0.1"></script>
+<script src="https://cdn.jsdelivr.net/npm/@cobaltio/cobalt-js@7.0.0"></script>
 <!-- use a version range instead of a specific version -->
-<script src="https://cdn.jsdelivr.net/npm/@cobaltio/cobalt-js@3"></script>
-<script src="https://cdn.jsdelivr.net/npm/@cobaltio/cobalt-js@3.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/@cobaltio/cobalt-js@7"></script>
+<script src="https://cdn.jsdelivr.net/npm/@cobaltio/cobalt-js@7.0"></script>
 <!-- omit the version completely to use the latest one -->
 <!-- you should NOT use this in production -->
 <script src="https://cdn.jsdelivr.net/npm/@cobaltio/cobalt-js"></script>
