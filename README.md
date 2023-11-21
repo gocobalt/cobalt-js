@@ -217,6 +217,7 @@ An application in Cobalt.
 | [slug] | <code>String</code> | The application slug for custom apps. |
 | auth_type | <code>&quot;oauth2&quot;</code> \| <code>&quot;keybased&quot;</code> | The type of auth used by application. |
 | [connected] | <code>Boolean</code> | Whether the user has connected the application. |
+| [reauth_required] | <code>Boolean</code> | Whether the connection has expired and re-auth is required. |
 | [auth_input_map] | [<code>Array.&lt;InputField&gt;</code>](#InputField) | The fields required from the user to connect the application (for `keybased` auth type). |
 
 <a name="InputField"></a>
