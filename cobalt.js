@@ -11,6 +11,7 @@
  * @property {String} [slug] The application slug for custom apps.
  * @property {"oauth2"|"keybased"} auth_type The type of auth used by application.
  * @property {Boolean} [connected] Whether the user has connected the application.
+ * @property {Boolean} [reauth_required] Whether the connection has expired and re-auth is required.
  * @property {InputField[]} [auth_input_map] The fields required from the user to connect the application (for `keybased` auth type).
  */
 
@@ -153,7 +154,7 @@ class Cobalt {
                 const interval = setInterval(() => {
                     this.getApp(slug)
                     .then(app => {
-                        if (app && app.connected === true) {
+                        if (app && app.connected === true && !app.reauth_required) {
                             // close auth window
                             connectWindow && connectWindow.close();
                             // clear interval
