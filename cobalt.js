@@ -194,7 +194,7 @@ class Cobalt {
                 const app = await this.getApp(slug);
 
                 // oauth
-                if (app?.auth_type ==="oauth2") {
+                if (app && app.auth_type === "oauth2") {
                     const connected = await this.oauth(slug, payload);
                     resolve(connected);
                 // key based
