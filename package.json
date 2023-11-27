@@ -3,7 +3,9 @@
   "version": "7.0.1",
   "description": "Cobalt frontend SDK",
   "main": "./cobalt.js",
+  "typings": "./cobalt.d.ts",
   "scripts": {
+    "build": "tsc",
     "docgen": "jsdoc2md cobalt.js > docs.md",
     "test": "echo \"Warn: no test specified\""
   },
@@ -29,6 +31,7 @@
   "homepage": "https://github.com/Breakout-Embed/cobalt-js#readme",
   "devDependencies": {
     "jsdoc": "^4.0.2",
-    "jsdoc-to-markdown": "^8.0.0"
+    "jsdoc-to-markdown": "^8.0.0",
+    "typescript": "^5.3.2"
   }
 }
