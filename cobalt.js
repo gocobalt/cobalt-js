@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Cobalt Frontend SDK
  */
@@ -10,6 +11,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Cobalt = void 0;
 class Cobalt {
     /**
      * Cobalt Frontend SDK
@@ -268,4 +271,4 @@ class Cobalt {
         });
     }
 }
-export { Cobalt };
+exports.Cobalt = Cobalt;
