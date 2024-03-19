@@ -48,7 +48,7 @@ class Cobalt {
      * the application is enabled in Cobalt. If no application is specified,
      * it returns all the enabled applications.
      * @param {String} [slug] The application slug.
-     * @returns {Promise<Application>} The application details.
+     * @returns {Promise<Application | Application[]>} The application details.
      */
     getApp(slug) {
         return __awaiter(this, void 0, void 0, function* () {
