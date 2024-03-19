@@ -77,6 +77,19 @@ export interface CobaltOptions {
     /** The session token. */
     token?: string;
 }
+export interface EcosystemLead {
+    _id: string;
+    name?: string;
+    email: string;
+    description?: string;
+    created_at: string;
+}
+export interface EcosystemLeadPayload {
+    slug: string;
+    name?: string;
+    email: string;
+    description?: string;
+}
 type Config = any;
 declare class Cobalt {
     private baseUrl;
@@ -158,5 +171,11 @@ declare class Cobalt {
      * @returns {Promise<unknown>}
      */
     deleteConfig(slug: string, configId: string): Promise<unknown>;
+    /**
+     * Create a lead for an ecosystem app.
+     * @param {EcosystemLeadPayload} payload The payload object for the lead.
+     * @returns {Promise<EcosystemLead>}
+     */
+    createEcosystemLead(payload: EcosystemLeadPayload): Promise<EcosystemLead>;
 }
 export { Cobalt };
