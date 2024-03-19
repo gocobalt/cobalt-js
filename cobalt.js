@@ -270,5 +270,26 @@ class Cobalt {
             return yield res.json();
         });
     }
+    /**
+     * Create a lead for an ecosystem app.
+     * @param {EcosystemLeadPayload} payload The payload object for the lead.
+     * @returns {Promise<EcosystemLead>}
+     */
+    createEcosystemLead(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const res = yield fetch(`${this.baseUrl}/api/v1/ecosystem/leads`, {
+                method: "POST",
+                headers: {
+                    authorization: `Bearer ${this.token}`,
+                    "content-type": "application/json",
+                },
+                body: JSON.stringify(payload),
+            });
+            if (res.status >= 400 && res.status < 600) {
+                throw new Error(res.statusText);
+            }
+            return yield res.json();
+        });
+    }
 }
 exports.Cobalt = Cobalt;
