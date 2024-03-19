@@ -108,13 +108,17 @@ declare class Cobalt {
      */
     getAccountDetails(): Promise<unknown>;
     /**
+     * Returns the list of enabled applications and their details.
+     * @returns {Promise<Application[]>} The list of applications.
+     */
+    getApp(): Promise<Application[]>;
+    /**
      * Returns the application details for the specified application, provided
-     * the application is enabled in Cobalt. If no application is specified,
-     * it returns all the enabled applications.
-     * @param {String} [slug] The application slug.
+     * the application is enabled in Cobalt.
+     * @param {String} slug The application slug.
      * @returns {Promise<Application>} The application details.
      */
-    getApp(slug?: string): Promise<Application>;
+    getApp(slug: string): Promise<Application>;
     /**
      * Returns the auth URL that users can use to authenticate themselves to the
      * specified application.

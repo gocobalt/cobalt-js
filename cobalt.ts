@@ -138,13 +138,25 @@ class Cobalt {
     }
 
     /**
+     * Returns the list of enabled applications and their details.
+     * @returns {Promise<Application[]>} The list of applications.
+     */
+    public async getApp(): Promise<Application[]>;
+    /**
+     * Returns the application details for the specified application, provided
+     * the application is enabled in Cobalt.
+     * @param {String} slug The application slug.
+     * @returns {Promise<Application>} The application details.
+     */
+    public async getApp(slug: string): Promise<Application>;
+    /**
      * Returns the application details for the specified application, provided
      * the application is enabled in Cobalt. If no application is specified,
      * it returns all the enabled applications.
      * @param {String} [slug] The application slug.
-     * @returns {Promise<Application>} The application details.
+     * @returns {Promise<Application | Application[]>} The application details.
      */
-    public async getApp(slug?: string): Promise<Application> {
+    public async getApp(slug?: string): Promise<Application | Application[]> {
         const res = await fetch(`${this.baseUrl}/api/v2/f-sdk/application${slug ? `/${slug}` : ""}`, {
             headers: {
                 authorization: `Bearer ${this.token}`,
