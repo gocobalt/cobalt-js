@@ -85,6 +85,21 @@ export interface CobaltOptions {
     token?: string;
 }
 
+export interface EcosystemLead {
+    _id: string;
+    name?: string;
+    email: string;
+    description?: string;
+    created_at: string;
+}
+
+export interface EcosystemLeadPayload {
+    slug: string;
+    name?: string;
+    email: string;
+    description?: string;
+}
+
 type Config = any;
 
 class Cobalt {
@@ -347,6 +362,28 @@ class Cobalt {
             headers: {
                 authorization: `Bearer ${this.token}`,
             },
+        });
+
+        if (res.status >= 400 && res.status < 600) {
+            throw new Error(res.statusText);
+        }
+
+        return await res.json();
+    }
+
+    /**
+     * Create a lead for an ecosystem app.
+     * @param {EcosystemLeadPayload} payload The payload object for the lead.
+     * @returns {Promise<EcosystemLead>}
+     */
+    public async createEcosystemLead(payload: EcosystemLeadPayload): Promise<EcosystemLead> {
+        const res = await fetch(`${this.baseUrl}/api/v1/ecosystem/leads`, {
+            method: "POST",
+            headers: {
+                authorization: `Bearer ${this.token}`,
+                "content-type": "application/json",
+            },
+            body: JSON.stringify(payload),
         });
 
         if (res.status >= 400 && res.status < 600) {
