@@ -172,6 +172,25 @@ class Cobalt {
     }
 
     /**
+     * Returns all the enabled and ecosystem apps.
+     * @returns {Promise<Application[]>} The list of applications.
+     */
+    public async getApps(): Promise<Application[]> {
+        const res = await fetch(`${this.baseUrl}/api/v2/f-sdk/application?ecosystem=true`, {
+            headers: {
+                authorization: `Bearer ${this.token}`,
+            },
+        });
+
+        if (res.status >= 400 && res.status < 600) {
+            throw new Error(res.statusText);
+        }
+
+        const data = await res.json();
+        return data;
+    }
+
+    /**
      * Returns the auth URL that users can use to authenticate themselves to the
      * specified application.
      * @private
