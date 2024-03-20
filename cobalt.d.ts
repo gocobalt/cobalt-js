@@ -120,6 +120,11 @@ declare class Cobalt {
      */
     getApp(slug: string): Promise<Application>;
     /**
+     * Returns all the enabled and ecosystem apps.
+     * @returns {Promise<Application[]>} The list of applications.
+     */
+    getApps(): Promise<Application[]>;
+    /**
      * Returns the auth URL that users can use to authenticate themselves to the
      * specified application.
      * @private
