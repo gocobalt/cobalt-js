@@ -15,8 +15,6 @@ yarn add @cobaltio/cobalt-js
 
 ## Usage
 
-<!-- Check the SDK [documentation](docs.md) for detailed information. -->
-
 ### Include
 
 #### Browser
