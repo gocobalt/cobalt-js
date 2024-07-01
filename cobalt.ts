@@ -101,6 +101,7 @@ export interface EcosystemLeadPayload {
 }
 
 type Config = any;
+type Field = any;
 
 class Cobalt {
     private baseUrl: string;
@@ -415,6 +416,77 @@ class Cobalt {
                 "content-type": "application/json",
             },
             body: JSON.stringify(payload),
+        });
+
+        if (res.status >= 400 && res.status < 600) {
+            throw new Error(res.statusText);
+        }
+
+        return await res.json();
+    }
+
+    /**
+     * Returns the specified field of the config.
+     * @param {String} slug The application slug.
+     * @param {String} fieldId The unique ID of the field.
+     * @param {String} [workflowId] The unique ID of the workflow.
+     * @returns {Promise<Field>} The specified config field.
+     */
+    async getConfigField(slug: string, fieldId: string, workflowId?: string): Promise<Config> {
+        const res = await fetch(`${this.baseUrl}/api/v2/public/config/field/${fieldId}${workflowId ? `?workflow_id=${workflowId}` : ""}`, {
+            headers: {
+                authorization: `Bearer ${this.token}`,
+                slug,
+            },
+        });
+
+        if (res.status >= 400 && res.status < 600) {
+            throw new Error(res.statusText);
+        }
+
+        return await res.json();
+    }
+
+    /**
+     * Update the specified config field value.
+     * @param {String} slug The application slug.
+     * @param {String} fieldId The unique ID of the field.
+     * @param {String | Number | Boolean | null} value The new value for the field.
+     * @param {String} [workflowId] The unique ID of the workflow.
+     * @returns {Promise<Field>} The updated config field.
+     */
+    async updateConfigField(slug: string, fieldId: string, value: string | number | boolean | null, workflowId?: string): Promise<Config> {
+        const res = await fetch(`${this.baseUrl}/api/v2/public/config/field/${fieldId}${workflowId ? `?workflow_id=${workflowId}` : ""}`, {
+            method: "PUT",
+            headers: {
+                authorization: `Bearer ${this.token}`,
+                "content-type": "application/json",
+                slug,
+            },
+            body: JSON.stringify({ value }),
+        });
+
+        if (res.status >= 400 && res.status < 600) {
+            throw new Error(res.statusText);
+        }
+
+        return await res.json();
+    }
+
+    /**
+     * Delete the specified config field value.
+     * @param {String} slug The application slug.
+     * @param {String} fieldId The unique ID of the field.
+     * @param {String} [workflowId] The unique ID of the workflow.
+     * @returns {Promise<unknown>}
+     */
+    async deleteConfigField(slug: string, fieldId: string, workflowId?: string): Promise<unknown> {
+        const res = await fetch(`${this.baseUrl}/api/v2/public/config/field/${fieldId}${workflowId ? `?workflow_id=${workflowId}` : ""}`, {
+            method: "DELETE",
+            headers: {
+                authorization: `Bearer ${this.token}`,
+                slug,
+            },
         });
 
         if (res.status >= 400 && res.status < 600) {
