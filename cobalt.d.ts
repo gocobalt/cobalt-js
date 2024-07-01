@@ -186,5 +186,30 @@ declare class Cobalt {
      * @returns {Promise<EcosystemLead>}
      */
     createEcosystemLead(payload: EcosystemLeadPayload): Promise<EcosystemLead>;
+    /**
+     * Returns the specified field of the config.
+     * @param {String} slug The application slug.
+     * @param {String} fieldId The unique ID of the field.
+     * @param {String} [workflowId] The unique ID of the workflow.
+     * @returns {Promise<Field>} The specified config field.
+     */
+    getConfigField(slug: string, fieldId: string, workflowId?: string): Promise<Config>;
+    /**
+     * Update the specified config field value.
+     * @param {String} slug The application slug.
+     * @param {String} fieldId The unique ID of the field.
+     * @param {String | Number | Boolean | null} value The new value for the field.
+     * @param {String} [workflowId] The unique ID of the workflow.
+     * @returns {Promise<Field>} The updated config field.
+     */
+    updateConfigField(slug: string, fieldId: string, value: string | number | boolean | null, workflowId?: string): Promise<Config>;
+    /**
+     * Delete the specified config field value.
+     * @param {String} slug The application slug.
+     * @param {String} fieldId The unique ID of the field.
+     * @param {String} [workflowId] The unique ID of the workflow.
+     * @returns {Promise<unknown>}
+     */
+    deleteConfigField(slug: string, fieldId: string, workflowId?: string): Promise<unknown>;
 }
 export { Cobalt };
