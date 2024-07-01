@@ -309,5 +309,73 @@ class Cobalt {
             return yield res.json();
         });
     }
+    /**
+     * Returns the specified field of the config.
+     * @param {String} slug The application slug.
+     * @param {String} fieldId The unique ID of the field.
+     * @param {String} [workflowId] The unique ID of the workflow.
+     * @returns {Promise<Field>} The specified config field.
+     */
+    getConfigField(slug, fieldId, workflowId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const res = yield fetch(`${this.baseUrl}/api/v2/public/config/field/${fieldId}${workflowId ? `?workflow_id=${workflowId}` : ""}`, {
+                headers: {
+                    authorization: `Bearer ${this.token}`,
+                    slug,
+                },
+            });
+            if (res.status >= 400 && res.status < 600) {
+                throw new Error(res.statusText);
+            }
+            return yield res.json();
+        });
+    }
+    /**
+     * Update the specified config field value.
+     * @param {String} slug The application slug.
+     * @param {String} fieldId The unique ID of the field.
+     * @param {String | Number | Boolean | null} value The new value for the field.
+     * @param {String} [workflowId] The unique ID of the workflow.
+     * @returns {Promise<Field>} The updated config field.
+     */
+    updateConfigField(slug, fieldId, value, workflowId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const res = yield fetch(`${this.baseUrl}/api/v2/public/config/field/${fieldId}${workflowId ? `?workflow_id=${workflowId}` : ""}`, {
+                method: "PUT",
+                headers: {
+                    authorization: `Bearer ${this.token}`,
+                    "content-type": "application/json",
+                    slug,
+                },
+                body: JSON.stringify({ value }),
+            });
+            if (res.status >= 400 && res.status < 600) {
+                throw new Error(res.statusText);
+            }
+            return yield res.json();
+        });
+    }
+    /**
+     * Delete the specified config field value.
+     * @param {String} slug The application slug.
+     * @param {String} fieldId The unique ID of the field.
+     * @param {String} [workflowId] The unique ID of the workflow.
+     * @returns {Promise<unknown>}
+     */
+    deleteConfigField(slug, fieldId, workflowId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const res = yield fetch(`${this.baseUrl}/api/v2/public/config/field/${fieldId}${workflowId ? `?workflow_id=${workflowId}` : ""}`, {
+                method: "DELETE",
+                headers: {
+                    authorization: `Bearer ${this.token}`,
+                    slug,
+                },
+            });
+            if (res.status >= 400 && res.status < 600) {
+                throw new Error(res.statusText);
+            }
+            return yield res.json();
+        });
+    }
 }
 exports.Cobalt = Cobalt;
