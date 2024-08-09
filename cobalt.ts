@@ -139,6 +139,31 @@ class Cobalt {
     }
 
     /**
+     * Returns the org & customer details for the associated token.
+     * @private
+     * @returns {Promise<unknown>}
+     */
+    public async updateAccount(payload: Record<string, unknown>): Promise<unknown> {
+        const res = await fetch(`${this.baseUrl}/api/v2/public/linked-account`, {
+            method: "PUT",
+            headers: {
+                authorization: `Bearer ${this.token}`,
+                "content-type": "application/json",
+            },
+            body: JSON.stringify({
+                ...payload,
+            }),
+        });
+
+        if (res.status >= 400 && res.status < 600) {
+            throw new Error(res.statusText);
+        }
+
+        const data = await res.json();
+        return data;
+    }
+
+    /**
      * Returns the list of enabled applications and their details.
      * @returns {Promise<Application[]>} The list of applications.
      */
@@ -250,6 +275,7 @@ class Cobalt {
                     })
                     .catch(e => {
                         console.error(e);
+                        // connectWindow?.close();
                         clearInterval(interval);
                         reject(e);
                     });
