@@ -44,6 +44,28 @@ class Cobalt {
         });
     }
     /**
+     * Returns the org & customer details for the associated token.
+     * @private
+     * @returns {Promise<unknown>}
+     */
+    updateAccount(payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const res = yield fetch(`${this.baseUrl}/api/v2/public/linked-account`, {
+                method: "PUT",
+                headers: {
+                    authorization: `Bearer ${this.token}`,
+                    "content-type": "application/json",
+                },
+                body: JSON.stringify(Object.assign({}, payload)),
+            });
+            if (res.status >= 400 && res.status < 600) {
+                throw new Error(res.statusText);
+            }
+            const data = yield res.json();
+            return data;
+        });
+    }
+    /**
      * Returns the application details for the specified application, provided
      * the application is enabled in Cobalt. If no application is specified,
      * it returns all the enabled applications.
@@ -141,6 +163,7 @@ class Cobalt {
                         })
                             .catch(e => {
                             console.error(e);
+                            // connectWindow?.close();
                             clearInterval(interval);
                             reject(e);
                         });
