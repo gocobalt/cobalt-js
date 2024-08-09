@@ -108,6 +108,12 @@ declare class Cobalt {
      */
     getAccountDetails(): Promise<unknown>;
     /**
+     * Returns the org & customer details for the associated token.
+     * @private
+     * @returns {Promise<unknown>}
+     */
+    updateAccount(payload: Record<string, unknown>): Promise<unknown>;
+    /**
      * Returns the list of enabled applications and their details.
      * @returns {Promise<Application[]>} The list of applications.
      */
