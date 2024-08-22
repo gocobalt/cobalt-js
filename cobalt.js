@@ -37,7 +37,8 @@ class Cobalt {
                 },
             });
             if (res.status >= 400 && res.status < 600) {
-                throw new Error(res.statusText);
+                const error = yield res.json();
+                throw error;
             }
             const data = yield res.json();
             return data;
@@ -59,7 +60,8 @@ class Cobalt {
                 body: JSON.stringify(Object.assign({}, payload)),
             });
             if (res.status >= 400 && res.status < 600) {
-                throw new Error(res.statusText);
+                const error = yield res.json();
+                throw error;
             }
             const data = yield res.json();
             return data;
@@ -80,7 +82,8 @@ class Cobalt {
                 },
             });
             if (res.status >= 400 && res.status < 600) {
-                throw new Error(res.statusText);
+                const error = yield res.json();
+                throw error;
             }
             const data = yield res.json();
             return data;
@@ -98,7 +101,8 @@ class Cobalt {
                 },
             });
             if (res.status >= 400 && res.status < 600) {
-                throw new Error(res.statusText);
+                const error = yield res.json();
+                throw error;
             }
             const data = yield res.json();
             return data;
@@ -120,7 +124,8 @@ class Cobalt {
                 },
             });
             if (res.status >= 400 && res.status < 600) {
-                throw new Error(res.statusText);
+                const error = yield res.json();
+                throw error;
             }
             const data = yield res.json();
             return data.auth_url;
@@ -200,7 +205,8 @@ class Cobalt {
                             body: JSON.stringify(Object.assign({}, payload)),
                         });
                         if (res.status >= 400 && res.status < 600) {
-                            reject(new Error(res.statusText));
+                            const error = yield res.json();
+                            reject(error);
                         }
                         const data = yield res.json();
                         resolve(data.success);
@@ -226,7 +232,8 @@ class Cobalt {
                 },
             });
             if (res.status >= 400 && res.status < 600) {
-                throw new Error(res.statusText);
+                const error = yield res.json();
+                throw error;
             }
         });
     }
@@ -246,7 +253,8 @@ class Cobalt {
                 body: JSON.stringify(payload),
             });
             if (res.status >= 400 && res.status < 600) {
-                throw new Error(res.statusText);
+                const error = yield res.json();
+                throw error;
             }
             return yield res.json();
         });
@@ -265,7 +273,8 @@ class Cobalt {
                 },
             });
             if (res.status >= 400 && res.status < 600) {
-                throw new Error(res.statusText);
+                const error = yield res.json();
+                throw error;
             }
             return yield res.json();
         });
@@ -286,7 +295,8 @@ class Cobalt {
                 body: JSON.stringify(payload),
             });
             if (res.status >= 400 && res.status < 600) {
-                throw new Error(res.statusText);
+                const error = yield res.json();
+                throw error;
             }
             return yield res.json();
         });
@@ -306,7 +316,8 @@ class Cobalt {
                 },
             });
             if (res.status >= 400 && res.status < 600) {
-                throw new Error(res.statusText);
+                const error = yield res.json();
+                throw error;
             }
             return yield res.json();
         });
@@ -327,7 +338,8 @@ class Cobalt {
                 body: JSON.stringify(payload),
             });
             if (res.status >= 400 && res.status < 600) {
-                throw new Error(res.statusText);
+                const error = yield res.json();
+                throw error;
             }
             return yield res.json();
         });
@@ -348,7 +360,8 @@ class Cobalt {
                 },
             });
             if (res.status >= 400 && res.status < 600) {
-                throw new Error(res.statusText);
+                const error = yield res.json();
+                throw error;
             }
             return yield res.json();
         });
@@ -373,7 +386,8 @@ class Cobalt {
                 body: JSON.stringify({ value }),
             });
             if (res.status >= 400 && res.status < 600) {
-                throw new Error(res.statusText);
+                const error = yield res.json();
+                throw error;
             }
             return yield res.json();
         });
@@ -395,7 +409,8 @@ class Cobalt {
                 },
             });
             if (res.status >= 400 && res.status < 600) {
-                throw new Error(res.statusText);
+                const error = yield res.json();
+                throw error;
             }
             return yield res.json();
         });
