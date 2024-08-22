@@ -131,7 +131,8 @@ class Cobalt {
         });
 
         if (res.status >= 400 && res.status < 600) {
-            throw new Error(res.statusText);
+            const error = await res.json();
+            throw error;
         }
 
         const data = await res.json();
@@ -156,7 +157,8 @@ class Cobalt {
         });
 
         if (res.status >= 400 && res.status < 600) {
-            throw new Error(res.statusText);
+            const error = await res.json();
+            throw error;
         }
 
         const data = await res.json();
@@ -190,7 +192,8 @@ class Cobalt {
         });
 
         if (res.status >= 400 && res.status < 600) {
-            throw new Error(res.statusText);
+            const error = await res.json();
+            throw error;
         }
 
         const data = await res.json();
@@ -209,7 +212,8 @@ class Cobalt {
         });
 
         if (res.status >= 400 && res.status < 600) {
-            throw new Error(res.statusText);
+            const error = await res.json();
+            throw error;
         }
 
         const data = await res.json();
@@ -232,7 +236,8 @@ class Cobalt {
         });
 
         if (res.status >= 400 && res.status < 600) {
-            throw new Error(res.statusText);
+            const error = await res.json();
+            throw error;
         }
 
         const data = await res.json();
@@ -314,7 +319,8 @@ class Cobalt {
                     });
 
                     if (res.status >= 400 && res.status < 600) {
-                        reject(new Error(res.statusText));
+                        const error = await res.json();
+                        reject(error);
                     }
 
                     const data = await res.json();
@@ -340,7 +346,8 @@ class Cobalt {
         });
 
         if (res.status >= 400 && res.status < 600) {
-            throw new Error(res.statusText);
+            const error = await res.json();
+            throw error;
         }
     }
 
@@ -360,7 +367,8 @@ class Cobalt {
         });
 
         if (res.status >= 400 && res.status < 600) {
-            throw new Error(res.statusText);
+            const error = await res.json();
+            throw error;
         }
 
         return await res.json();
@@ -380,7 +388,8 @@ class Cobalt {
         });
 
         if (res.status >= 400 && res.status < 600) {
-            throw new Error(res.statusText);
+            const error = await res.json();
+            throw error;
         }
 
         return await res.json();
@@ -402,7 +411,8 @@ class Cobalt {
         });
 
         if (res.status >= 400 && res.status < 600) {
-            throw new Error(res.statusText);
+            const error = await res.json();
+            throw error;
         }
 
         return await res.json();
@@ -423,7 +433,8 @@ class Cobalt {
         });
 
         if (res.status >= 400 && res.status < 600) {
-            throw new Error(res.statusText);
+            const error = await res.json();
+            throw error;
         }
 
         return await res.json();
@@ -445,7 +456,8 @@ class Cobalt {
         });
 
         if (res.status >= 400 && res.status < 600) {
-            throw new Error(res.statusText);
+            const error = await res.json();
+            throw error;
         }
 
         return await res.json();
@@ -467,7 +479,8 @@ class Cobalt {
         });
 
         if (res.status >= 400 && res.status < 600) {
-            throw new Error(res.statusText);
+            const error = await res.json();
+            throw error;
         }
 
         return await res.json();
@@ -493,7 +506,8 @@ class Cobalt {
         });
 
         if (res.status >= 400 && res.status < 600) {
-            throw new Error(res.statusText);
+            const error = await res.json();
+            throw error;
         }
 
         return await res.json();
@@ -516,7 +530,8 @@ class Cobalt {
         });
 
         if (res.status >= 400 && res.status < 600) {
-            throw new Error(res.statusText);
+            const error = await res.json();
+            throw error;
         }
 
         return await res.json();
