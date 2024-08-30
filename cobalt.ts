@@ -540,12 +540,13 @@ class Cobalt {
 
     /**
      * Returns the options for the specified rule field.
+     * @param {String} lhs The lhs value of the rule field.
      * @param {String} slug The application slug.
      * @param {String} fieldId The unique ID of the field.
      * @param {String} [workflowId] The unique ID of the workflow, if this is a workflow field.
      * @returns {Promise<RuleOptions>} The specified rule field's options.
      */
-    async getRuleFieldOptions(slug: string, fieldId: string, workflowId?: string): Promise<Config> {
+    async getRuleFieldOptions(lhs: string, slug: string, fieldId: string, workflowId?: string): Promise<Config> {
         const res = await fetch(`${this.baseUrl}/api/v2/public/config/rule-engine/${fieldId}${workflowId ? `?workflow_id=${workflowId}` : ""}`, {
             method: "POST",
             headers: {
@@ -553,6 +554,9 @@ class Cobalt {
                 "content-type": "application/json",
                 slug,
             },
+            body: JSON.stringify({
+                rule_column: { lhs },
+            }),
         });
 
         if (res.status >= 400 && res.status < 600) {
