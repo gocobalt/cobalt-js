@@ -102,6 +102,7 @@ export interface EcosystemLeadPayload {
 
 type Config = any;
 type Field = any;
+type RuleOptions = any;
 
 class Cobalt {
     private baseUrl: string;
@@ -525,6 +526,31 @@ class Cobalt {
             method: "DELETE",
             headers: {
                 authorization: `Bearer ${this.token}`,
+                slug,
+            },
+        });
+
+        if (res.status >= 400 && res.status < 600) {
+            const error = await res.json();
+            throw error;
+        }
+
+        return await res.json();
+    }
+
+    /**
+     * Returns the options for the specified rule field.
+     * @param {String} slug The application slug.
+     * @param {String} fieldId The unique ID of the field.
+     * @param {String} [workflowId] The unique ID of the workflow, if this is a workflow field.
+     * @returns {Promise<RuleOptions>} The specified rule field's options.
+     */
+    async getRuleFieldOptions(slug: string, fieldId: string, workflowId?: string): Promise<Config> {
+        const res = await fetch(`${this.baseUrl}/api/v2/public/config/rule-engine/${fieldId}${workflowId ? `?workflow_id=${workflowId}` : ""}`, {
+            method: "POST",
+            headers: {
+                authorization: `Bearer ${this.token}`,
+                "content-type": "application/json",
                 slug,
             },
         });
