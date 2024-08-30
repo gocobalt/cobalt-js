@@ -217,5 +217,13 @@ declare class Cobalt {
      * @returns {Promise<unknown>}
      */
     deleteConfigField(slug: string, fieldId: string, workflowId?: string): Promise<unknown>;
+    /**
+     * Returns the options for the specified rule field.
+     * @param {String} slug The application slug.
+     * @param {String} fieldId The unique ID of the field.
+     * @param {String} [workflowId] The unique ID of the workflow, if this is a workflow field.
+     * @returns {Promise<RuleOptions>} The specified rule field's options.
+     */
+    getRuleFieldOptions(slug: string, fieldId: string, workflowId?: string): Promise<Config>;
 }
 export { Cobalt };
