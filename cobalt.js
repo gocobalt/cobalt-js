@@ -415,5 +415,27 @@ class Cobalt {
             return yield res.json();
         });
     }
+    /**
+     * Returns the options for the specified rule field.
+     * @param {String} slug The application slug.
+     * @param {String} fieldId The unique ID of the field.
+     * @param {String} [workflowId] The unique ID of the workflow, if this is a workflow field.
+     * @returns {Promise<RuleOptions>} The specified rule field's options.
+     */
+    getRuleFieldOptions(slug, fieldId, workflowId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const res = yield fetch(`${this.baseUrl}/api/v2/public/config/rule-engine/${fieldId}${workflowId ? `?workflow_id=${workflowId}` : ""}`, {
+                headers: {
+                    authorization: `Bearer ${this.token}`,
+                    slug,
+                },
+            });
+            if (res.status >= 400 && res.status < 600) {
+                const error = yield res.json();
+                throw error;
+            }
+            return yield res.json();
+        });
+    }
 }
 exports.Cobalt = Cobalt;
