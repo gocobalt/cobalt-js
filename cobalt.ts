@@ -102,7 +102,25 @@ export interface EcosystemLeadPayload {
 
 type Config = any;
 type Field = any;
-type RuleOptions = any;
+type RuleOptions = {
+    rule_column: {
+        rhs: {
+            name: string,
+            type: string,
+            options: any,
+        },
+        operator: {
+            name: string,
+            type: string,
+            options: any,
+        }
+    },
+    conditional_code_stdout?: string[],
+    error?: {
+        message?: string,
+        stack?: string
+    }
+};
 
 class Cobalt {
     private baseUrl: string;
@@ -546,7 +564,7 @@ class Cobalt {
      * @param {String} [workflowId] The unique ID of the workflow, if this is a workflow field.
      * @returns {Promise<RuleOptions>} The specified rule field's options.
      */
-    async getRuleFieldOptions(lhs: string, slug: string, fieldId: string, workflowId?: string): Promise<Config> {
+    async getRuleFieldOptions(lhs: string, slug: string, fieldId: string, workflowId?: string): Promise<RuleOptions> {
         const res = await fetch(`${this.baseUrl}/api/v2/public/config/rule-engine/${fieldId}${workflowId ? `?workflow_id=${workflowId}` : ""}`, {
             method: "POST",
             headers: {
