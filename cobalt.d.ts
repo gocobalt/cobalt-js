@@ -91,6 +91,25 @@ export interface EcosystemLeadPayload {
     description?: string;
 }
 type Config = any;
+type RuleOptions = {
+    rule_column: {
+        rhs: {
+            name: string;
+            type: string;
+            options: any;
+        };
+        operator: {
+            name: string;
+            type: string;
+            options: any;
+        };
+    };
+    conditional_code_stdout?: string[];
+    error?: {
+        message?: string;
+        stack?: string;
+    };
+};
 declare class Cobalt {
     private baseUrl;
     token: string;
@@ -218,13 +237,13 @@ declare class Cobalt {
      */
     deleteConfigField(slug: string, fieldId: string, workflowId?: string): Promise<unknown>;
     /**
-     * Returns the options for the specified rule field.
-     * @param {String} lhs The lhs value of the rule field.
+     * Returns the options for the specified field.
+     * @param {String} label The selected value of the label field.
      * @param {String} slug The application slug.
      * @param {String} fieldId The unique ID of the field.
      * @param {String} [workflowId] The unique ID of the workflow, if this is a workflow field.
      * @returns {Promise<RuleOptions>} The specified rule field's options.
      */
-    getRuleFieldOptions(lhs: string, slug: string, fieldId: string, workflowId?: string): Promise<Config>;
+    getFieldOptions(label: string, slug: string, fieldId: string, workflowId?: string): Promise<RuleOptions>;
 }
 export { Cobalt };
