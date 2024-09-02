@@ -416,14 +416,14 @@ class Cobalt {
         });
     }
     /**
-     * Returns the options for the specified rule field.
-     * @param {String} lhs The lhs value of the rule field.
+     * Returns the options for the specified field.
+     * @param {String} label The selected value of the label field.
      * @param {String} slug The application slug.
      * @param {String} fieldId The unique ID of the field.
      * @param {String} [workflowId] The unique ID of the workflow, if this is a workflow field.
      * @returns {Promise<RuleOptions>} The specified rule field's options.
      */
-    getRuleFieldOptions(lhs, slug, fieldId, workflowId) {
+    getFieldOptions(label, slug, fieldId, workflowId) {
         return __awaiter(this, void 0, void 0, function* () {
             const res = yield fetch(`${this.baseUrl}/api/v2/public/config/rule-engine/${fieldId}${workflowId ? `?workflow_id=${workflowId}` : ""}`, {
                 method: "POST",
@@ -433,7 +433,7 @@ class Cobalt {
                     slug,
                 },
                 body: JSON.stringify({
-                    rule_column: { lhs },
+                    rule_column: { lhs: label },
                 }),
             });
             if (res.status >= 400 && res.status < 600) {
