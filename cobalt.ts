@@ -100,27 +100,28 @@ export interface EcosystemLeadPayload {
     description?: string;
 }
 
-type Config = any;
-type Field = any;
-type RuleOptions = {
+export interface RuleOptions {
     rule_column: {
         rhs: {
             name: string,
-            type: string,
-            options: any,
+            type: "text" | "select",
+            options?: Label[],
         },
         operator: {
             name: string,
-            type: string,
-            options: any,
-        }
+            type: "select",
+            options: Label[],
+        },
     },
     conditional_code_stdout?: string[],
     error?: {
         message?: string,
         stack?: string
     }
-};
+}
+
+type Config = any;
+type Field = any;
 
 class Cobalt {
     private baseUrl: string;
@@ -558,13 +559,13 @@ class Cobalt {
 
     /**
      * Returns the options for the specified field.
-     * @param {String} label The selected value of the label field.
+     * @param {String} lhs The selected value of the lhs field.
      * @param {String} slug The application slug.
      * @param {String} fieldId The unique ID of the field.
      * @param {String} [workflowId] The unique ID of the workflow, if this is a workflow field.
      * @returns {Promise<RuleOptions>} The specified rule field's options.
      */
-    async getFieldOptions(label: string, slug: string, fieldId: string, workflowId?: string): Promise<RuleOptions> {
+    async getFieldOptions(lhs: string, slug: string, fieldId: string, workflowId?: string): Promise<RuleOptions> {
         const res = await fetch(`${this.baseUrl}/api/v2/public/config/rule-engine/${fieldId}${workflowId ? `?workflow_id=${workflowId}` : ""}`, {
             method: "POST",
             headers: {
@@ -573,7 +574,7 @@ class Cobalt {
                 slug,
             },
             body: JSON.stringify({
-                rule_column: { lhs: label },
+                rule_column: { lhs },
             }),
         });
 
