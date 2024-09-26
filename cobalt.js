@@ -21,7 +21,11 @@ class Cobalt {
      * @param {String} [options.baseUrl=https://api.gocobalt.io] The base URL of the Cobalt API.
      */
     constructor(options = {}) {
-        this.baseUrl = options.baseUrl || "https://api.gocobalt.io";
+        this.baseUrl = options.baseUrl
+            ? /^https?:\/\//.test(options.baseUrl)
+                ? options.baseUrl
+                : "https://" + options.baseUrl
+            : "https://api.gocobalt.io";
         this.token = options.token || "";
     }
     /**
