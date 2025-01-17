@@ -42,7 +42,7 @@ export interface ConfigPayload {
     /**  Unique ID for the config. */
     config_id?: string;
     /** The dynamic label mappings. */
-    labels: Label[];
+    labels?: Label[];
 }
 /** Label Mapping */
 export interface Label {
