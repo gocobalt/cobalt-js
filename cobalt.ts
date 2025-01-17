@@ -45,7 +45,7 @@ export interface ConfigPayload {
     /**  Unique ID for the config. */
     config_id?: string;
     /** The dynamic label mappings. */
-    labels: Label[];
+    labels?: Label[];
 }
 
 /** Label Mapping */
@@ -387,7 +387,10 @@ class Cobalt {
                 authorization: `Bearer ${this.token}`,
                 "content-type": "application/json",
             },
-            body: JSON.stringify(payload),
+            body: JSON.stringify({
+                ...payload,
+                labels: payload.labels || [],
+            }),
         });
 
         if (res.status >= 400 && res.status < 600) {
