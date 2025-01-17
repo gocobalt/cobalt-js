@@ -254,7 +254,7 @@ class Cobalt {
                     authorization: `Bearer ${this.token}`,
                     "content-type": "application/json",
                 },
-                body: JSON.stringify(payload),
+                body: JSON.stringify(Object.assign(Object.assign({}, payload), { labels: payload.labels || [] })),
             });
             if (res.status >= 400 && res.status < 600) {
                 const error = yield res.json();
