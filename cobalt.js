@@ -447,5 +447,56 @@ class Cobalt {
             return yield res.json();
         });
     }
+    /**
+     *
+     * @param {Object} params
+     * @param {String} [params.slug]
+     * @param {Number} [params.page]
+     * @param {Number} [params.limit]
+     * @returns
+     */
+    getWorkflows(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const res = yield fetch(`${this.baseUrl}/api/v2/public/workflow?page=${(params === null || params === void 0 ? void 0 : params.page) || 1}&limit=${(params === null || params === void 0 ? void 0 : params.limit) || 100}${(params === null || params === void 0 ? void 0 : params.slug) ? `&slug=${params.slug}` : ""}`, {
+                headers: {
+                    authorization: `Bearer ${this.token}`,
+                },
+            });
+            if (res.status >= 400 && res.status < 600) {
+                const error = yield res.json();
+                throw error;
+            }
+            return yield res.json();
+        });
+    }
+    /**
+     * Create a public workflow for the linked account.
+     * @param {Object} params
+     * @param {String} params.name The workflow name.
+     * @param {String} [params.description] The workflow description.
+     * @param {String} [params.slug] The application slug in which this workflow should be created.
+     * If slug isn't set, the workflow will be created in the organization's default application.
+     * @returns {Promise<PublicWorkflow>} The created public workflow.
+     */
+    createWorkflow(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const res = yield fetch(`${this.baseUrl}/api/v2/public/workflow`, {
+                method: "POST",
+                headers: {
+                    authorization: `Bearer ${this.token}`,
+                },
+                body: JSON.stringify({
+                    name: params.name,
+                    description: params.description,
+                    slug: params.slug,
+                }),
+            });
+            if (res.status >= 400 && res.status < 600) {
+                const error = yield res.json();
+                throw error;
+            }
+            return yield res.json();
+        });
+    }
 }
 exports.Cobalt = Cobalt;
