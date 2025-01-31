@@ -120,6 +120,35 @@ export interface RuleOptions {
     }
 }
 
+/** A public workflow in Cobalt. */
+export interface PublicWorkflow {
+    /**The workflow ID. */
+    _id: string;
+    /**The workflow name. */
+    name: string;
+    /**The workflow description. */
+    description?: string;
+}
+
+/** The payload for creating a public workflow for the linked account. */
+export interface PublicWorkflowPayload {
+    /**The workflow name. */
+    name: string;
+    /**The workflow description. */
+    description?: string;
+    /** The application slug in which this workflow should be created. */
+    slug?: string;
+}
+
+export interface PublicWorkflowsPayload extends PaginationProps {
+    slug?: string;
+}
+
+interface PaginationProps {
+    page?: number;
+    limit?: number;
+}
+
 type Config = any;
 type Field = any;
 
@@ -582,6 +611,59 @@ class Cobalt {
             },
             body: JSON.stringify({
                 rule_column: { lhs },
+            }),
+        });
+
+        if (res.status >= 400 && res.status < 600) {
+            const error = await res.json();
+            throw error;
+        }
+
+        return await res.json();
+    }
+
+    /**
+     *
+     * @param {Object} params
+     * @param {String} [params.slug]
+     * @param {Number} [params.page]
+     * @param {Number} [params.limit]
+     * @returns
+     */
+    async getWorkflows(params?: PublicWorkflowsPayload): Promise<PublicWorkflow[]> {
+        const res = await fetch(`${this.baseUrl}/api/v2/public/workflow?page=${params?.page || 1}&limit=${params?.limit || 100}${params?.slug ? `&slug=${params.slug}` : ""}`, {
+            headers: {
+                authorization: `Bearer ${this.token}`,
+            },
+        });
+
+        if (res.status >= 400 && res.status < 600) {
+            const error = await res.json();
+            throw error;
+        }
+
+        return await res.json();
+    }
+
+    /**
+     * Create a public workflow for the linked account.
+     * @param {Object} params
+     * @param {String} params.name The workflow name.
+     * @param {String} [params.description] The workflow description.
+     * @param {String} [params.slug] The application slug in which this workflow should be created.
+     * If slug isn't set, the workflow will be created in the organization's default application.
+     * @returns {Promise<PublicWorkflow>} The created public workflow.
+     */
+    async createWorkflow(params: PublicWorkflowPayload): Promise<PublicWorkflow> {
+        const res = await fetch(`${this.baseUrl}/api/v2/public/workflow`, {
+            method: "POST",
+            headers: {
+                authorization: `Bearer ${this.token}`,
+            },
+            body: JSON.stringify({
+                name: params.name,
+                description: params.description,
+                slug: params.slug,
             }),
         });
 
