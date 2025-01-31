@@ -109,6 +109,31 @@ export interface RuleOptions {
         stack?: string;
     };
 }
+/** A public workflow in Cobalt. */
+export interface PublicWorkflow {
+    /**The workflow ID. */
+    _id: string;
+    /**The workflow name. */
+    name: string;
+    /**The workflow description. */
+    description?: string;
+}
+/** The payload for creating a public workflow for the linked account. */
+export interface PublicWorkflowPayload {
+    /**The workflow name. */
+    name: string;
+    /**The workflow description. */
+    description?: string;
+    /** The application slug in which this workflow should be created. */
+    slug?: string;
+}
+export interface PublicWorkflowsPayload extends PaginationProps {
+    slug?: string;
+}
+interface PaginationProps {
+    page?: number;
+    limit?: number;
+}
 type Config = any;
 declare class Cobalt {
     private baseUrl;
@@ -245,5 +270,24 @@ declare class Cobalt {
      * @returns {Promise<RuleOptions>} The specified rule field's options.
      */
     getFieldOptions(lhs: string, slug: string, fieldId: string, workflowId?: string): Promise<RuleOptions>;
+    /**
+     *
+     * @param {Object} params
+     * @param {String} [params.slug]
+     * @param {Number} [params.page]
+     * @param {Number} [params.limit]
+     * @returns
+     */
+    getWorkflows(params?: PublicWorkflowsPayload): Promise<PublicWorkflow[]>;
+    /**
+     * Create a public workflow for the linked account.
+     * @param {Object} params
+     * @param {String} params.name The workflow name.
+     * @param {String} [params.description] The workflow description.
+     * @param {String} [params.slug] The application slug in which this workflow should be created.
+     * If slug isn't set, the workflow will be created in the organization's default application.
+     * @returns {Promise<PublicWorkflow>} The created public workflow.
+     */
+    createWorkflow(params: PublicWorkflowPayload): Promise<PublicWorkflow>;
 }
 export { Cobalt };
