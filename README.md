@@ -19,6 +19,8 @@ yarn add @cobaltio/cobalt-js
 
 #### Browser
 ```html
+<!-- use this if you get an error saying `exports` is not defined. -->
+<script>var exports = {};</script>
 <!-- use a specific version -->
 <script src="https://cdn.jsdelivr.net/npm/@cobaltio/cobalt-js@8.0.0"></script>
 <!-- use a version range instead of a specific version -->
@@ -32,6 +34,8 @@ yarn add @cobaltio/cobalt-js
 #### Node
 ```js
 import { Cobalt } from "@cobaltio/cobalt-js";
+// or, if you're using CommonJS
+const { Cobalt } = require("@cobaltio/cobalt-js");
 ```
 
 ### Initialize
