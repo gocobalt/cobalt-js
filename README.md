@@ -44,6 +44,8 @@ const { Cobalt } = require("@cobaltio/cobalt-js");
 const cobalt = new Cobalt({
     // the token you generate for linked accounts using the cobalt backend SDK
     token: "COBALT_SESSION_TOKEN",
+    // OPTIONAL: set custom base url for all API requests. only useful if you are hosting Cobalt on premise.
+    baseUrl: "https://cobalt.example.com/backend",
 });
 
 // Or, initialize without token
