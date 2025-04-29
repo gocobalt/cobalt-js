@@ -264,6 +264,25 @@ class Cobalt {
         });
     }
     /**
+     * Returns the configs created for the specified application.
+     * @param {String} slug The application slug.
+     * @returns {Promise<{ config_id: string; }[]>} The configs created for the specified application.
+     */
+    getConfigs(slug) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const res = yield fetch(`${this.baseUrl}/api/v2/public/slug/${slug}/config`, {
+                headers: {
+                    authorization: `Bearer ${this.token}`,
+                },
+            });
+            if (res.status >= 400 && res.status < 600) {
+                const error = yield res.json();
+                throw error;
+            }
+            return yield res.json();
+        });
+    }
+    /**
      * Returns the specified config.
      * @param {String} slug The application slug.
      * @param {String} [configId] The unique ID of the config.
