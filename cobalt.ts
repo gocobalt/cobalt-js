@@ -431,6 +431,26 @@ class Cobalt {
     }
 
     /**
+     * Returns the configs created for the specified application.
+     * @param {String} slug The application slug.
+     * @returns {Promise<{ config_id: string; }[]>} The configs created for the specified application.
+     */
+    async getConfigs(slug: string): Promise<{ config_id: string; }[]> {
+        const res = await fetch(`${this.baseUrl}/api/v2/public/slug/${slug}/config`, {
+            headers: {
+                authorization: `Bearer ${this.token}`,
+            },
+        });
+
+        if (res.status >= 400 && res.status < 600) {
+            const error = await res.json();
+            throw error;
+        }
+
+        return await res.json();
+    }
+
+    /**
      * Returns the specified config.
      * @param {String} slug The application slug.
      * @param {String} [configId] The unique ID of the config.
