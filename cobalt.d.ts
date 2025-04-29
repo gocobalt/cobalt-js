@@ -211,6 +211,14 @@ declare class Cobalt {
      */
     config(payload: ConfigPayload): Promise<Config>;
     /**
+     * Returns the configs created for the specified application.
+     * @param {String} slug The application slug.
+     * @returns {Promise<{ config_id: string; }[]>} The configs created for the specified application.
+     */
+    getConfigs(slug: string): Promise<{
+        config_id: string;
+    }[]>;
+    /**
      * Returns the specified config.
      * @param {String} slug The application slug.
      * @param {String} [configId] The unique ID of the config.
