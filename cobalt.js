@@ -270,7 +270,7 @@ class Cobalt {
      */
     getConfigs(slug) {
         return __awaiter(this, void 0, void 0, function* () {
-            const res = yield fetch(`${this.baseUrl}/api/v2/public/slug/${slug}/config`, {
+            const res = yield fetch(`${this.baseUrl}/api/v2/public/slug/${slug}/configs`, {
                 headers: {
                     authorization: `Bearer ${this.token}`,
                 },
