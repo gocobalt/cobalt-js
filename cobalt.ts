@@ -436,7 +436,7 @@ class Cobalt {
      * @returns {Promise<{ config_id: string; }[]>} The configs created for the specified application.
      */
     async getConfigs(slug: string): Promise<{ config_id: string; }[]> {
-        const res = await fetch(`${this.baseUrl}/api/v2/public/slug/${slug}/config`, {
+        const res = await fetch(`${this.baseUrl}/api/v2/public/slug/${slug}/configs`, {
             headers: {
                 authorization: `Bearer ${this.token}`,
             },
