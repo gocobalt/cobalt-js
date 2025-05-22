@@ -29,7 +29,7 @@ export interface InputField {
     /** Input type of the field. */
     type: string;
     /** Whether the field is required. */
-    required: string;
+    required: boolean;
     /** The placeholder of the field. */
     placeholder: string;
     /** The label of the field. */
@@ -237,7 +237,7 @@ declare class Cobalt {
      * @param {String} [configId] The unique ID of the config.
      * @returns {Promise<unknown>}
      */
-    deleteConfig(slug: string, configId: string): Promise<unknown>;
+    deleteConfig(slug: string, configId?: string): Promise<unknown>;
     /**
      * Create a lead for an ecosystem app.
      * @param {EcosystemLeadPayload} payload The payload object for the lead.
