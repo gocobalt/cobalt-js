@@ -679,6 +679,7 @@ class Cobalt {
             method: "POST",
             headers: {
                 authorization: `Bearer ${this.token}`,
+                "content-type": "application/json",
             },
             body: JSON.stringify({
                 name: params.name,
