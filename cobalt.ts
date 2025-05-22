@@ -31,7 +31,7 @@ export interface InputField  {
     /** Input type of the field. */
     type: string;
     /** Whether the field is required. */
-    required: string;
+    required: boolean;
     /** The placeholder of the field. */
     placeholder: string;
     /** The label of the field. */
@@ -500,7 +500,7 @@ class Cobalt {
      * @param {String} [configId] The unique ID of the config.
      * @returns {Promise<unknown>}
      */
-    async deleteConfig(slug: string, configId: string): Promise<unknown> {
+    async deleteConfig(slug: string, configId?: string): Promise<unknown> {
         const res = await fetch(`${this.baseUrl}/api/v2/f-sdk/slug/${slug}/config${configId ? `/${configId}` : ""}`, {
             method: "DELETE",
             headers: {
