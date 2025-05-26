@@ -30,6 +30,8 @@
   },
   "homepage": "https://github.com/gocobalt/cobalt-js#readme",
   "devDependencies": {
+    "typedoc": "^0.28.4",
+    "typedoc-plugin-markdown": "^4.6.3",
     "typescript": "^5.3.2"
   }
 }
