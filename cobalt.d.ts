@@ -335,5 +335,11 @@ declare class Cobalt {
      * @returns {Promise<PublicWorkflow>} The created public workflow.
      */
     createWorkflow(params: PublicWorkflowPayload): Promise<PublicWorkflow>;
+    /**
+     * Delete the specified public workflow.
+     * @param {String} workflowId The workflow ID.
+     * @returns {Promise<unknown>}
+     */
+    deleteWorkflow(workflowId: string): Promise<unknown>;
 }
 export { Cobalt };
