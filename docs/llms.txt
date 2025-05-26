@@ -60,13 +60,17 @@ cobalt.token = "COBALT_SESSION_TOKEN";
 
 # Documentation
 
-Read the [SDK documentation here](https://gocobalt.github.io/cobalt-js).
+- You can read the [SDK documentation here](https://gocobalt.github.io/cobalt-js).
+
+- [`llms.txt`](https://gocobalt.github.io/cobalt-js/llms.txt)
+
+  This documentation is also available in [llms.txt](https://llmstxt.org) format, which is a simple markdown standard that LLMs can consume easily.
 
 ## Classes
 
 ### Cobalt
 
-Defined in: [cobalt.ts:196](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L196)
+Defined in: [cobalt.ts:196](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L196)
 
 #### Constructors
 
@@ -74,7 +78,7 @@ Defined in: [cobalt.ts:196](https://github.com/gocobalt/cobalt-js/blob/3168be92d
 
 > **new Cobalt**(`options`): [`Cobalt`](#cobalt)
 
-Defined in: [cobalt.ts:206](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L206)
+Defined in: [cobalt.ts:206](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L206)
 
 Cobalt Frontend SDK
 
@@ -92,7 +96,7 @@ Cobalt Frontend SDK
 
 | Property | Modifier | Type | Defined in |
 | ------ | ------ | ------ | ------ |
-| <a id="token"></a> `token` | `public` | `string` | [cobalt.ts:198](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L198) |
+| <a id="token"></a> `token` | `public` | `string` | [cobalt.ts:198](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L198) |
 
 #### Methods
 
@@ -100,7 +104,7 @@ Cobalt Frontend SDK
 
 > **config**(`payload`): `Promise`\<[`Config`](#config-2)\>
 
-Defined in: [cobalt.ts:453](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L453)
+Defined in: [cobalt.ts:453](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L453)
 
 Returns the specified config, or creates one if it doesn't exist.
 
@@ -120,7 +124,7 @@ The specified config.
 
 > **connect**(`slug`, `payload?`): `Promise`\<`boolean`\>
 
-Defined in: [cobalt.ts:393](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L393)
+Defined in: [cobalt.ts:393](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L393)
 
 Connect the specified application, optionally with the auth data that user provides.
 
@@ -141,7 +145,7 @@ Whether the connection was successful.
 
 > **createEcosystemLead**(`payload`): `Promise`\<[`EcosystemLead`](#ecosystemlead)\>
 
-Defined in: [cobalt.ts:565](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L565)
+Defined in: [cobalt.ts:565](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L565)
 
 Create a lead for an ecosystem app.
 
@@ -159,7 +163,7 @@ Create a lead for an ecosystem app.
 
 > **createWorkflow**(`params`): `Promise`\<[`PublicWorkflow`](#publicworkflow)\>
 
-Defined in: [cobalt.ts:718](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L718)
+Defined in: [cobalt.ts:718](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L718)
 
 Create a public workflow for the linked account.
 
@@ -179,7 +183,7 @@ The created public workflow.
 
 > **deleteConfig**(`slug`, `configId?`): `Promise`\<`unknown`\>
 
-Defined in: [cobalt.ts:544](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L544)
+Defined in: [cobalt.ts:544](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L544)
 
 Delete the specified config.
 
@@ -198,7 +202,7 @@ Delete the specified config.
 
 > **deleteConfigField**(`slug`, `fieldId`, `workflowId?`): `Promise`\<`unknown`\>
 
-Defined in: [cobalt.ts:640](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L640)
+Defined in: [cobalt.ts:640](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L640)
 
 Delete the specified config field value.
 
@@ -214,11 +218,29 @@ Delete the specified config field value.
 
 `Promise`\<`unknown`\>
 
+##### deleteWorkflow()
+
+> **deleteWorkflow**(`workflowId`): `Promise`\<`unknown`\>
+
+Defined in: [cobalt.ts:745](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L745)
+
+Delete the specified public workflow.
+
+###### Parameters
+
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `workflowId` | `string` | The workflow ID. |
+
+###### Returns
+
+`Promise`\<`unknown`\>
+
 ##### disconnect()
 
 > **disconnect**(`slug`): `Promise`\<`void`\>
 
-Defined in: [cobalt.ts:434](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L434)
+Defined in: [cobalt.ts:434](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L434)
 
 Disconnect the specified application and remove any associated data from Cobalt.
 
@@ -246,7 +268,7 @@ The application slug.
 
 > **getApp**(): `Promise`\<[`Application`](#application)[]\>
 
-Defined in: [cobalt.ts:266](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L266)
+Defined in: [cobalt.ts:266](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L266)
 
 Returns the list of enabled applications and their details.
 
@@ -264,7 +286,7 @@ The application slug.
 
 > **getApp**(`slug`): `Promise`\<[`Application`](#application)\>
 
-Defined in: [cobalt.ts:273](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L273)
+Defined in: [cobalt.ts:273](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L273)
 
 Returns the application details for the specified application, provided
 the application is enabled in Cobalt.
@@ -289,7 +311,7 @@ The application slug.
 
 > **getApps**(): `Promise`\<[`Application`](#application)[]\>
 
-Defined in: [cobalt.ts:301](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L301)
+Defined in: [cobalt.ts:301](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L301)
 
 Returns all the enabled and ecosystem apps.
 
@@ -303,7 +325,7 @@ The list of applications.
 
 > **getConfig**(`slug`, `configId?`): `Promise`\<[`Config`](#config-2)\>
 
-Defined in: [cobalt.ts:500](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L500)
+Defined in: [cobalt.ts:500](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L500)
 
 Returns the specified config.
 
@@ -324,7 +346,7 @@ The specified config.
 
 > **getConfigField**(`slug`, `fieldId`, `workflowId?`): `Promise`\<[`Config`](#config-2)\>
 
-Defined in: [cobalt.ts:590](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L590)
+Defined in: [cobalt.ts:590](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L590)
 
 Returns the specified field of the config.
 
@@ -346,7 +368,7 @@ The specified config field.
 
 > **getConfigs**(`slug`): `Promise`\<`object`[]\>
 
-Defined in: [cobalt.ts:479](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L479)
+Defined in: [cobalt.ts:479](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L479)
 
 Returns the configs created for the specified application.
 
@@ -366,7 +388,7 @@ The configs created for the specified application.
 
 > **getFieldOptions**(`lhs`, `slug`, `fieldId`, `workflowId?`): `Promise`\<[`RuleOptions`](#ruleoptions)\>
 
-Defined in: [cobalt.ts:665](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L665)
+Defined in: [cobalt.ts:665](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L665)
 
 Returns the options for the specified field.
 
@@ -389,7 +411,7 @@ The specified rule field's options.
 
 > **getWorkflows**(`params?`): `Promise`\<[`PublicWorkflow`](#publicworkflow)[]\>
 
-Defined in: [cobalt.ts:694](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L694)
+Defined in: [cobalt.ts:694](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L694)
 
 ###### Parameters
 
@@ -405,7 +427,7 @@ Defined in: [cobalt.ts:694](https://github.com/gocobalt/cobalt-js/blob/3168be92d
 
 > **updateConfig**(`payload`): `Promise`\<[`Config`](#config-2)\>
 
-Defined in: [cobalt.ts:520](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L520)
+Defined in: [cobalt.ts:520](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L520)
 
 Update the specified config.
 
@@ -425,7 +447,7 @@ The specified config.
 
 > **updateConfigField**(`slug`, `fieldId`, `value`, `workflowId?`): `Promise`\<[`Config`](#config-2)\>
 
-Defined in: [cobalt.ts:614](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L614)
+Defined in: [cobalt.ts:614](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L614)
 
 Update the specified config field value.
 
@@ -448,7 +470,7 @@ The updated config field.
 
 ### Application
 
-Defined in: [cobalt.ts:6](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L6)
+Defined in: [cobalt.ts:6](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L6)
 
 An application in Cobalt.
 
@@ -456,71 +478,71 @@ An application in Cobalt.
 
 | Property | Type | Description | Defined in |
 | ------ | ------ | ------ | ------ |
-| <a id="auth_input_map"></a> `auth_input_map?` | [`InputField`](#inputfield)[] | The fields required from the user to connect the application (for `keybased` auth type). | [cobalt.ts:24](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L24) |
-| <a id="auth_type"></a> `auth_type` | `"oauth2"` \| `"keybased"` | The type of auth used by application. | [cobalt.ts:18](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L18) |
-| <a id="connected"></a> `connected?` | `boolean` | Whether the user has connected the application. | [cobalt.ts:20](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L20) |
-| <a id="description"></a> `description` | `string` | The application description. | [cobalt.ts:10](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L10) |
-| <a id="icon"></a> `icon` | `string` | The application icon. | [cobalt.ts:12](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L12) |
-| <a id="name"></a> `name` | `string` | The application name. | [cobalt.ts:8](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L8) |
-| <a id="reauth_required"></a> `reauth_required?` | `boolean` | Whether the connection has expired and re-auth is required. | [cobalt.ts:22](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L22) |
-| <a id="slug"></a> `slug?` | `string` | The application slug for custom apps. | [cobalt.ts:16](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L16) |
-| <a id="type"></a> `type` | `string` | The application slug for native apps. | [cobalt.ts:14](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L14) |
+| <a id="auth_input_map"></a> `auth_input_map?` | [`InputField`](#inputfield)[] | The fields required from the user to connect the application (for `keybased` auth type). | [cobalt.ts:24](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L24) |
+| <a id="auth_type"></a> `auth_type` | `"oauth2"` \| `"keybased"` | The type of auth used by application. | [cobalt.ts:18](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L18) |
+| <a id="connected"></a> `connected?` | `boolean` | Whether the user has connected the application. | [cobalt.ts:20](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L20) |
+| <a id="description"></a> `description` | `string` | The application description. | [cobalt.ts:10](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L10) |
+| <a id="icon"></a> `icon` | `string` | The application icon. | [cobalt.ts:12](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L12) |
+| <a id="name"></a> `name` | `string` | The application name. | [cobalt.ts:8](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L8) |
+| <a id="reauth_required"></a> `reauth_required?` | `boolean` | Whether the connection has expired and re-auth is required. | [cobalt.ts:22](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L22) |
+| <a id="slug"></a> `slug?` | `string` | The application slug for custom apps. | [cobalt.ts:16](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L16) |
+| <a id="type"></a> `type` | `string` | The application slug for native apps. | [cobalt.ts:14](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L14) |
 
 ***
 
 ### CobaltOptions
 
-Defined in: [cobalt.ts:81](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L81)
+Defined in: [cobalt.ts:81](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L81)
 
 #### Properties
 
 | Property | Type | Description | Defined in |
 | ------ | ------ | ------ | ------ |
-| <a id="baseurl"></a> `baseUrl?` | `string` | The base URL of the Cobalt API. You don't need to set this. | [cobalt.ts:83](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L83) |
-| <a id="token-1"></a> `token?` | `string` | The session token. | [cobalt.ts:85](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L85) |
+| <a id="baseurl"></a> `baseUrl?` | `string` | The base URL of the Cobalt API. You don't need to set this. | [cobalt.ts:83](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L83) |
+| <a id="token-1"></a> `token?` | `string` | The session token. | [cobalt.ts:85](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L85) |
 
 ***
 
 ### Config
 
-Defined in: [cobalt.ts:152](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L152)
+Defined in: [cobalt.ts:152](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L152)
 
 #### Properties
 
 | Property | Type | Defined in |
 | ------ | ------ | ------ |
-| <a id="config_id"></a> `config_id?` | `string` | [cobalt.ts:154](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L154) |
-| <a id="field_errors"></a> `field_errors?` | `object`[] | [cobalt.ts:157](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L157) |
-| <a id="fields"></a> `fields?` | [`ConfigField`](#configfield)[] | [cobalt.ts:155](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L155) |
-| <a id="slug-1"></a> `slug` | `string` | [cobalt.ts:153](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L153) |
-| <a id="workflows"></a> `workflows?` | [`ConfigWorkflow`](#configworkflow)[] | [cobalt.ts:156](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L156) |
+| <a id="config_id"></a> `config_id?` | `string` | [cobalt.ts:154](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L154) |
+| <a id="field_errors"></a> `field_errors?` | `object`[] | [cobalt.ts:157](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L157) |
+| <a id="fields"></a> `fields?` | [`ConfigField`](#configfield)[] | [cobalt.ts:155](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L155) |
+| <a id="slug-1"></a> `slug` | `string` | [cobalt.ts:153](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L153) |
+| <a id="workflows"></a> `workflows?` | [`ConfigWorkflow`](#configworkflow)[] | [cobalt.ts:156](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L156) |
 
 ***
 
 ### ConfigField
 
-Defined in: [cobalt.ts:167](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L167)
+Defined in: [cobalt.ts:167](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L167)
 
 #### Properties
 
 | Property | Type | Defined in |
 | ------ | ------ | ------ |
-| <a id="field_type"></a> `field_type` | `string` | [cobalt.ts:170](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L170) |
-| <a id="hidden"></a> `hidden?` | `boolean` | [cobalt.ts:182](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L182) |
-| <a id="id"></a> `id` | `string` | [cobalt.ts:168](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L168) |
-| <a id="labels"></a> `labels?` | `object`[] | [cobalt.ts:176](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L176) |
-| <a id="multiple"></a> `multiple?` | `boolean` | [cobalt.ts:180](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L180) |
-| <a id="name-1"></a> `name` | `string` | [cobalt.ts:169](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L169) |
-| <a id="options"></a> `options?` | `object`[] | [cobalt.ts:171](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L171) |
-| <a id="parent"></a> `parent?` | `string` | [cobalt.ts:175](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L175) |
-| <a id="required"></a> `required?` | `boolean` | [cobalt.ts:181](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L181) |
-| <a id="value"></a> `value?` | `any` | [cobalt.ts:183](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L183) |
+| <a id="field_type"></a> `field_type` | `string` | [cobalt.ts:170](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L170) |
+| <a id="hidden"></a> `hidden?` | `boolean` | [cobalt.ts:182](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L182) |
+| <a id="id"></a> `id` | `string` | [cobalt.ts:168](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L168) |
+| <a id="labels"></a> `labels?` | `object`[] | [cobalt.ts:176](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L176) |
+| <a id="multiple"></a> `multiple?` | `boolean` | [cobalt.ts:180](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L180) |
+| <a id="name-1"></a> `name` | `string` | [cobalt.ts:169](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L169) |
+| <a id="options"></a> `options?` | `object`[] | [cobalt.ts:171](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L171) |
+| <a id="parent"></a> `parent?` | `string` | [cobalt.ts:175](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L175) |
+| <a id="required"></a> `required?` | `boolean` | [cobalt.ts:181](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L181) |
+| <a id="value"></a> `value?` | `any` | [cobalt.ts:183](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L183) |
 
 ***
 
 ### ConfigPayload
 
-Defined in: [cobalt.ts:42](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L42)
+Defined in: [cobalt.ts:42](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L42)
 
 The payload object for config.
 
@@ -528,62 +550,62 @@ The payload object for config.
 
 | Property | Type | Description | Defined in |
 | ------ | ------ | ------ | ------ |
-| <a id="config_id-1"></a> `config_id?` | `string` | Unique ID for the config. | [cobalt.ts:46](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L46) |
-| <a id="labels-1"></a> `labels?` | [`Label`](#label-1)[] | The dynamic label mappings. | [cobalt.ts:48](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L48) |
-| <a id="slug-2"></a> `slug` | `string` | The application slug. | [cobalt.ts:44](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L44) |
+| <a id="config_id-1"></a> `config_id?` | `string` | Unique ID for the config. | [cobalt.ts:46](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L46) |
+| <a id="labels-1"></a> `labels?` | [`Label`](#label-1)[] | The dynamic label mappings. | [cobalt.ts:48](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L48) |
+| <a id="slug-2"></a> `slug` | `string` | The application slug. | [cobalt.ts:44](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L44) |
 
 ***
 
 ### ConfigWorkflow
 
-Defined in: [cobalt.ts:186](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L186)
+Defined in: [cobalt.ts:186](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L186)
 
 #### Properties
 
 | Property | Type | Defined in |
 | ------ | ------ | ------ |
-| <a id="description-1"></a> `description?` | `string` | [cobalt.ts:189](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L189) |
-| <a id="enabled"></a> `enabled` | `boolean` | [cobalt.ts:190](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L190) |
-| <a id="fields-1"></a> `fields?` | [`ConfigField`](#configfield)[] | [cobalt.ts:191](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L191) |
-| <a id="id-1"></a> `id` | `string` | [cobalt.ts:187](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L187) |
-| <a id="name-2"></a> `name` | `string` | [cobalt.ts:188](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L188) |
+| <a id="description-1"></a> `description?` | `string` | [cobalt.ts:189](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L189) |
+| <a id="enabled"></a> `enabled` | `boolean` | [cobalt.ts:190](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L190) |
+| <a id="fields-1"></a> `fields?` | [`ConfigField`](#configfield)[] | [cobalt.ts:191](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L191) |
+| <a id="id-1"></a> `id` | `string` | [cobalt.ts:187](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L187) |
+| <a id="name-2"></a> `name` | `string` | [cobalt.ts:188](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L188) |
 
 ***
 
 ### EcosystemLead
 
-Defined in: [cobalt.ts:88](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L88)
+Defined in: [cobalt.ts:88](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L88)
 
 #### Properties
 
 | Property | Type | Defined in |
 | ------ | ------ | ------ |
-| <a id="_id"></a> `_id` | `string` | [cobalt.ts:89](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L89) |
-| <a id="created_at"></a> `created_at` | `string` | [cobalt.ts:93](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L93) |
-| <a id="description-2"></a> `description?` | `string` | [cobalt.ts:92](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L92) |
-| <a id="email"></a> `email` | `string` | [cobalt.ts:91](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L91) |
-| <a id="name-3"></a> `name?` | `string` | [cobalt.ts:90](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L90) |
+| <a id="_id"></a> `_id` | `string` | [cobalt.ts:89](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L89) |
+| <a id="created_at"></a> `created_at` | `string` | [cobalt.ts:93](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L93) |
+| <a id="description-2"></a> `description?` | `string` | [cobalt.ts:92](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L92) |
+| <a id="email"></a> `email` | `string` | [cobalt.ts:91](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L91) |
+| <a id="name-3"></a> `name?` | `string` | [cobalt.ts:90](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L90) |
 
 ***
 
 ### EcosystemLeadPayload
 
-Defined in: [cobalt.ts:96](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L96)
+Defined in: [cobalt.ts:96](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L96)
 
 #### Properties
 
 | Property | Type | Defined in |
 | ------ | ------ | ------ |
-| <a id="description-3"></a> `description?` | `string` | [cobalt.ts:100](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L100) |
-| <a id="email-1"></a> `email` | `string` | [cobalt.ts:99](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L99) |
-| <a id="name-4"></a> `name?` | `string` | [cobalt.ts:98](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L98) |
-| <a id="slug-3"></a> `slug` | `string` | [cobalt.ts:97](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L97) |
+| <a id="description-3"></a> `description?` | `string` | [cobalt.ts:100](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L100) |
+| <a id="email-1"></a> `email` | `string` | [cobalt.ts:99](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L99) |
+| <a id="name-4"></a> `name?` | `string` | [cobalt.ts:98](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L98) |
+| <a id="slug-3"></a> `slug` | `string` | [cobalt.ts:97](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L97) |
 
 ***
 
 ### InputField
 
-Defined in: [cobalt.ts:28](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L28)
+Defined in: [cobalt.ts:28](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L28)
 
 An Input field to take input from the user.
 
@@ -591,17 +613,17 @@ An Input field to take input from the user.
 
 | Property | Type | Description | Defined in |
 | ------ | ------ | ------ | ------ |
-| <a id="label"></a> `label` | `string` | The label of the field. | [cobalt.ts:38](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L38) |
-| <a id="name-5"></a> `name` | `string` | Key name of the field. | [cobalt.ts:30](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L30) |
-| <a id="placeholder"></a> `placeholder` | `string` | The placeholder of the field. | [cobalt.ts:36](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L36) |
-| <a id="required-1"></a> `required` | `boolean` | Whether the field is required. | [cobalt.ts:34](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L34) |
-| <a id="type-1"></a> `type` | `string` | Input type of the field. | [cobalt.ts:32](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L32) |
+| <a id="label"></a> `label` | `string` | The label of the field. | [cobalt.ts:38](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L38) |
+| <a id="name-5"></a> `name` | `string` | Key name of the field. | [cobalt.ts:30](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L30) |
+| <a id="placeholder"></a> `placeholder` | `string` | The placeholder of the field. | [cobalt.ts:36](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L36) |
+| <a id="required-1"></a> `required` | `boolean` | Whether the field is required. | [cobalt.ts:34](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L34) |
+| <a id="type-1"></a> `type` | `string` | Input type of the field. | [cobalt.ts:32](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L32) |
 
 ***
 
 ### Label
 
-Defined in: [cobalt.ts:52](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L52)
+Defined in: [cobalt.ts:52](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L52)
 
 Label Mapping
 
@@ -609,14 +631,14 @@ Label Mapping
 
 | Property | Type | Description | Defined in |
 | ------ | ------ | ------ | ------ |
-| <a id="name-6"></a> `name` | `string` | The label name. | [cobalt.ts:54](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L54) |
-| <a id="value-1"></a> `value` | `string` \| `number` \| `boolean` | The label value. | [cobalt.ts:56](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L56) |
+| <a id="name-6"></a> `name` | `string` | The label name. | [cobalt.ts:54](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L54) |
+| <a id="value-1"></a> `value` | `string` \| `number` \| `boolean` | The label value. | [cobalt.ts:56](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L56) |
 
 ***
 
 ### PublicWorkflow
 
-Defined in: [cobalt.ts:124](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L124)
+Defined in: [cobalt.ts:124](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L124)
 
 A public workflow in Cobalt.
 
@@ -624,15 +646,15 @@ A public workflow in Cobalt.
 
 | Property | Type | Description | Defined in |
 | ------ | ------ | ------ | ------ |
-| <a id="_id-1"></a> `_id` | `string` | The workflow ID. | [cobalt.ts:126](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L126) |
-| <a id="description-4"></a> `description?` | `string` | The workflow description. | [cobalt.ts:130](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L130) |
-| <a id="name-7"></a> `name` | `string` | The workflow name. | [cobalt.ts:128](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L128) |
+| <a id="_id-1"></a> `_id` | `string` | The workflow ID. | [cobalt.ts:126](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L126) |
+| <a id="description-4"></a> `description?` | `string` | The workflow description. | [cobalt.ts:130](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L130) |
+| <a id="name-7"></a> `name` | `string` | The workflow name. | [cobalt.ts:128](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L128) |
 
 ***
 
 ### PublicWorkflowPayload
 
-Defined in: [cobalt.ts:134](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L134)
+Defined in: [cobalt.ts:134](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L134)
 
 The payload for creating a public workflow for the linked account.
 
@@ -640,15 +662,15 @@ The payload for creating a public workflow for the linked account.
 
 | Property | Type | Description | Defined in |
 | ------ | ------ | ------ | ------ |
-| <a id="description-5"></a> `description?` | `string` | The workflow description. | [cobalt.ts:138](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L138) |
-| <a id="name-8"></a> `name` | `string` | The workflow name. | [cobalt.ts:136](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L136) |
-| <a id="slug-4"></a> `slug?` | `string` | The application slug in which this workflow should be created. | [cobalt.ts:140](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L140) |
+| <a id="description-5"></a> `description?` | `string` | The workflow description. | [cobalt.ts:138](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L138) |
+| <a id="name-8"></a> `name` | `string` | The workflow name. | [cobalt.ts:136](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L136) |
+| <a id="slug-4"></a> `slug?` | `string` | The application slug in which this workflow should be created. | [cobalt.ts:140](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L140) |
 
 ***
 
 ### PublicWorkflowsPayload
 
-Defined in: [cobalt.ts:143](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L143)
+Defined in: [cobalt.ts:143](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L143)
 
 #### Extends
 
@@ -658,39 +680,39 @@ Defined in: [cobalt.ts:143](https://github.com/gocobalt/cobalt-js/blob/3168be92d
 
 | Property | Type | Inherited from | Defined in |
 | ------ | ------ | ------ | ------ |
-| <a id="limit"></a> `limit?` | `number` | `PaginationProps.limit` | [cobalt.ts:149](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L149) |
-| <a id="page"></a> `page?` | `number` | `PaginationProps.page` | [cobalt.ts:148](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L148) |
-| <a id="slug-5"></a> `slug?` | `string` | - | [cobalt.ts:144](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L144) |
+| <a id="limit"></a> `limit?` | `number` | `PaginationProps.limit` | [cobalt.ts:149](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L149) |
+| <a id="page"></a> `page?` | `number` | `PaginationProps.page` | [cobalt.ts:148](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L148) |
+| <a id="slug-5"></a> `slug?` | `string` | - | [cobalt.ts:144](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L144) |
 
 ***
 
 ### RuleOptions
 
-Defined in: [cobalt.ts:103](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L103)
+Defined in: [cobalt.ts:103](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L103)
 
 #### Properties
 
 | Property | Type | Defined in |
 | ------ | ------ | ------ |
-| <a id="conditional_code_stdout"></a> `conditional_code_stdout?` | `string`[] | [cobalt.ts:116](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L116) |
-| <a id="error"></a> `error?` | `object` | [cobalt.ts:117](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L117) |
-| `error.message?` | `string` | [cobalt.ts:118](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L118) |
-| `error.stack?` | `string` | [cobalt.ts:119](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L119) |
-| <a id="rule_column"></a> `rule_column` | `object` | [cobalt.ts:104](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L104) |
-| `rule_column.operator` | `object` | [cobalt.ts:110](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L110) |
-| `rule_column.operator.name` | `string` | [cobalt.ts:111](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L111) |
-| `rule_column.operator.options` | [`Label`](#label-1)[] | [cobalt.ts:113](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L113) |
-| `rule_column.operator.type` | `"select"` | [cobalt.ts:112](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L112) |
-| `rule_column.rhs` | `object` | [cobalt.ts:105](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L105) |
-| `rule_column.rhs.name` | `string` | [cobalt.ts:106](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L106) |
-| `rule_column.rhs.options?` | [`Label`](#label-1)[] | [cobalt.ts:108](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L108) |
-| `rule_column.rhs.type` | `"text"` \| `"select"` | [cobalt.ts:107](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L107) |
+| <a id="conditional_code_stdout"></a> `conditional_code_stdout?` | `string`[] | [cobalt.ts:116](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L116) |
+| <a id="error"></a> `error?` | `object` | [cobalt.ts:117](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L117) |
+| `error.message?` | `string` | [cobalt.ts:118](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L118) |
+| `error.stack?` | `string` | [cobalt.ts:119](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L119) |
+| <a id="rule_column"></a> `rule_column` | `object` | [cobalt.ts:104](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L104) |
+| `rule_column.operator` | `object` | [cobalt.ts:110](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L110) |
+| `rule_column.operator.name` | `string` | [cobalt.ts:111](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L111) |
+| `rule_column.operator.options` | [`Label`](#label-1)[] | [cobalt.ts:113](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L113) |
+| `rule_column.operator.type` | `"select"` | [cobalt.ts:112](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L112) |
+| `rule_column.rhs` | `object` | [cobalt.ts:105](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L105) |
+| `rule_column.rhs.name` | `string` | [cobalt.ts:106](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L106) |
+| `rule_column.rhs.options?` | [`Label`](#label-1)[] | [cobalt.ts:108](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L108) |
+| `rule_column.rhs.type` | `"text"` \| `"select"` | [cobalt.ts:107](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L107) |
 
 ***
 
 ### UpdateConfigPayload
 
-Defined in: [cobalt.ts:60](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L60)
+Defined in: [cobalt.ts:60](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L60)
 
 The configuration data for an application.
 
@@ -698,16 +720,16 @@ The configuration data for an application.
 
 | Property | Type | Description | Defined in |
 | ------ | ------ | ------ | ------ |
-| <a id="config_id-2"></a> `config_id?` | `string` | Unique ID for the config. | [cobalt.ts:64](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L64) |
-| <a id="fields-2"></a> `fields` | `Record`\<`string`, `string` \| `number` \| `boolean`\> | A map of application fields and their values. | [cobalt.ts:66](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L66) |
-| <a id="slug-6"></a> `slug` | `string` | The application slug | [cobalt.ts:62](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L62) |
-| <a id="workflows-1"></a> `workflows` | [`WorkflowPayload`](#workflowpayload)[] | The config workflows data. | [cobalt.ts:68](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L68) |
+| <a id="config_id-2"></a> `config_id?` | `string` | Unique ID for the config. | [cobalt.ts:64](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L64) |
+| <a id="fields-2"></a> `fields` | `Record`\<`string`, `string` \| `number` \| `boolean`\> | A map of application fields and their values. | [cobalt.ts:66](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L66) |
+| <a id="slug-6"></a> `slug` | `string` | The application slug | [cobalt.ts:62](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L62) |
+| <a id="workflows-1"></a> `workflows` | [`WorkflowPayload`](#workflowpayload)[] | The config workflows data. | [cobalt.ts:68](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L68) |
 
 ***
 
 ### WorkflowPayload
 
-Defined in: [cobalt.ts:72](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L72)
+Defined in: [cobalt.ts:72](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L72)
 
 The workflow.
 
@@ -715,6 +737,6 @@ The workflow.
 
 | Property | Type | Description | Defined in |
 | ------ | ------ | ------ | ------ |
-| <a id="enabled-1"></a> `enabled` | `boolean` | Whether the workflow is enabled. | [cobalt.ts:76](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L76) |
-| <a id="fields-3"></a> `fields` | `Record`\<`string`, `string` \| `number` \| `boolean`\> | A map of workflow field names and their values. | [cobalt.ts:78](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L78) |
-| <a id="id-2"></a> `id` | `string` | The ID of the workflow. | [cobalt.ts:74](https://github.com/gocobalt/cobalt-js/blob/3168be92db1d256ea27fa0a50ce26625f2106048/cobalt.ts#L74) |
+| <a id="enabled-1"></a> `enabled` | `boolean` | Whether the workflow is enabled. | [cobalt.ts:76](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L76) |
+| <a id="fields-3"></a> `fields` | `Record`\<`string`, `string` \| `number` \| `boolean`\> | A map of workflow field names and their values. | [cobalt.ts:78](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L78) |
+| <a id="id-2"></a> `id` | `string` | The ID of the workflow. | [cobalt.ts:74](https://github.com/gocobalt/cobalt-js/blob/b0775f9f64cc18029ce91bf46d52322be65eaa24/cobalt.ts#L74) |
