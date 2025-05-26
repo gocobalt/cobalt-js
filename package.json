@@ -7,6 +7,7 @@
   "scripts": {
     "build": "tsc",
     "docs": "npx typedoc cobalt.ts",
+    "docs:llms": "npx typedoc cobalt.ts --plugin typedoc-plugin-markdown --mergeReadme --enumMembersFormat table --parametersFormat table --propertiesFormat table --typeDeclarationFormat table --indexFormat table --outputFileStrategy modules --cleanOutputDir false --fileExtension .txt --out docs --entryFileName llms",
     "test": "echo \"Warn: no test specified\""
   },
   "repository": {
