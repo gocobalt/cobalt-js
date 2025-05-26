@@ -518,5 +518,25 @@ class Cobalt {
             return yield res.json();
         });
     }
+    /**
+     * Delete the specified public workflow.
+     * @param {String} workflowId The workflow ID.
+     * @returns {Promise<unknown>}
+     */
+    deleteWorkflow(workflowId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const res = yield fetch(`${this.baseUrl}/api/v2/public/workflow/${workflowId}`, {
+                method: "DELETE",
+                headers: {
+                    authorization: `Bearer ${this.token}`,
+                },
+            });
+            if (res.status >= 400 && res.status < 600) {
+                const error = yield res.json();
+                throw error;
+            }
+            return yield res.json();
+        });
+    }
 }
 exports.Cobalt = Cobalt;
