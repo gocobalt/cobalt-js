@@ -736,6 +736,27 @@ class Cobalt {
 
         return await res.json();
     }
+
+    /**
+     * Delete the specified public workflow.
+     * @param {String} workflowId The workflow ID.
+     * @returns {Promise<unknown>}
+     */
+    async deleteWorkflow(workflowId: string): Promise<unknown> {
+        const res = await fetch(`${this.baseUrl}/api/v2/public/workflow/${workflowId}`, {
+            method: "DELETE",
+            headers: {
+                authorization: `Bearer ${this.token}`,
+            },
+        });
+
+        if (res.status >= 400 && res.status < 600) {
+            const error = await res.json();
+            throw error;
+        }
+
+        return await res.json();
+    }
 }
 
 export { Cobalt };
