@@ -149,7 +149,48 @@ interface PaginationProps {
     limit?: number;
 }
 
-type Config = any;
+export interface Config {
+    slug: string;
+    config_id?: string;
+    fields?: ConfigField[];
+    workflows?: ConfigWorkflow[];
+    field_errors?: {
+        id: string;
+        name: string;
+        error: {
+            message: string;
+            error?: unknown;
+        };
+    }[];
+}
+
+export interface ConfigField {
+    id: string;
+    name: string;
+    field_type: "text" | "date" | "number" | "url" | "email" | "textarea" | "select" | "json" | "map" | "map_v2" | "rule_engine" | string;
+    options?: {
+        name?: string;
+        value: string;
+    }[];
+    parent?: string;
+    labels?: {
+        name?: string;
+        value: string;
+    }[];
+    multiple?: boolean;
+    required?: boolean;
+    hidden?: boolean;
+    value?: any;
+}
+
+export interface ConfigWorkflow {
+    id: string;
+    name: string;
+    description?: string;
+    enabled: boolean;
+    fields?: ConfigField[];
+}
+
 type Field = any;
 
 class Cobalt {
