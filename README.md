@@ -56,4 +56,8 @@ cobalt.token = "COBALT_SESSION_TOKEN";
 
 # Documentation
 
-Read the [SDK documentation here](https://gocobalt.github.io/cobalt-js).
+- You can read the [SDK documentation here](https://gocobalt.github.io/cobalt-js).
+
+- [`llms.txt`](https://gocobalt.github.io/cobalt-js/llms.txt)
+
+  This documentation is also available in [llms.txt](https://llmstxt.org) format, which is a simple markdown standard that LLMs can consume easily.
