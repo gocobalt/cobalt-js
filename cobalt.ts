@@ -227,6 +227,41 @@ export interface ConfigWorkflow {
     fields?: ConfigField[];
 }
 
+export interface Execution {
+    _id: string;
+    id?: string;
+    name: string;
+    org_id: string;
+    associated_application: {
+        _id: string;
+        name: string;
+        icon?: string;
+    },
+    status: "COMPLETED" | "RUNNING" | "ERRORED" | "STOPPED" | "STOPPING" | "TIMED_OUT",
+    associated_workflow: {
+        _id: string;
+        name: string;
+    },
+    associated_trigger_application: {
+        _id: string;
+        name: string;
+        icon?: string;
+        app_type?: "custom" | string;
+        origin_trigger: {
+            _id: string;
+            name: string;
+        }
+    },
+    trigger_application_event?: string;
+    linked_account_id: string;
+    environment: "test" | "production";
+    config_id: string;
+    associated_event_id: string;
+    custom_trigger_id?: string;
+    custom_application_id?: string;
+    createdAt: string;
+}
+
 type Field = any;
 
 class Cobalt {
@@ -783,6 +818,48 @@ class Cobalt {
     async deleteWorkflow(workflowId: string): Promise<unknown> {
         const res = await fetch(`${this.baseUrl}/api/v2/public/workflow/${workflowId}`, {
             method: "DELETE",
+            headers: {
+                authorization: `Bearer ${this.token}`,
+            },
+        });
+
+        if (res.status >= 400 && res.status < 600) {
+            const error = await res.json();
+            throw error;
+        }
+
+        return await res.json();
+    }
+
+    /**
+     * Returns the workflow execution logs for the linked account.
+     * @param {Object} [params]
+     * @param {Number} [params.page]
+     * @param {Number} [params.limit]
+     * @returns {Promise<PaginatedResponse<Execution>>} The paginated workflow execution logs.
+     */
+    async getExecutions({ page = 1, limit = 10 }: PaginationProps = {}): Promise<PaginatedResponse<Execution>> {
+        const res = await fetch(`${this.baseUrl}/api/v2/public/execution?page=${page}&limit=${limit}`, {
+            headers: {
+                authorization: `Bearer ${this.token}`,
+            },
+        });
+
+        if (res.status >= 400 && res.status < 600) {
+            const error = await res.json();
+            throw error;
+        }
+
+        return await res.json();
+    }
+
+    /**
+     * Returns the specified workflow execution log.
+     * @param {String} executionId The execution ID.
+     * @returns {Promise<Execution>} The specified execution log.
+     */
+    async getExecution(executionId: string): Promise<Execution> {
+        const res = await fetch(`${this.baseUrl}/api/v2/public/execution/${executionId}`, {
             headers: {
                 authorization: `Bearer ${this.token}`,
             },
