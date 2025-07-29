@@ -94,12 +94,12 @@ class Cobalt {
         });
     }
     /**
-     * Returns all the enabled and ecosystem apps.
+     * Returns all the enabled apps.
      * @returns {Promise<Application[]>} The list of applications.
      */
     getApps() {
         return __awaiter(this, void 0, void 0, function* () {
-            const res = yield fetch(`${this.baseUrl}/api/v2/f-sdk/application?ecosystem=true`, {
+            const res = yield fetch(`${this.baseUrl}/api/v2/f-sdk/application`, {
                 headers: {
                     authorization: `Bearer ${this.token}`,
                 },
@@ -346,6 +346,7 @@ class Cobalt {
         });
     }
     /**
+     * @deprecated
      * Create a lead for an ecosystem app.
      * @param {EcosystemLeadPayload} payload The payload object for the lead.
      * @returns {Promise<EcosystemLead>}
@@ -529,6 +530,46 @@ class Cobalt {
         return __awaiter(this, void 0, void 0, function* () {
             const res = yield fetch(`${this.baseUrl}/api/v2/public/workflow/${workflowId}`, {
                 method: "DELETE",
+                headers: {
+                    authorization: `Bearer ${this.token}`,
+                },
+            });
+            if (res.status >= 400 && res.status < 600) {
+                const error = yield res.json();
+                throw error;
+            }
+            return yield res.json();
+        });
+    }
+    /**
+     * Returns the workflow execution logs for the linked account.
+     * @param {Object} [params]
+     * @param {Number} [params.page]
+     * @param {Number} [params.limit]
+     * @returns {Promise<PaginatedResponse<Execution>>} The paginated workflow execution logs.
+     */
+    getExecutions({ page = 1, limit = 10 } = {}) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const res = yield fetch(`${this.baseUrl}/api/v2/public/execution?page=${page}&limit=${limit}`, {
+                headers: {
+                    authorization: `Bearer ${this.token}`,
+                },
+            });
+            if (res.status >= 400 && res.status < 600) {
+                const error = yield res.json();
+                throw error;
+            }
+            return yield res.json();
+        });
+    }
+    /**
+     * Returns the specified workflow execution log.
+     * @param {String} executionId The execution ID.
+     * @returns {Promise<Execution>} The specified execution log.
+     */
+    getExecution(executionId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const res = yield fetch(`${this.baseUrl}/api/v2/public/execution/${executionId}`, {
                 headers: {
                     authorization: `Bearer ${this.token}`,
                 },
