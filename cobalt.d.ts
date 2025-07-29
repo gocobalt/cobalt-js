@@ -3,16 +3,21 @@
  */
 /** An application in Cobalt. */
 export interface Application {
+    /** Application ID */
+    app_id: string;
     /**The application name. */
     name: string;
     /**The application description. */
     description: string;
     /**The application icon. */
     icon: string;
-    /**The application slug for native apps. */
-    type: string;
-    /** The application slug for custom apps. */
-    slug?: string;
+    /**
+     * @deprecated Use `slug` instead.
+     * The application slug for native apps and `custom` for custom apps.
+     */
+    type: string | "custom";
+    /** The application slug. */
+    slug: string;
     /**The type of auth used by application. */
     auth_type: "oauth2" | "keybased";
     /** Whether the user has connected the application. */
@@ -21,6 +26,8 @@ export interface Application {
     reauth_required?: boolean;
     /** The fields required from the user to connect the application (for `keybased` auth type). */
     auth_input_map?: InputField[];
+    /** The categories/tags for the application. */
+    tags?: string[];
 }
 /** An Input field to take input from the user. */
 export interface InputField {
@@ -30,10 +37,19 @@ export interface InputField {
     type: string;
     /** Whether the field is required. */
     required: boolean;
+    /** Whether the field accepts multiple values. */
+    multiple?: boolean;
     /** The placeholder of the field. */
     placeholder: string;
     /** The label of the field. */
     label: string;
+    /** The help text for the field. */
+    help_text?: string;
+    /** The options for the field. */
+    options?: {
+        name?: string;
+        value: string;
+    }[];
 }
 /** The payload object for config. */
 export interface ConfigPayload {
@@ -134,6 +150,13 @@ interface PaginationProps {
     page?: number;
     limit?: number;
 }
+interface PaginatedResponse<T> {
+    docs: T[];
+    totalDocs: number;
+    limit: number;
+    totalPages: number;
+    page: number;
+}
 export interface Config {
     slug: string;
     config_id?: string;
@@ -165,6 +188,12 @@ export interface ConfigField {
     required?: boolean;
     hidden?: boolean;
     value?: any;
+    /** The placeholder for the field. */
+    placeholder?: string;
+    /** The help text for the field. */
+    help_text?: string;
+    /** The page this field is associated with. */
+    associated_page?: string;
 }
 export interface ConfigWorkflow {
     id: string;
@@ -317,14 +346,14 @@ declare class Cobalt {
      */
     getFieldOptions(lhs: string, slug: string, fieldId: string, workflowId?: string): Promise<RuleOptions>;
     /**
-     *
+     * Returns the private workflows for the specified application.
      * @param {Object} params
      * @param {String} [params.slug]
      * @param {Number} [params.page]
      * @param {Number} [params.limit]
      * @returns
      */
-    getWorkflows(params?: PublicWorkflowsPayload): Promise<PublicWorkflow[]>;
+    getWorkflows(params?: PublicWorkflowsPayload): Promise<PaginatedResponse<PublicWorkflow>>;
     /**
      * Create a public workflow for the linked account.
      * @param {Object} params
