@@ -467,7 +467,7 @@ class Cobalt {
         });
     }
     /**
-     *
+     * Returns the private workflows for the specified application.
      * @param {Object} params
      * @param {String} [params.slug]
      * @param {Number} [params.page]
@@ -498,6 +498,7 @@ class Cobalt {
      * @returns {Promise<PublicWorkflow>} The created public workflow.
      */
     createWorkflow(params) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             const res = yield fetch(`${this.baseUrl}/api/v2/public/workflow`, {
                 method: "POST",
@@ -515,7 +516,8 @@ class Cobalt {
                 const error = yield res.json();
                 throw error;
             }
-            return yield res.json();
+            const data = yield res.json();
+            return (_a = data === null || data === void 0 ? void 0 : data.workflow) !== null && _a !== void 0 ? _a : data;
         });
     }
     /**
