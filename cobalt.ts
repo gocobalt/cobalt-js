@@ -101,6 +101,9 @@ export interface CobaltOptions {
     token?: string;
 }
 
+/**
+ * @deprecated
+ */
 export interface EcosystemLead {
     _id: string;
     name?: string;
@@ -109,6 +112,9 @@ export interface EcosystemLead {
     created_at: string;
 }
 
+/**
+ * @deprecated
+ */
 export interface EcosystemLeadPayload {
     slug: string;
     name?: string;
@@ -325,11 +331,11 @@ class Cobalt {
     }
 
     /**
-     * Returns all the enabled and ecosystem apps.
+     * Returns all the enabled apps.
      * @returns {Promise<Application[]>} The list of applications.
      */
     public async getApps(): Promise<Application[]> {
-        const res = await fetch(`${this.baseUrl}/api/v2/f-sdk/application?ecosystem=true`, {
+        const res = await fetch(`${this.baseUrl}/api/v2/f-sdk/application`, {
             headers: {
                 authorization: `Bearer ${this.token}`,
             },
@@ -588,6 +594,7 @@ class Cobalt {
     }
 
     /**
+     * @deprecated
      * Create a lead for an ecosystem app.
      * @param {EcosystemLeadPayload} payload The payload object for the lead.
      * @returns {Promise<EcosystemLead>}
