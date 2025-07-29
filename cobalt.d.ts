@@ -139,6 +139,14 @@ export interface PublicWorkflow {
     name: string;
     /**The workflow description. */
     description?: string;
+    /**The application's slug in which this workflow exists. */
+    slug?: string;
+    /**The workflow created at. */
+    createdAt: string;
+    /**The workflow updated at. */
+    updatedAt: string;
+    /**Whether the workflow is published. */
+    published: boolean;
 }
 /** The payload for creating a public workflow for the linked account. */
 export interface PublicWorkflowPayload {
