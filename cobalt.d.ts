@@ -93,6 +93,9 @@ export interface CobaltOptions {
     /** The session token. */
     token?: string;
 }
+/**
+ * @deprecated
+ */
 export interface EcosystemLead {
     _id: string;
     name?: string;
@@ -100,6 +103,9 @@ export interface EcosystemLead {
     description?: string;
     created_at: string;
 }
+/**
+ * @deprecated
+ */
 export interface EcosystemLeadPayload {
     slug: string;
     name?: string;
@@ -202,6 +208,40 @@ export interface ConfigWorkflow {
     enabled: boolean;
     fields?: ConfigField[];
 }
+export interface Execution {
+    _id: string;
+    id?: string;
+    name: string;
+    org_id: string;
+    associated_application: {
+        _id: string;
+        name: string;
+        icon?: string;
+    };
+    status: "COMPLETED" | "RUNNING" | "ERRORED" | "STOPPED" | "STOPPING" | "TIMED_OUT";
+    associated_workflow: {
+        _id: string;
+        name: string;
+    };
+    associated_trigger_application: {
+        _id: string;
+        name: string;
+        icon?: string;
+        app_type?: "custom" | string;
+        origin_trigger: {
+            _id: string;
+            name: string;
+        };
+    };
+    trigger_application_event?: string;
+    linked_account_id: string;
+    environment: "test" | "production";
+    config_id: string;
+    associated_event_id: string;
+    custom_trigger_id?: string;
+    custom_application_id?: string;
+    createdAt: string;
+}
 declare class Cobalt {
     private baseUrl;
     token: string;
@@ -237,7 +277,7 @@ declare class Cobalt {
      */
     getApp(slug: string): Promise<Application>;
     /**
-     * Returns all the enabled and ecosystem apps.
+     * Returns all the enabled apps.
      * @returns {Promise<Application[]>} The list of applications.
      */
     getApps(): Promise<Application[]>;
@@ -306,6 +346,7 @@ declare class Cobalt {
      */
     deleteConfig(slug: string, configId?: string): Promise<unknown>;
     /**
+     * @deprecated
      * Create a lead for an ecosystem app.
      * @param {EcosystemLeadPayload} payload The payload object for the lead.
      * @returns {Promise<EcosystemLead>}
@@ -370,5 +411,19 @@ declare class Cobalt {
      * @returns {Promise<unknown>}
      */
     deleteWorkflow(workflowId: string): Promise<unknown>;
+    /**
+     * Returns the workflow execution logs for the linked account.
+     * @param {Object} [params]
+     * @param {Number} [params.page]
+     * @param {Number} [params.limit]
+     * @returns {Promise<PaginatedResponse<Execution>>} The paginated workflow execution logs.
+     */
+    getExecutions({ page, limit }?: PaginationProps): Promise<PaginatedResponse<Execution>>;
+    /**
+     * Returns the specified workflow execution log.
+     * @param {String} executionId The execution ID.
+     * @returns {Promise<Execution>} The specified execution log.
+     */
+    getExecution(executionId: string): Promise<Execution>;
 }
 export { Cobalt };
