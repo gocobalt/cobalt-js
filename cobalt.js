@@ -162,7 +162,8 @@ class Cobalt {
                     const interval = setInterval(() => {
                         this.getApp(slug)
                             .then(app => {
-                            if (app && app.connected === true && !app.reauth_required) {
+                            var _a;
+                            if (app && ((_a = app.connected_accounts) === null || _a === void 0 ? void 0 : _a.filter(a => a.auth_type === AuthType.OAuth2).some(a => a.status === AuthStatus.Active))) {
                                 // close auth window
                                 connectWindow && connectWindow.close();
                                 // clear interval

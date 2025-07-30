@@ -283,6 +283,18 @@ export interface Execution {
     associated_event_id: string;
     custom_trigger_id?: string;
     custom_application_id?: string;
+    completion_percentage?: number;
+    nodes?: {
+        node_id: string;
+        node_name: string;
+        node_type: string;
+        node_status: "Success" | "Ready" | "Errored" | "Waiting" | "Stopped" | "Rejected" | "Errored_and_Skipped" | "Timed_Out";
+        is_batch?: boolean;
+        attempts_made: number;
+        maximum_attempts: number;
+        input_data: unknown;
+        latest_output: unknown;
+    }[];
     createdAt: string;
 }
 declare class Cobalt {
