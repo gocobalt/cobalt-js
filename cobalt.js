@@ -12,7 +12,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Cobalt = void 0;
+exports.Cobalt = exports.AuthStatus = exports.AuthType = void 0;
+var AuthType;
+(function (AuthType) {
+    AuthType["OAuth2"] = "oauth2";
+    AuthType["KeyBased"] = "keybased";
+})(AuthType || (exports.AuthType = AuthType = {}));
+var AuthStatus;
+(function (AuthStatus) {
+    AuthStatus["Active"] = "active";
+    AuthStatus["Expired"] = "expired";
+})(AuthStatus || (exports.AuthStatus = AuthStatus = {}));
 class Cobalt {
     /**
      * Cobalt Frontend SDK
@@ -194,7 +204,7 @@ class Cobalt {
                 try {
                     const app = yield this.getApp(slug);
                     // oauth
-                    if (app && app.auth_type === "oauth2") {
+                    if (app && app.auth_type === AuthType.OAuth2) {
                         const connected = yield this.oauth(slug, payload);
                         resolve(connected);
                         // key based

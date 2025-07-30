@@ -1,6 +1,14 @@
 /**
  * Cobalt Frontend SDK
  */
+export declare enum AuthType {
+    OAuth2 = "oauth2",
+    KeyBased = "keybased"
+}
+export declare enum AuthStatus {
+    Active = "active",
+    Expired = "expired"
+}
 /** An application in Cobalt. */
 export interface Application {
     /** Application ID */
@@ -18,16 +26,43 @@ export interface Application {
     type: string | "custom";
     /** The application slug. */
     slug: string;
-    /**The type of auth used by application. */
-    auth_type: "oauth2" | "keybased";
-    /** Whether the user has connected the application. */
-    connected?: boolean;
-    /** Whether the connection has expired and re-auth is required. */
-    reauth_required?: boolean;
-    /** The fields required from the user to connect the application (for `keybased` auth type). */
-    auth_input_map?: InputField[];
     /** The categories/tags for the application. */
     tags?: string[];
+    /** The supported auth types for the application, and the fields required from the user to connect the application. */
+    auth_type_options?: {
+        [key in AuthType]: InputField[];
+    };
+    /** The list of connected accounts for this application */
+    connected_accounts?: {
+        /** The identifier (username, email, etc.) of the connected account. */
+        identifier: unknown;
+        /** The auth type used to connect the account. */
+        auth_type: AuthType;
+        /** The timestamp at which the account was connected. */
+        connectedAt: string;
+        /** The current status of the connection. */
+        status?: AuthStatus;
+    }[];
+    /**
+     * The type of auth used by application.
+     * @deprecated Check `auth_type_options` and `connected_accounts` for multiple auth types support.
+     */
+    auth_type: "oauth2" | "keybased";
+    /**
+     * Whether the user has connected the application.
+     * @deprecated Check `connected_accounts` for multiple auth types support.
+     */
+    connected?: boolean;
+    /**
+     * Whether the connection has expired and re-auth is required.
+     * @deprecated Check `connected_accounts` for multiple auth types support.
+     */
+    reauth_required?: boolean;
+    /**
+     * The fields required from the user to connect the application (for `keybased` auth type).
+     * @deprecated Check `auth_type_options` for multiple auth types support.
+     */
+    auth_input_map?: InputField[];
 }
 /** An Input field to take input from the user. */
 export interface InputField {
