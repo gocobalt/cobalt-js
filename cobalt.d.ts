@@ -128,25 +128,6 @@ export interface CobaltOptions {
     /** The session token. */
     token?: string;
 }
-/**
- * @deprecated
- */
-export interface EcosystemLead {
-    _id: string;
-    name?: string;
-    email: string;
-    description?: string;
-    created_at: string;
-}
-/**
- * @deprecated
- */
-export interface EcosystemLeadPayload {
-    slug: string;
-    name?: string;
-    email: string;
-    description?: string;
-}
 export interface RuleOptions {
     rule_column: {
         rhs: {
@@ -361,19 +342,26 @@ declare class Cobalt {
      */
     private keybased;
     /**
-     * Connect the specified application, optionally with the auth data that user provides.
-     * @param {String} slug The application slug.
-     * @param {AuthType} authType The auth type to use.
-     * @param {Object.<string, string>} [payload] The key value pairs of auth data.
-     * @returns {Promise<Boolean>} Whether the connection was successful.
+     * Connects the specified application using the provided authentication type and optional auth data.
+     * @param params - The parameters for connecting the application.
+     * @param params.slug - The application slug.
+     * @param params.type - The authentication type to use. If not provided, it defaults to `keybased` if payload is provided, otherwise `oauth2`.
+     * @param params.payload - key-value pairs of authentication data required for the specified auth type.
+     * @returns A promise that resolves to true if the connection was successful, otherwise false.
+     * @throws Throws an error if the authentication type is invalid or the connection fails.
      */
-    connect(slug: string, authType: AuthType, payload?: Record<string, string>): Promise<boolean>;
+    connect({ slug, type, payload, }: {
+        slug: string;
+        type?: AuthType;
+        payload?: Record<string, string>;
+    }): Promise<boolean>;
     /**
      * Disconnect the specified application and remove any associated data from Cobalt.
      * @param {String} slug The application slug.
+     * @param {AuthType} [type] The authentication type to use. If not provided, it'll remove all the connected accounts.
      * @returns {Promise<unknown>}
      */
-    disconnect(slug: string): Promise<unknown>;
+    disconnect(slug: string, type?: AuthType): Promise<unknown>;
     /**
      * Returns the specified config, or creates one if it doesn't exist.
      * @param {ConfigPayload} payload The payload object for config.
@@ -408,13 +396,6 @@ declare class Cobalt {
      * @returns {Promise<unknown>}
      */
     deleteConfig(slug: string, configId?: string): Promise<unknown>;
-    /**
-     * @deprecated
-     * Create a lead for an ecosystem app.
-     * @param {EcosystemLeadPayload} payload The payload object for the lead.
-     * @returns {Promise<EcosystemLead>}
-     */
-    createEcosystemLead(payload: EcosystemLeadPayload): Promise<EcosystemLead>;
     /**
      * Returns the specified field of the config.
      * @param {String} slug The application slug.
