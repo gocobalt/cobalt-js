@@ -218,32 +218,37 @@ class Cobalt {
         });
     }
     /**
-     * Connect the specified application, optionally with the auth data that user provides.
-     * @param {String} slug The application slug.
-     * @param {AuthType} authType The auth type to use.
-     * @param {Object.<string, string>} [payload] The key value pairs of auth data.
-     * @returns {Promise<Boolean>} Whether the connection was successful.
+     * Connects the specified application using the provided authentication type and optional auth data.
+     * @param params - The parameters for connecting the application.
+     * @param params.slug - The application slug.
+     * @param params.type - The authentication type to use. If not provided, it defaults to `keybased` if payload is provided, otherwise `oauth2`.
+     * @param params.payload - key-value pairs of authentication data required for the specified auth type.
+     * @returns A promise that resolves to true if the connection was successful, otherwise false.
+     * @throws Throws an error if the authentication type is invalid or the connection fails.
      */
-    connect(slug, authType, payload) {
+    connect({ slug, type, payload, }) {
         return __awaiter(this, void 0, void 0, function* () {
-            switch (authType) {
+            switch (type) {
                 case AuthType.OAuth2:
                     return this.oauth(slug, payload);
                 case AuthType.KeyBased:
                     return this.keybased(slug, payload);
                 default:
-                    throw new Error(`Invalid auth type: ${authType}`);
+                    if (payload)
+                        return this.keybased(slug, payload);
+                    return this.oauth(slug);
             }
         });
     }
     /**
      * Disconnect the specified application and remove any associated data from Cobalt.
      * @param {String} slug The application slug.
+     * @param {AuthType} [type] The authentication type to use. If not provided, it'll remove all the connected accounts.
      * @returns {Promise<unknown>}
      */
-    disconnect(slug) {
+    disconnect(slug, type) {
         return __awaiter(this, void 0, void 0, function* () {
-            const res = yield fetch(`${this.baseUrl}/api/v1/linked-acc/integration/${slug}`, {
+            const res = yield fetch(`${this.baseUrl}/api/v1/linked-acc/integration/${slug}${type ? `?auth_type=${type}` : ""}`, {
                 method: "DELETE",
                 headers: {
                     authorization: `Bearer ${this.token}`,
@@ -352,29 +357,6 @@ class Cobalt {
                 headers: {
                     authorization: `Bearer ${this.token}`,
                 },
-            });
-            if (res.status >= 400 && res.status < 600) {
-                const error = yield res.json();
-                throw error;
-            }
-            return yield res.json();
-        });
-    }
-    /**
-     * @deprecated
-     * Create a lead for an ecosystem app.
-     * @param {EcosystemLeadPayload} payload The payload object for the lead.
-     * @returns {Promise<EcosystemLead>}
-     */
-    createEcosystemLead(payload) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const res = yield fetch(`${this.baseUrl}/api/v1/ecosystem/leads`, {
-                method: "POST",
-                headers: {
-                    authorization: `Bearer ${this.token}`,
-                    "content-type": "application/json",
-                },
-                body: JSON.stringify(payload),
             });
             if (res.status >= 400 && res.status < 600) {
                 const error = yield res.json();
