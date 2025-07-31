@@ -346,7 +346,7 @@ declare class Cobalt {
      */
     private getOAuthUrl;
     /**
-     * Handle OAuth for the specified native application.
+     * Handle OAuth for the specified application.
      * @private
      * @param {String} slug The application slug.
      * @param {Object.<string, string>} [params] The key value pairs of auth data.
@@ -354,18 +354,26 @@ declare class Cobalt {
      */
     private oauth;
     /**
+     * Save auth data for the specified keybased application.
+     * @param {String} slug The application slug.
+     * @param {Object.<string, string>} [payload] The key value pairs of auth data.
+     * @returns {Promise<Boolean>} Whether the auth data was saved successfully.
+     */
+    private keybased;
+    /**
      * Connect the specified application, optionally with the auth data that user provides.
      * @param {String} slug The application slug.
+     * @param {AuthType} authType The auth type to use.
      * @param {Object.<string, string>} [payload] The key value pairs of auth data.
      * @returns {Promise<Boolean>} Whether the connection was successful.
      */
-    connect(slug: string, payload?: Record<string, string>): Promise<boolean>;
+    connect(slug: string, authType: AuthType, payload?: Record<string, string>): Promise<boolean>;
     /**
      * Disconnect the specified application and remove any associated data from Cobalt.
      * @param {String} slug The application slug.
-     * @returns {Promise<void>}
+     * @returns {Promise<unknown>}
      */
-    disconnect(slug: string): Promise<void>;
+    disconnect(slug: string): Promise<unknown>;
     /**
      * Returns the specified config, or creates one if it doesn't exist.
      * @param {ConfigPayload} payload The payload object for config.

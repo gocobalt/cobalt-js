@@ -468,7 +468,7 @@ class Cobalt {
     }
 
     /**
-     * Handle OAuth for the specified native application.
+     * Handle OAuth for the specified application.
      * @private
      * @param {String} slug The application slug.
      * @param {Object.<string, string>} [params] The key value pairs of auth data.
@@ -514,53 +514,56 @@ class Cobalt {
     }
 
     /**
+     * Save auth data for the specified keybased application.
+     * @param {String} slug The application slug.
+     * @param {Object.<string, string>} [payload] The key value pairs of auth data.
+     * @returns {Promise<Boolean>} Whether the auth data was saved successfully.
+     */
+    private async keybased(slug: string, payload?: Record<string, string>): Promise<boolean> {
+        const res = await fetch(`${this.baseUrl}/api/v2/app/${slug}/save`, {
+            method: "POST",
+            headers: {
+                authorization: `Bearer ${this.token}`,
+                "content-type": "application/json",
+            },
+            body: JSON.stringify({
+                ...payload,
+            }),
+        });
+
+        if (res.status >= 400 && res.status < 600) {
+            const error = await res.json();
+            throw error;
+        }
+
+        const data = await res.json();
+        return data.success;
+    }
+
+    /**
      * Connect the specified application, optionally with the auth data that user provides.
      * @param {String} slug The application slug.
+     * @param {AuthType} authType The auth type to use.
      * @param {Object.<string, string>} [payload] The key value pairs of auth data.
      * @returns {Promise<Boolean>} Whether the connection was successful.
      */
-    public async connect(slug: string, payload?: Record<string, string>): Promise<boolean> {
-        return new Promise(async (resolve, reject) => {
-            try {
-                const app = await this.getApp(slug);
-
-                // oauth
-                if (app && app.auth_type === AuthType.OAuth2) {
-                    const connected = await this.oauth(slug, payload);
-                    resolve(connected);
-                // key based
-                } else {
-                    const res = await fetch(`${this.baseUrl}/api/v2/app/${slug}/save`, {
-                        method: "POST",
-                        headers: {
-                            authorization: `Bearer ${this.token}`,
-                            "content-type": "application/json",
-                        },
-                        body: JSON.stringify({
-                            ...payload,
-                        }),
-                    });
-
-                    if (res.status >= 400 && res.status < 600) {
-                        const error = await res.json();
-                        reject(error);
-                    }
-
-                    const data = await res.json();
-                    resolve(data.success);
-                }
-            } catch (error) {
-                reject(error);
-            }
-        });
+    public async connect(slug: string, authType: AuthType, payload?: Record<string, string>): Promise<boolean> {
+        switch (authType) {
+            case AuthType.OAuth2:
+                return this.oauth(slug, payload);
+            case AuthType.KeyBased:
+                return this.keybased(slug, payload);
+            default:
+                throw new Error(`Invalid auth type: ${authType}`);
+        }
     }
 
     /**
      * Disconnect the specified application and remove any associated data from Cobalt.
      * @param {String} slug The application slug.
-     * @returns {Promise<void>}
+     * @returns {Promise<unknown>}
      */
-    public async disconnect(slug: string): Promise<void> {
+    public async disconnect(slug: string): Promise<unknown> {
         const res = await fetch(`${this.baseUrl}/api/v1/linked-acc/integration/${slug}`, {
             method: "DELETE",
             headers: {
@@ -572,6 +575,8 @@ class Cobalt {
             const error = await res.json();
             throw error;
         }
+
+        return await res.json();
     }
 
     /**

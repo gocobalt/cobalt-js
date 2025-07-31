@@ -146,7 +146,7 @@ class Cobalt {
         });
     }
     /**
-     * Handle OAuth for the specified native application.
+     * Handle OAuth for the specified application.
      * @private
      * @param {String} slug The application slug.
      * @param {Object.<string, string>} [params] The key value pairs of auth data.
@@ -194,49 +194,52 @@ class Cobalt {
         });
     }
     /**
+     * Save auth data for the specified keybased application.
+     * @param {String} slug The application slug.
+     * @param {Object.<string, string>} [payload] The key value pairs of auth data.
+     * @returns {Promise<Boolean>} Whether the auth data was saved successfully.
+     */
+    keybased(slug, payload) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const res = yield fetch(`${this.baseUrl}/api/v2/app/${slug}/save`, {
+                method: "POST",
+                headers: {
+                    authorization: `Bearer ${this.token}`,
+                    "content-type": "application/json",
+                },
+                body: JSON.stringify(Object.assign({}, payload)),
+            });
+            if (res.status >= 400 && res.status < 600) {
+                const error = yield res.json();
+                throw error;
+            }
+            const data = yield res.json();
+            return data.success;
+        });
+    }
+    /**
      * Connect the specified application, optionally with the auth data that user provides.
      * @param {String} slug The application slug.
+     * @param {AuthType} authType The auth type to use.
      * @param {Object.<string, string>} [payload] The key value pairs of auth data.
      * @returns {Promise<Boolean>} Whether the connection was successful.
      */
-    connect(slug, payload) {
+    connect(slug, authType, payload) {
         return __awaiter(this, void 0, void 0, function* () {
-            return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-                try {
-                    const app = yield this.getApp(slug);
-                    // oauth
-                    if (app && app.auth_type === AuthType.OAuth2) {
-                        const connected = yield this.oauth(slug, payload);
-                        resolve(connected);
-                        // key based
-                    }
-                    else {
-                        const res = yield fetch(`${this.baseUrl}/api/v2/app/${slug}/save`, {
-                            method: "POST",
-                            headers: {
-                                authorization: `Bearer ${this.token}`,
-                                "content-type": "application/json",
-                            },
-                            body: JSON.stringify(Object.assign({}, payload)),
-                        });
-                        if (res.status >= 400 && res.status < 600) {
-                            const error = yield res.json();
-                            reject(error);
-                        }
-                        const data = yield res.json();
-                        resolve(data.success);
-                    }
-                }
-                catch (error) {
-                    reject(error);
-                }
-            }));
+            switch (authType) {
+                case AuthType.OAuth2:
+                    return this.oauth(slug, payload);
+                case AuthType.KeyBased:
+                    return this.keybased(slug, payload);
+                default:
+                    throw new Error(`Invalid auth type: ${authType}`);
+            }
         });
     }
     /**
      * Disconnect the specified application and remove any associated data from Cobalt.
      * @param {String} slug The application slug.
-     * @returns {Promise<void>}
+     * @returns {Promise<unknown>}
      */
     disconnect(slug) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -250,6 +253,7 @@ class Cobalt {
                 const error = yield res.json();
                 throw error;
             }
+            return yield res.json();
         });
     }
     /**
