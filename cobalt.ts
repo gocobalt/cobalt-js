@@ -252,6 +252,23 @@ export interface ConfigWorkflow {
     fields?: ConfigField[];
 }
 
+export interface WorkflowPayloadResponse {
+    payload: Record<string, any>;
+    schema?: unknown;
+    schema_interpreted?: unknown;
+}
+
+export interface ExecuteWorkflowPayload {
+    /**The workflow id or alias. */
+    worklfow: string;
+    /** The application's slug this workflow belongs to. */
+    slug?: string;
+    /** The payload to execute the workflow. */
+    payload?: Record<string, any>;
+    /** Whether to execute the workflow synchronously. */
+    sync_execution?: boolean;
+}
+
 export interface Execution {
     _id: string;
     id?: string;
@@ -851,6 +868,54 @@ class Cobalt {
             headers: {
                 authorization: `Bearer ${this.token}`,
             },
+        });
+
+        if (res.status >= 400 && res.status < 600) {
+            const error = await res.json();
+            throw error;
+        }
+
+        return await res.json();
+    }
+
+    /**
+     * Returns the execution payload for the specified public workflow.
+     * @param {String} workflowId The workflow ID.
+     * @returns {Promise<WorkflowPayloadResponse>} The workflow payload response.
+     */
+    async getWorkflowPayload(workflowId: string): Promise<WorkflowPayloadResponse> {
+        const res = await fetch(`${this.baseUrl}/api/v2/public/workflow/request-structure/${workflowId}`, {
+            headers: {
+                authorization: `Bearer ${this.token}`,
+            },
+        });
+
+        if (res.status >= 400 && res.status < 600) {
+            const error = await res.json();
+            throw error;
+        }
+
+        return await res.json();
+    }
+
+    /**
+     * Execute the specified public workflow.
+     * @param {ExecuteWorkflowPayload} options The execution payload.
+     * @param {String} options.worklfow The workflow id or alias.
+     * @param {String} [options.slug] The application's slug this workflow belongs to. Slug is required if you're using workflow alias.
+     * @param {Record<string, any>} [options.payload] The execution payload.
+     * @returns {Promise<unknown>}
+     */
+    async executeWorkflow(options: ExecuteWorkflowPayload): Promise<unknown> {
+        const res = await fetch(`${this.baseUrl}/api/v2/public/workflow/${options?.worklfow}/execute`, {
+            method: "POST",
+            headers: {
+                authorization: `Bearer ${this.token}`,
+                "content-type": "application/json",
+                slug: options?.slug || "",
+                sync_execution: options?.sync_execution ? "true" : "false",
+            },
+            body: JSON.stringify(options?.payload),
         });
 
         if (res.status >= 400 && res.status < 600) {
