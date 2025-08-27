@@ -539,6 +539,52 @@ class Cobalt {
         });
     }
     /**
+     * Returns the execution payload for the specified public workflow.
+     * @param {String} workflowId The workflow ID.
+     * @returns {Promise<WorkflowPayloadResponse>} The workflow payload response.
+     */
+    getWorkflowPayload(workflowId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const res = yield fetch(`${this.baseUrl}/api/v2/public/workflow/request-structure/${workflowId}`, {
+                headers: {
+                    authorization: `Bearer ${this.token}`,
+                },
+            });
+            if (res.status >= 400 && res.status < 600) {
+                const error = yield res.json();
+                throw error;
+            }
+            return yield res.json();
+        });
+    }
+    /**
+     * Execute the specified public workflow.
+     * @param {ExecuteWorkflowPayload} options The execution payload.
+     * @param {String} options.worklfow The workflow id or alias.
+     * @param {String} [options.slug] The application's slug this workflow belongs to. Slug is required if you're using workflow alias.
+     * @param {Record<string, any>} [options.payload] The execution payload.
+     * @returns {Promise<unknown>}
+     */
+    executeWorkflow(options) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const res = yield fetch(`${this.baseUrl}/api/v2/public/workflow/${options === null || options === void 0 ? void 0 : options.worklfow}/execute`, {
+                method: "POST",
+                headers: {
+                    authorization: `Bearer ${this.token}`,
+                    "content-type": "application/json",
+                    slug: (options === null || options === void 0 ? void 0 : options.slug) || "",
+                    sync_execution: (options === null || options === void 0 ? void 0 : options.sync_execution) ? "true" : "false",
+                },
+                body: JSON.stringify(options === null || options === void 0 ? void 0 : options.payload),
+            });
+            if (res.status >= 400 && res.status < 600) {
+                const error = yield res.json();
+                throw error;
+            }
+            return yield res.json();
+        });
+    }
+    /**
      * Returns the workflow execution logs for the linked account.
      * @param {Object} [params]
      * @param {Number} [params.page]
