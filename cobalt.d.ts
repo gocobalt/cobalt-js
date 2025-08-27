@@ -232,6 +232,21 @@ export interface ConfigWorkflow {
     enabled: boolean;
     fields?: ConfigField[];
 }
+export interface WorkflowPayloadResponse {
+    payload: Record<string, any>;
+    schema?: unknown;
+    schema_interpreted?: unknown;
+}
+export interface ExecuteWorkflowPayload {
+    /**The workflow id or alias. */
+    worklfow: string;
+    /** The application's slug this workflow belongs to. */
+    slug?: string;
+    /** The payload to execute the workflow. */
+    payload?: Record<string, any>;
+    /** Whether to execute the workflow synchronously. */
+    sync_execution?: boolean;
+}
 export interface Execution {
     _id: string;
     id?: string;
@@ -455,6 +470,21 @@ declare class Cobalt {
      * @returns {Promise<unknown>}
      */
     deleteWorkflow(workflowId: string): Promise<unknown>;
+    /**
+     * Returns the execution payload for the specified public workflow.
+     * @param {String} workflowId The workflow ID.
+     * @returns {Promise<WorkflowPayloadResponse>} The workflow payload response.
+     */
+    getWorkflowPayload(workflowId: string): Promise<WorkflowPayloadResponse>;
+    /**
+     * Execute the specified public workflow.
+     * @param {ExecuteWorkflowPayload} options The execution payload.
+     * @param {String} options.worklfow The workflow id or alias.
+     * @param {String} [options.slug] The application's slug this workflow belongs to. Slug is required if you're using workflow alias.
+     * @param {Record<string, any>} [options.payload] The execution payload.
+     * @returns {Promise<unknown>}
+     */
+    executeWorkflow(options: ExecuteWorkflowPayload): Promise<unknown>;
     /**
      * Returns the workflow execution logs for the linked account.
      * @param {Object} [params]
