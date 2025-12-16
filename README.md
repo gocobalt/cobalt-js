@@ -23,10 +23,10 @@ yarn add @refoldai/refold-js
 <!-- use this if you get an error saying `exports` is not defined. -->
 <script>var exports = {};</script>
 <!-- use a specific version -->
-<script src="https://cdn.jsdelivr.net/npm/@refoldai/refold-js@8.0.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/@refoldai/refold-js@10.0.0"></script>
 <!-- use a version range instead of a specific version -->
-<script src="https://cdn.jsdelivr.net/npm/@refoldai/refold-js@8"></script>
-<script src="https://cdn.jsdelivr.net/npm/@refoldai/refold-js@8.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/@refoldai/refold-js@10"></script>
+<script src="https://cdn.jsdelivr.net/npm/@refoldai/refold-js@10.0"></script>
 <!-- omit the version completely to use the latest one -->
 <!-- you should NOT use this in production -->
 <script src="https://cdn.jsdelivr.net/npm/@refoldai/refold-js"></script>
