@@ -1,5 +1,5 @@
 {
-  "name": "@cobaltio/cobalt-js",
+  "name": "@refoldai/refold-js",
   "version": "9.1.0",
   "description": "Cobalt frontend SDK",
   "main": "./cobalt.js",
@@ -12,24 +12,30 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gocobalt/cobalt-js.git"
+    "url": "git+https://github.com/refoldai/refold-js.git"
   },
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
   "keywords": [
+    "cobalt",
     "cobalt embed",
     "cobalt sdk",
+    "embed",
     "frontend sdk",
+    "refold",
+    "refold embed",
+    "refold sdk",
+    "refold connect",
     "sdk"
   ],
   "author": "Sankarsan Kampa",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gocobalt/cobalt-js/issues"
+    "url": "https://github.com/refoldai/refold-js/issues"
   },
-  "homepage": "https://github.com/gocobalt/cobalt-js#readme",
+  "homepage": "https://github.com/refoldai/refold-js#readme",
   "devDependencies": {
     "typedoc": "^0.28.4",
     "typedoc-plugin-markdown": "^4.6.3",
