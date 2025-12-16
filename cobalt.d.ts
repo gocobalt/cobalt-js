@@ -122,7 +122,7 @@ export interface WorkflowPayload {
     /** A map of workflow field names and their values. */
     fields: Record<string, string | number | boolean>;
 }
-export interface CobaltOptions {
+export interface RefoldOptions {
     /** The base URL of the Refold API. You don't need to set this. */
     baseUrl?: string;
     /** The session token. */
@@ -293,7 +293,7 @@ export interface Execution {
     }[];
     createdAt: string;
 }
-declare class Cobalt {
+declare class Refold {
     private baseUrl;
     token: string;
     /**
@@ -302,7 +302,7 @@ declare class Cobalt {
      * @param {String} [options.token] The session token.
      * @param {String} [options.baseUrl=https://api.gocobalt.io] The base URL of the Refold API.
      */
-    constructor(options?: CobaltOptions);
+    constructor(options?: RefoldOptions);
     /**
      * Returns the org & customer details for the associated token.
      * @private
@@ -500,4 +500,4 @@ declare class Cobalt {
      */
     getExecution(executionId: string): Promise<Execution>;
 }
-export { Cobalt };
+export { Refold };

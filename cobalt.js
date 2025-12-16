@@ -12,7 +12,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Cobalt = exports.AuthStatus = exports.AuthType = void 0;
+exports.Refold = exports.AuthStatus = exports.AuthType = void 0;
 var AuthType;
 (function (AuthType) {
     AuthType["OAuth2"] = "oauth2";
@@ -23,7 +23,7 @@ var AuthStatus;
     AuthStatus["Active"] = "active";
     AuthStatus["Expired"] = "expired";
 })(AuthStatus || (exports.AuthStatus = AuthStatus = {}));
-class Cobalt {
+class Refold {
     /**
      * Refold Frontend SDK
      * @param {Object} options The options to configure the Refold SDK.
@@ -625,4 +625,4 @@ class Cobalt {
         });
     }
 }
-exports.Cobalt = Cobalt;
+exports.Refold = Refold;
