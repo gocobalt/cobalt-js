@@ -132,7 +132,7 @@ export interface WorkflowPayload  {
     fields: Record<string, string | number | boolean>;
 }
 
-export interface CobaltOptions {
+export interface RefoldOptions {
     /** The base URL of the Refold API. You don't need to set this. */
     baseUrl?: string;
     /** The session token. */
@@ -318,7 +318,7 @@ export interface Execution {
 
 type Field = any;
 
-class Cobalt {
+class Refold {
     private baseUrl: string;
     public token: string;
 
@@ -328,7 +328,7 @@ class Cobalt {
      * @param {String} [options.token] The session token.
      * @param {String} [options.baseUrl=https://api.gocobalt.io] The base URL of the Refold API.
      */
-    constructor(options: CobaltOptions = {}) {
+    constructor(options: RefoldOptions = {}) {
         this.baseUrl = options.baseUrl
             ?   /^https?:\/\//.test(options.baseUrl)
                 ?   options.baseUrl
@@ -969,4 +969,4 @@ class Cobalt {
     }
 }
 
-export { Cobalt };
+export { Refold };
