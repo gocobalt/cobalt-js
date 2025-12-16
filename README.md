@@ -1,5 +1,6 @@
-# Cobalt Javascript SDK
-Cobalt frontend SDK.
+# Refold JavaScript SDK
+
+Refold JavaScript SDK for frontend applications.
 
 ## Install
 
@@ -42,16 +43,16 @@ const { Cobalt } = require("@refoldai/refold-js");
 ```js
 // initialize with token
 const cobalt = new Cobalt({
-    // the token you generate for linked accounts using the cobalt backend SDK
-    token: "COBALT_SESSION_TOKEN",
-    // OPTIONAL: set custom base url for all API requests. only useful if you are hosting Cobalt on premise.
+    // the token you generate for linked accounts using the Refold Backend SDK
+    token: "REFOLD_SESSION_TOKEN",
+    // OPTIONAL: set custom base url for all API requests. only useful if you are hosting Refold on premise.
     baseUrl: "https://cobalt.example.com/backend",
 });
 
 // Or, initialize without token
 const cobalt = new Cobalt();
 // and you can set the token later.
-cobalt.token = "COBALT_SESSION_TOKEN";
+cobalt.token = "REFOLD_SESSION_TOKEN";
 ```
 
 # Documentation
