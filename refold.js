@@ -1,6 +1,6 @@
 "use strict";
 /**
- * Cobalt Frontend SDK
+ * Refold Frontend SDK
  */
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -12,7 +12,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Cobalt = exports.AuthStatus = exports.AuthType = void 0;
+exports.Refold = exports.AuthStatus = exports.AuthType = void 0;
 var AuthType;
 (function (AuthType) {
     AuthType["OAuth2"] = "oauth2";
@@ -23,12 +23,12 @@ var AuthStatus;
     AuthStatus["Active"] = "active";
     AuthStatus["Expired"] = "expired";
 })(AuthStatus || (exports.AuthStatus = AuthStatus = {}));
-class Cobalt {
+class Refold {
     /**
-     * Cobalt Frontend SDK
-     * @param {Object} options The options to configure the Cobalt SDK.
+     * Refold Frontend SDK
+     * @param {Object} options The options to configure the Refold SDK.
      * @param {String} [options.token] The session token.
-     * @param {String} [options.baseUrl=https://api.gocobalt.io] The base URL of the Cobalt API.
+     * @param {String} [options.baseUrl=https://api.gocobalt.io] The base URL of the Refold API.
      */
     constructor(options = {}) {
         this.baseUrl = options.baseUrl
@@ -83,7 +83,7 @@ class Cobalt {
     }
     /**
      * Returns the application details for the specified application, provided
-     * the application is enabled in Cobalt. If no application is specified,
+     * the application is enabled in Refold. If no application is specified,
      * it returns all the enabled applications.
      * @param {String} [slug] The application slug.
      * @returns {Promise<Application | Application[]>} The application details.
@@ -226,8 +226,8 @@ class Cobalt {
      * @returns A promise that resolves to true if the connection was successful, otherwise false.
      * @throws Throws an error if the authentication type is invalid or the connection fails.
      */
-    connect({ slug, type, payload, }) {
-        return __awaiter(this, void 0, void 0, function* () {
+    connect(_a) {
+        return __awaiter(this, arguments, void 0, function* ({ slug, type, payload, }) {
             switch (type) {
                 case AuthType.OAuth2:
                     return this.oauth(slug, payload);
@@ -241,7 +241,7 @@ class Cobalt {
         });
     }
     /**
-     * Disconnect the specified application and remove any associated data from Cobalt.
+     * Disconnect the specified application and remove any associated data from Refold.
      * @param {String} slug The application slug.
      * @param {AuthType} [type] The authentication type to use. If not provided, it'll remove all the connected accounts.
      * @returns {Promise<unknown>}
@@ -496,8 +496,8 @@ class Cobalt {
      * @returns {Promise<PublicWorkflow>} The created public workflow.
      */
     createWorkflow(params) {
-        var _a;
         return __awaiter(this, void 0, void 0, function* () {
+            var _a;
             const res = yield fetch(`${this.baseUrl}/api/v2/public/workflow`, {
                 method: "POST",
                 headers: {
@@ -591,8 +591,8 @@ class Cobalt {
      * @param {Number} [params.limit]
      * @returns {Promise<PaginatedResponse<Execution>>} The paginated workflow execution logs.
      */
-    getExecutions({ page = 1, limit = 10 } = {}) {
-        return __awaiter(this, void 0, void 0, function* () {
+    getExecutions() {
+        return __awaiter(this, arguments, void 0, function* ({ page = 1, limit = 10 } = {}) {
             const res = yield fetch(`${this.baseUrl}/api/v2/public/execution?page=${page}&limit=${limit}`, {
                 headers: {
                     authorization: `Bearer ${this.token}`,
@@ -625,4 +625,4 @@ class Cobalt {
         });
     }
 }
-exports.Cobalt = Cobalt;
+exports.Refold = Refold;

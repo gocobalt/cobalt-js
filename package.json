@@ -1,38 +1,44 @@
 {
-  "name": "@cobaltio/cobalt-js",
-  "version": "9.1.0",
-  "description": "Cobalt frontend SDK",
-  "main": "./cobalt.js",
-  "typings": "./cobalt.d.ts",
+  "name": "@refoldai/refold-js",
+  "version": "10.0.0",
+  "description": "Refold Frontend SDK",
+  "main": "./refold.js",
+  "typings": "./refold.d.ts",
   "scripts": {
     "build": "tsc",
-    "docs": "npx typedoc cobalt.ts",
-    "docs:llms": "npx typedoc cobalt.ts --plugin typedoc-plugin-markdown --mergeReadme --enumMembersFormat table --parametersFormat table --propertiesFormat table --typeDeclarationFormat table --indexFormat table --outputFileStrategy modules --cleanOutputDir false --fileExtension .txt --out docs --entryFileName llms",
+    "docs": "npx typedoc refold.ts",
+    "docs:llms": "npx typedoc refold.ts --plugin typedoc-plugin-markdown --mergeReadme --enumMembersFormat table --parametersFormat table --propertiesFormat table --typeDeclarationFormat table --indexFormat table --outputFileStrategy modules --cleanOutputDir false --fileExtension .txt --out docs --entryFileName llms",
     "test": "echo \"Warn: no test specified\""
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gocobalt/cobalt-js.git"
+    "url": "git+https://github.com/refoldai/refold-js.git"
   },
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
   "keywords": [
+    "cobalt",
     "cobalt embed",
     "cobalt sdk",
+    "embed",
     "frontend sdk",
+    "refold",
+    "refold embed",
+    "refold sdk",
+    "refold connect",
     "sdk"
   ],
   "author": "Sankarsan Kampa",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gocobalt/cobalt-js/issues"
+    "url": "https://github.com/refoldai/refold-js/issues"
   },
-  "homepage": "https://github.com/gocobalt/cobalt-js#readme",
+  "homepage": "https://github.com/refoldai/refold-js#readme",
   "devDependencies": {
-    "typedoc": "^0.28.4",
-    "typedoc-plugin-markdown": "^4.6.3",
-    "typescript": "^5.3.2"
+    "typedoc": "^0.28.15",
+    "typedoc-plugin-markdown": "^4.9.0",
+    "typescript": "^5.9.3"
   }
 }
