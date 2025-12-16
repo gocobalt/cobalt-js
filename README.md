@@ -34,25 +34,25 @@ yarn add @refoldai/refold-js
 
 #### Node
 ```js
-import { Cobalt } from "@refoldai/refold-js";
+import { Refold } from "@refoldai/refold-js";
 // or, if you're using CommonJS
-const { Cobalt } = require("@refoldai/refold-js");
+const { Refold } = require("@refoldai/refold-js");
 ```
 
 ### Initialize
 ```js
 // initialize with token
-const cobalt = new Cobalt({
+const refold = new Refold({
     // the token you generate for linked accounts using the Refold Backend SDK
     token: "REFOLD_SESSION_TOKEN",
     // OPTIONAL: set custom base url for all API requests. only useful if you are hosting Refold on premise.
-    baseUrl: "https://cobalt.example.com/backend",
+    baseUrl: "https://refold.example.com/backend",
 });
 
 // Or, initialize without token
-const cobalt = new Cobalt();
+const refold = new Refold();
 // and you can set the token later.
-cobalt.token = "REFOLD_SESSION_TOKEN";
+refold.token = "REFOLD_SESSION_TOKEN";
 ```
 
 # Documentation
