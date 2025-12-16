@@ -1,7 +1,7 @@
 {
   "name": "@refoldai/refold-js",
-  "version": "9.1.0",
-  "description": "Refold frontend SDK",
+  "version": "9.1.1",
+  "description": "Refold Frontend SDK",
   "main": "./cobalt.js",
   "typings": "./cobalt.d.ts",
   "scripts": {
