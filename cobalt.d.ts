@@ -34,6 +34,8 @@ export interface Application {
     };
     /** The list of connected accounts for this application */
     connected_accounts?: {
+        /** The connection identifier of the auth config. */
+        connection_id: string;
         /** The identifier (username, email, etc.) of the connected account. */
         identifier: unknown;
         /** The auth type used to connect the account. */
@@ -85,6 +87,22 @@ export interface InputField {
         name?: string;
         value: string;
     }[];
+}
+export interface OAuthParams {
+    /** The application slug. */
+    slug: string;
+    /** The connection identifier. */
+    connection?: string;
+    /** The key value pairs of auth data. */
+    payload?: Record<string, string>;
+}
+export interface KeyBasedParams {
+    /** The application slug. */
+    slug: string;
+    /** The connection identifier. */
+    connection?: string;
+    /** The key value pairs of auth data. */
+    payload?: Record<string, string>;
 }
 /** The payload object for config. */
 export interface ConfigPayload {
@@ -336,23 +354,20 @@ declare class Cobalt {
      * Returns the auth URL that users can use to authenticate themselves to the
      * specified application.
      * @private
-     * @param {String} slug The application slug.
-     * @param {Object.<string, string>} [params] The key value pairs of auth data.
+     * @param {OAuthParams} params The OAuth parameters.
      * @returns {Promise<String>} The auth URL where users can authenticate themselves.
      */
     private getOAuthUrl;
     /**
      * Handle OAuth for the specified application.
      * @private
-     * @param {String} slug The application slug.
-     * @param {Object.<string, string>} [params] The key value pairs of auth data.
+     * @param {OAuthParams} params The OAuth parameters.
      * @returns {Promise<Boolean>} Whether the user authenticated.
      */
     private oauth;
     /**
      * Save auth data for the specified keybased application.
-     * @param {String} slug The application slug.
-     * @param {Object.<string, string>} [payload] The key value pairs of auth data.
+     * @param {KeyBasedParams} params The key based parameters.
      * @returns {Promise<Boolean>} Whether the auth data was saved successfully.
      */
     private keybased;
@@ -360,13 +375,15 @@ declare class Cobalt {
      * Connects the specified application using the provided authentication type and optional auth data.
      * @param params - The parameters for connecting the application.
      * @param params.slug - The application slug.
+     * @param params.connection - The connection identifier of the auth config.
      * @param params.type - The authentication type to use. If not provided, it defaults to `keybased` if payload is provided, otherwise `oauth2`.
      * @param params.payload - key-value pairs of authentication data required for the specified auth type.
      * @returns A promise that resolves to true if the connection was successful, otherwise false.
      * @throws Throws an error if the authentication type is invalid or the connection fails.
      */
-    connect({ slug, type, payload, }: {
+    connect({ slug, connection, type, payload, }: {
         slug: string;
+        connection?: string;
         type?: AuthType;
         payload?: Record<string, string>;
     }): Promise<boolean>;
@@ -374,9 +391,10 @@ declare class Cobalt {
      * Disconnect the specified application and remove any associated data from Cobalt.
      * @param {String} slug The application slug.
      * @param {AuthType} [type] The authentication type to use. If not provided, it'll remove all the connected accounts.
+     * @param {String} [connection] The connection identifier of the auth config.
      * @returns {Promise<unknown>}
      */
-    disconnect(slug: string, type?: AuthType): Promise<unknown>;
+    disconnect(slug: string, type?: AuthType, connection?: string): Promise<unknown>;
     /**
      * Returns the specified config, or creates one if it doesn't exist.
      * @param {ConfigPayload} payload The payload object for config.
