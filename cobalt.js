@@ -114,10 +114,10 @@ class Cobalt {
      * @param {OAuthParams} params The OAuth parameters.
      * @returns {Promise<String>} The auth URL where users can authenticate themselves.
      */
-    async getOAuthUrl({ slug, connection, payload, }) {
+    async getOAuthUrl({ slug, authConfig, payload, }) {
         const queryParams = new URLSearchParams();
-        if (connection)
-            queryParams.append("connection", connection);
+        if (authConfig)
+            queryParams.append("auth_config_id", authConfig);
         if (typeof payload === "object") {
             for (const [key, value] of Object.entries(payload)) {
                 queryParams.append(key, value);
@@ -141,9 +141,9 @@ class Cobalt {
      * @param {OAuthParams} params The OAuth parameters.
      * @returns {Promise<Boolean>} Whether the user authenticated.
      */
-    async oauth({ slug, connection, payload, }) {
+    async oauth({ slug, authConfig, payload, }) {
         return new Promise((resolve, reject) => {
-            this.getOAuthUrl({ slug, connection, payload })
+            this.getOAuthUrl({ slug, authConfig, payload })
                 .then(oauthUrl => {
                 const connectWindow = window.open(oauthUrl);
                 // keep checking connection status
@@ -151,7 +151,7 @@ class Cobalt {
                     this.getApp(slug)
                         .then(app => {
                         const oauthAccounts = app.connected_accounts?.filter(a => a.auth_type === AuthType.OAuth2 && a.status === AuthStatus.Active);
-                        if (app && oauthAccounts?.some(a => connection ? a.connection_id === connection : true)) {
+                        if (app && oauthAccounts?.some(a => authConfig ? a.auth_config_id === authConfig : true)) {
                             // close auth window
                             connectWindow && connectWindow.close();
                             // clear interval
@@ -185,8 +185,8 @@ class Cobalt {
      * @param {KeyBasedParams} params The key based parameters.
      * @returns {Promise<Boolean>} Whether the auth data was saved successfully.
      */
-    async keybased({ slug, connection, payload, }) {
-        const res = await fetch(`${this.baseUrl}/api/v2/app/${slug}/save?connection=${connection}`, {
+    async keybased({ slug, authConfig, payload, }) {
+        const res = await fetch(`${this.baseUrl}/api/v2/app/${slug}/save?auth_config_id=${authConfig}`, {
             method: "POST",
             headers: {
                 authorization: `Bearer ${this.token}`,
@@ -207,37 +207,37 @@ class Cobalt {
      * Connects the specified application using the provided authentication type and optional auth data.
      * @param params - The parameters for connecting the application.
      * @param params.slug - The application slug.
-     * @param params.connection - The connection identifier of the auth config.
+     * @param params.authConfig - The identifier of the auth config.
      * @param params.type - The authentication type to use. If not provided, it defaults to `keybased` if payload is provided, otherwise `oauth2`.
      * @param params.payload - key-value pairs of authentication data required for the specified auth type.
      * @returns A promise that resolves to true if the connection was successful, otherwise false.
      * @throws Throws an error if the authentication type is invalid or the connection fails.
      */
-    async connect({ slug, connection, type, payload, }) {
+    async connect({ slug, authConfig, type, payload, }) {
         switch (type) {
             case AuthType.OAuth2:
-                return this.oauth({ slug, connection, payload });
+                return this.oauth({ slug, authConfig, payload });
             case AuthType.KeyBased:
-                return this.keybased({ slug, connection, payload });
+                return this.keybased({ slug, authConfig, payload });
             default:
                 if (payload)
-                    return this.keybased({ slug, connection, payload });
-                return this.oauth({ slug, connection });
+                    return this.keybased({ slug, authConfig, payload });
+                return this.oauth({ slug, authConfig });
         }
     }
     /**
      * Disconnect the specified application and remove any associated data from Cobalt.
      * @param {String} slug The application slug.
      * @param {AuthType} [type] The authentication type to use. If not provided, it'll remove all the connected accounts.
-     * @param {String} [connection] The connection identifier of the auth config.
+     * @param {String} [authConfig] The identifier of the auth config.
      * @returns {Promise<unknown>}
      */
-    async disconnect(slug, type, connection) {
+    async disconnect(slug, type, authConfig) {
         const queryParams = new URLSearchParams();
         if (type)
             queryParams.append("auth_type", type);
-        if (connection)
-            queryParams.append("connection", connection);
+        if (authConfig)
+            queryParams.append("auth_config_id", authConfig);
         const res = await fetch(`${this.baseUrl}/api/v1/linked-acc/integration/${slug}?${queryParams.toString()}`, {
             method: "DELETE",
             headers: {
