@@ -71,6 +71,17 @@ export interface Application {
     auth_input_map?: InputField[];
 }
 
+export interface AuthConfig {
+    /** The auth config ID. */
+    _id: string;
+    /** The display name of the auth config. */
+    name: string;
+    /** The description of the auth config. */
+    description?: string;
+    /** Whether the auth config is the default auth config for the application. */
+    is_default?: boolean;
+}
+
 /** An Input field to take input from the user. */
 export interface InputField  {
     /** Key name of the field. */
@@ -457,6 +468,27 @@ class Cobalt {
 
         const data = await res.json();
         return data;
+    }
+
+    /**
+     * Returns the auth configs for the specified application.
+     * @param {String} slug The application slug.
+     * @returns {Promise<AuthConfig[]>} The auth configs.
+     */
+    public async getAuthConfigs(slug: string): Promise<AuthConfig[]> {
+        const res = await fetch(`${this.baseUrl}/api/v2/public/slug/${slug}/auth-config`, {
+            headers: {
+                authorization: `Bearer ${this.token}`,
+            },
+        });
+
+        if (res.status >= 400 && res.status < 600) {
+            const error = await res.json();
+            throw error;
+        }
+
+        const data = await res.json();
+        return data.docs || [];
     }
 
     /**
