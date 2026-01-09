@@ -108,6 +108,24 @@ class Cobalt {
         return data;
     }
     /**
+     * Returns the auth configs for the specified application.
+     * @param {String} slug The application slug.
+     * @returns {Promise<AuthConfig[]>} The auth configs.
+     */
+    async getAuthConfigs(slug) {
+        const res = await fetch(`${this.baseUrl}/api/v2/public/slug/${slug}/auth-config`, {
+            headers: {
+                authorization: `Bearer ${this.token}`,
+            },
+        });
+        if (res.status >= 400 && res.status < 600) {
+            const error = await res.json();
+            throw error;
+        }
+        const data = await res.json();
+        return data.docs || [];
+    }
+    /**
      * Returns the auth URL that users can use to authenticate themselves to the
      * specified application.
      * @private
