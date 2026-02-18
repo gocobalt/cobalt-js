@@ -105,6 +105,8 @@ export interface OAuthParams {
     authConfig?: string;
     /** The key value pairs of auth data. */
     payload?: Record<string, string>;
+    /** Whether to close the authentication window automatically. */
+    autoClose?: boolean;
 }
 export interface KeyBasedParams {
     /** The application slug. */
@@ -394,14 +396,16 @@ declare class Cobalt {
      * @param params.authConfig - The identifier of the auth config.
      * @param params.type - The authentication type to use. If not provided, it defaults to `keybased` if payload is provided, otherwise `oauth2`.
      * @param params.payload - key-value pairs of authentication data required for the specified auth type.
+     * @param params.autoClose - Whether to close the authentication window automatically. If not provided, it defaults to `true`.
      * @returns A promise that resolves to true if the connection was successful, otherwise false.
      * @throws Throws an error if the authentication type is invalid or the connection fails.
      */
-    connect({ slug, authConfig, type, payload, }: {
+    connect({ slug, authConfig, type, payload, autoClose, }: {
         slug: string;
         authConfig?: string;
         type?: AuthType;
         payload?: Record<string, string>;
+        autoClose?: boolean;
     }): Promise<boolean>;
     /**
      * Disconnect the specified application and remove any associated data from Cobalt.
