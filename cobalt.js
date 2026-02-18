@@ -159,7 +159,7 @@ class Cobalt {
      * @param {OAuthParams} params The OAuth parameters.
      * @returns {Promise<Boolean>} Whether the user authenticated.
      */
-    async oauth({ slug, authConfig, payload, }) {
+    async oauth({ slug, authConfig, payload, autoClose = true, }) {
         return new Promise((resolve, reject) => {
             this.getOAuthUrl({ slug, authConfig, payload })
                 .then(oauthUrl => {
@@ -171,7 +171,8 @@ class Cobalt {
                         const oauthAccounts = app.connected_accounts?.filter(a => a.auth_type === AuthType.OAuth2 && a.status === AuthStatus.Active);
                         if (app && oauthAccounts?.some(a => authConfig ? a.auth_config_id === authConfig : true)) {
                             // close auth window
-                            connectWindow && connectWindow.close();
+                            if (autoClose)
+                                connectWindow && connectWindow.close();
                             // clear interval
                             clearInterval(interval);
                             // resovle status
@@ -228,13 +229,14 @@ class Cobalt {
      * @param params.authConfig - The identifier of the auth config.
      * @param params.type - The authentication type to use. If not provided, it defaults to `keybased` if payload is provided, otherwise `oauth2`.
      * @param params.payload - key-value pairs of authentication data required for the specified auth type.
+     * @param params.autoClose - Whether to close the authentication window automatically. If not provided, it defaults to `true`.
      * @returns A promise that resolves to true if the connection was successful, otherwise false.
      * @throws Throws an error if the authentication type is invalid or the connection fails.
      */
-    async connect({ slug, authConfig, type, payload, }) {
+    async connect({ slug, authConfig, type, payload, autoClose = true, }) {
         switch (type) {
             case AuthType.OAuth2:
-                return this.oauth({ slug, authConfig, payload });
+                return this.oauth({ slug, authConfig, payload, autoClose });
             case AuthType.KeyBased:
                 return this.keybased({ slug, authConfig, payload });
             default:
