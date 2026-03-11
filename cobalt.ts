@@ -551,7 +551,7 @@ class Cobalt {
                 const interval = setInterval(() => {
                     this.getApp(slug)
                     .then(app => {
-                        const oauthAccounts = app.connected_accounts?.filter(a => a.auth_type === AuthType.OAuth2 && a.status === AuthStatus.Active);
+                        const oauthAccounts = app.connected_accounts?.filter(a => a.auth_type === AuthType.OAuth2 && a.status !== AuthStatus.Expired);
                         if (app && oauthAccounts?.some(a => authConfig ? a.auth_config_id === authConfig : true)) {
                             // close auth window
                             if (autoClose) connectWindow && connectWindow.close();
