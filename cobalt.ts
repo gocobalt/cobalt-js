@@ -14,6 +14,8 @@ export enum AuthStatus {
 
 /** A connected account for an application. */
 export interface ConnectedAccount {
+    /** The unique identifier for this connected account. */
+    connection_id: string;
     /** The identifier of the auth config. */
     auth_config_id: string;
     /** The identifier (username, email, etc.) of the connected account. */
