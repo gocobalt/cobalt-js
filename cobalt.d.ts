@@ -9,6 +9,21 @@ export declare enum AuthStatus {
     Active = "active",
     Expired = "expired"
 }
+/** A connected account for an application. */
+export interface ConnectedAccount {
+    /** The unique identifier for this connected account. */
+    connection_id: string;
+    /** The identifier of the auth config. */
+    auth_config_id: string;
+    /** The identifier (username, email, etc.) of the connected account. */
+    identifier: unknown;
+    /** The auth type used to connect the account. */
+    auth_type: AuthType;
+    /** The timestamp at which the account was connected. */
+    connectedAt: string;
+    /** The current status of the connection. */
+    status?: AuthStatus;
+}
 /** An application in Cobalt. */
 export interface Application {
     /** Application ID */
@@ -33,18 +48,7 @@ export interface Application {
         [key in AuthType]: InputField[];
     };
     /** The list of connected accounts for this application */
-    connected_accounts?: {
-        /** The identifier of the auth config. */
-        auth_config_id: string;
-        /** The identifier (username, email, etc.) of the connected account. */
-        identifier: unknown;
-        /** The auth type used to connect the account. */
-        auth_type: AuthType;
-        /** The timestamp at which the account was connected. */
-        connectedAt: string;
-        /** The current status of the connection. */
-        status?: AuthStatus;
-    }[];
+    connected_accounts?: ConnectedAccount[];
     /**
      * The type of auth used by application.
      * @deprecated Check `auth_type_options` and `connected_accounts` for multiple auth types support.
