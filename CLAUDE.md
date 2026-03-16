@@ -1,0 +1,117 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+Cobalt JS SDK (`@cobaltio/cobalt-js`) — a zero-dependency TypeScript frontend SDK for integrating with the Cobalt platform. Provides methods for application connection (OAuth2 + key-based), configuration management, workflow execution, and execution monitoring. Published to npm as a public package. Single-file library (`cobalt.ts`, ~970 lines).
+
+## Commands
+
+```bash
+npm run build          # Compile TypeScript (tsc) → cobalt.js + cobalt.d.ts
+npm run docs           # Generate TypeDoc HTML documentation
+npm run docs:llms      # Generate LLM-optimized markdown docs (docs/llms.txt)
+```
+
+No test runner is configured. No runtime dependencies.
+
+## Build Output
+
+- `cobalt.js` — Compiled CommonJS module (main entry point)
+- `cobalt.d.ts` — TypeScript type definitions
+- `docs/` — Generated TypeDoc documentation (HTML + `llms.txt`)
+
+Published to npm (`@cobaltio/cobalt-js`) and served via jsDelivr CDN.
+
+## Architecture
+
+### Single-Class Design
+The entire SDK is a single `Cobalt` class using native `fetch` API. No external dependencies.
+
+### Authentication
+- Bearer token auth via `Authorization` header on all requests
+- Token set via constructor option or `cobalt.token = "..."` after initialization
+- Default base URL: `https://api.gocobalt.io` (configurable via `baseUrl` option)
+
+### Public API
+
+**Constructor:**
+```typescript
+const cobalt = new Cobalt({ token?: string, baseUrl?: string })
+```
+
+**Application Management:**
+- `getApp(): Promise<Application[]>` — Get all enabled apps
+- `getApp(slug: string): Promise<Application>` — Get specific app
+- `getApps(): Promise<Application[]>` — Alias for getApp()
+
+**Connection:**
+- `connect({ slug, type?, payload? }): Promise<boolean>` — Connect app (OAuth2 popup or key-based POST)
+- `disconnect(slug, type?): Promise<unknown>` — Disconnect app
+
+**Configuration:**
+- `config(payload): Promise<Config>` — Create/get config
+- `getConfigs(slug): Promise<{ config_id }[]>` — List configs
+- `getConfig(slug, configId?): Promise<Config>` — Get specific config
+- `updateConfig(payload): Promise<Config>` — Update config
+- `deleteConfig(slug, configId?): Promise<unknown>` — Delete config
+- `getConfigField(slug, fieldId, workflowId?): Promise<Config>` — Get field
+- `updateConfigField(slug, fieldId, value, workflowId?): Promise<Config>` — Update field
+- `deleteConfigField(slug, fieldId, workflowId?): Promise<unknown>` — Delete field
+- `getFieldOptions(lhs, slug, fieldId, workflowId?): Promise<RuleOptions>` — Rule engine options
+
+**Workflows:**
+- `getWorkflows(params?): Promise<PaginatedResponse<PublicWorkflow>>` — List workflows
+- `createWorkflow(params): Promise<PublicWorkflow>` — Create workflow
+- `deleteWorkflow(workflowId): Promise<unknown>` — Delete workflow
+- `getWorkflowPayload(workflowId): Promise<WorkflowPayloadResponse>` — Get payload schema
+- `executeWorkflow(options): Promise<unknown>` — Execute workflow
+
+**Executions:**
+- `getExecutions({ page?, limit? }?): Promise<PaginatedResponse<Execution>>` — List executions
+- `getExecution(executionId): Promise<Execution>` — Get execution details
+
+### Key Types
+
+```typescript
+enum AuthType { OAuth2 = "oauth2", KeyBased = "keybased" }
+enum AuthStatus { Active = "active", Expired = "expired" }
+```
+
+**Application** — app_id, name, slug, icon, tags, auth_type_options, connected_accounts (with status)
+**Config** — slug, config_id, fields (ConfigField[]), workflows (ConfigWorkflow[]), field_errors
+**Execution** — status (COMPLETED/RUNNING/ERRORED/STOPPED/STOPPING/TIMED_OUT), nodes with node_status, completion_percentage
+
+### OAuth Flow
+- Opens popup via `window.open(oauthUrl)`
+- Polls `/api/v2/f-sdk/application/{slug}` every 3 seconds
+- Resolves when `connected_accounts` shows active OAuth connection or window closes
+
+### Error Handling
+All 4xx/5xx HTTP responses throw the parsed JSON error response. No try/catch in SDK — errors propagate to caller.
+
+### Backend API Endpoints Used
+All requests include `Authorization: Bearer ${token}`:
+- Auth service: `/api/v3/org/basics`, `/api/v2/public/linked-account`
+- Apps: `/api/v2/f-sdk/application`, `/api/v1/{slug}/integrate`, `/api/v2/app/{slug}/save`
+- Config: `/api/v2/f-sdk/config`, `/api/v2/f-sdk/slug/{slug}/config/{configId}`, `/api/v2/public/config/field/{fieldId}`
+- Workflows: `/api/v2/public/workflow`, `/api/v2/public/workflow/{id}/execute`
+- Executions: `/api/v2/public/execution`
+
+### Browser & Node Compatibility
+- **Browser:** Uses native `fetch`, `window.open()` for OAuth popups, `setInterval` for polling
+- **Node.js:** Works in Node 18+ (native fetch). No browser APIs called in non-OAuth flows.
+
+## TypeScript Configuration
+
+- Target: ES6, Module: CommonJS
+- Strict mode enabled
+- Declarations emitted (`cobalt.d.ts`)
+- LF line endings enforced
+
+## Version History
+
+- **v9.x:** Added `getWorkflowPayload()`, `executeWorkflow()`, multi-auth support
+- **v8.x:** Introduced `AuthType` enum for multi-auth
+- Deprecated fields maintained for backward compatibility
