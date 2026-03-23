@@ -189,6 +189,13 @@ export interface PublicWorkflowPayload {
 
 export interface PublicWorkflowsPayload extends PaginationProps {
     slug?: string;
+    name?: string;
+    /** Filter workflows created on or after this ISO date string. */
+    start_date?: string;
+    /** Filter workflows created on or before this ISO date string. */
+    end_date?: string;
+    /** Filter by workflow published status. */
+    published?: boolean;
 }
 
 interface PaginationProps {
@@ -824,12 +831,26 @@ class Cobalt {
      * Returns the private workflows for the specified application.
      * @param {Object} params
      * @param {String} [params.slug]
+     * @param {String} [params.name]
      * @param {Number} [params.page]
      * @param {Number} [params.limit]
+     * @param {String} [params.start_date] ISO date string — filter workflows created on or after this date.
+     * @param {String} [params.end_date] ISO date string — filter workflows created on or before this date.
+     * @param {Boolean} [params.published] Filter by workflow published status.
      * @returns
      */
     async getWorkflows(params?: PublicWorkflowsPayload): Promise<PaginatedResponse<PublicWorkflow>> {
-        const res = await fetch(`${this.baseUrl}/api/v2/public/workflow?page=${params?.page || 1}&limit=${params?.limit || 100}${params?.slug ? `&slug=${params.slug}` : ""}`, {
+        const query = new URLSearchParams({
+            page: String(params?.page || 1),
+            limit: String(params?.limit || 100),
+        });
+        if (params?.slug) query.set("slug", params.slug);
+        if (params?.name) query.set("name", params.name);
+        if (params?.start_date) query.set("start_date", params.start_date);
+        if (params?.end_date) query.set("end_date", params.end_date);
+        if (params?.published !== undefined) query.set("published", String(params.published));
+        
+        const res = await fetch(`${this.baseUrl}/api/v2/public/workflow?${query}`, {
             headers: {
                 authorization: `Bearer ${this.token}`,
             },

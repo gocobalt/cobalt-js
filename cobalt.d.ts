@@ -175,6 +175,13 @@ export interface PublicWorkflowPayload {
 }
 export interface PublicWorkflowsPayload extends PaginationProps {
     slug?: string;
+    name?: string;
+    /** Filter workflows created on or after this ISO date string. */
+    start_date?: string;
+    /** Filter workflows created on or before this ISO date string. */
+    end_date?: string;
+    /** Filter by workflow published status. */
+    published?: boolean;
 }
 interface PaginationProps {
     page?: number;
@@ -464,8 +471,12 @@ declare class Cobalt {
      * Returns the private workflows for the specified application.
      * @param {Object} params
      * @param {String} [params.slug]
+     * @param {String} [params.name]
      * @param {Number} [params.page]
      * @param {Number} [params.limit]
+     * @param {String} [params.start_date] ISO date string — filter workflows created on or after this date.
+     * @param {String} [params.end_date] ISO date string — filter workflows created on or before this date.
+     * @param {Boolean} [params.published] Filter by workflow published status.
      * @returns
      */
     getWorkflows(params?: PublicWorkflowsPayload): Promise<PaginatedResponse<PublicWorkflow>>;
