@@ -180,6 +180,21 @@ interface PaginationProps {
     page?: number;
     limit?: number;
 }
+export type ExecutionStatus = "COMPLETED" | "RUNNING" | "ERRORED" | "STOPPED" | "STOPPING" | "TIMED_OUT";
+export type ExecutionSource = "Event" | "Schedule" | "API Call";
+export type ExecutionType = "SYNC" | "ASYNC";
+export interface ExecutionFilters {
+    status?: ExecutionStatus;
+    workflow_name?: string;
+    workflow_id?: string;
+    start_date?: string;
+    end_date?: string;
+    execution_type?: ExecutionType;
+    execution_source?: ExecutionSource;
+}
+interface GetExecutionsParams extends PaginationProps, ExecutionFilters {
+    [key: string]: string | number | undefined;
+}
 interface PaginatedResponse<T> {
     docs: T[];
     totalDocs: number;
@@ -257,7 +272,7 @@ export interface Execution {
         name: string;
         icon?: string;
     };
-    status: "COMPLETED" | "RUNNING" | "ERRORED" | "STOPPED" | "STOPPING" | "TIMED_OUT";
+    status: ExecutionStatus;
     associated_workflow: {
         _id: string;
         name: string;
@@ -490,9 +505,16 @@ declare class Cobalt {
      * @param {Object} [params]
      * @param {Number} [params.page]
      * @param {Number} [params.limit]
+     * @param {String} [params.status] - Filter by execution status (COMPLETED, RUNNING, ERRORED, STOPPED, STOPPING, TIMED_OUT)
+     * @param {String} [params.workflow_name] - Filter by workflow name
+     * @param {String} [params.workflow_id] - Filter by workflow ID
+     * @param {String} [params.start_date] - Filter executions after this date
+     * @param {String} [params.end_date] - Filter executions before this date
+     * @param {String} [params.execution_type] - Filter by execution type (SYNC, ASYNC)
+     * @param {String} [params.execution_source] - Filter by execution source (Event, Schedule, API Call)
      * @returns {Promise<PaginatedResponse<Execution>>} The paginated workflow execution logs.
      */
-    getExecutions({ page, limit }?: PaginationProps): Promise<PaginatedResponse<Execution>>;
+    getExecutions({ page, limit, ...rest }?: GetExecutionsParams): Promise<PaginatedResponse<Execution>>;
     /**
      * Returns the specified workflow execution log.
      * @param {String} executionId The execution ID.
