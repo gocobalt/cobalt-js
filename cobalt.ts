@@ -196,6 +196,7 @@ export interface PublicWorkflowsPayload extends PaginationProps {
     end_date?: string;
     /** Filter by workflow published status. */
     published?: boolean;
+    [key: string]: string | number | boolean | undefined;
 }
 
 interface PaginationProps {
@@ -839,16 +840,12 @@ class Cobalt {
      * @param {Boolean} [params.published] Filter by workflow published status.
      * @returns
      */
-    async getWorkflows(params?: PublicWorkflowsPayload): Promise<PaginatedResponse<PublicWorkflow>> {
-        const query = new URLSearchParams({
-            page: String(params?.page || 1),
-            limit: String(params?.limit || 100),
-        });
-        if (params?.slug) query.set("slug", params.slug);
-        if (params?.name) query.set("name", params.name);
-        if (params?.start_date) query.set("start_date", params.start_date);
-        if (params?.end_date) query.set("end_date", params.end_date);
-        if (params?.published !== undefined) query.set("published", String(params.published));
+    async getWorkflows({ page = 1, limit = 100, ...rest }: PublicWorkflowsPayload = {}): Promise<PaginatedResponse<PublicWorkflow>> {
+        const query = new URLSearchParams({ page: String(page), limit: String(limit) });
+        for (const key of Object.keys(rest)) {
+            const value = rest[key];
+            if (value !== undefined && value !== "") query.set(key, String(value));
+        }
         
         const res = await fetch(`${this.baseUrl}/api/v2/public/workflow?${query}`, {
             headers: {
