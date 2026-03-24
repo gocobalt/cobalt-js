@@ -237,8 +237,8 @@ class Cobalt {
      * @returns A promise that resolves to true if the connection was successful, otherwise false.
      * @throws Throws an error if the authentication type is invalid or the connection fails.
      */
-    connect({ slug, type, payload, }) {
-        return __awaiter(this, void 0, void 0, function* () {
+    connect(_a) {
+        return __awaiter(this, arguments, void 0, function* ({ slug, type, payload, }) {
             switch (type) {
                 case AuthType.OAuth2:
                     return this.oauth(slug, payload);
@@ -487,9 +487,9 @@ class Cobalt {
      * @param {Boolean} [params.published] Filter by workflow published status.
      * @returns
      */
-    getWorkflows(_a = {}) {
-        var { page = 1, limit = 100 } = _a, rest = __rest(_a, ["page", "limit"]);
-        return __awaiter(this, void 0, void 0, function* () {
+    getWorkflows() {
+        return __awaiter(this, arguments, void 0, function* (_a = {}) {
+            var { page = 1, limit = 100 } = _a, rest = __rest(_a, ["page", "limit"]);
             const query = new URLSearchParams({ page: String(page), limit: String(limit) });
             for (const key of Object.keys(rest)) {
                 const value = rest[key];
@@ -518,8 +518,8 @@ class Cobalt {
      * @returns {Promise<PublicWorkflow>} The created public workflow.
      */
     createWorkflow(params) {
-        var _a;
         return __awaiter(this, void 0, void 0, function* () {
+            var _a;
             const res = yield fetch(`${this.baseUrl}/api/v2/public/workflow`, {
                 method: "POST",
                 headers: {
@@ -620,9 +620,9 @@ class Cobalt {
      * @param {String} [params.execution_source] - Filter by execution source (Event, Schedule, API Call)
      * @returns {Promise<PaginatedResponse<Execution>>} The paginated workflow execution logs.
      */
-    getExecutions(_a = {}) {
-        var { page = 1, limit = 10 } = _a, rest = __rest(_a, ["page", "limit"]);
-        return __awaiter(this, void 0, void 0, function* () {
+    getExecutions() {
+        return __awaiter(this, arguments, void 0, function* (_a = {}) {
+            var { page = 1, limit = 10 } = _a, rest = __rest(_a, ["page", "limit"]);
             const query = new URLSearchParams({ page: String(page), limit: String(limit) });
             for (const key of Object.keys(rest)) {
                 const value = rest[key];
