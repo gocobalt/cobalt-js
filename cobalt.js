@@ -487,22 +487,15 @@ class Cobalt {
      * @param {Boolean} [params.published] Filter by workflow published status.
      * @returns
      */
-    getWorkflows(params) {
+    getWorkflows(_a = {}) {
+        var { page = 1, limit = 100 } = _a, rest = __rest(_a, ["page", "limit"]);
         return __awaiter(this, void 0, void 0, function* () {
-            const query = new URLSearchParams({
-                page: String((params === null || params === void 0 ? void 0 : params.page) || 1),
-                limit: String((params === null || params === void 0 ? void 0 : params.limit) || 100),
-            });
-            if (params === null || params === void 0 ? void 0 : params.slug)
-                query.set("slug", params.slug);
-            if (params === null || params === void 0 ? void 0 : params.name)
-                query.set("name", params.name);
-            if (params === null || params === void 0 ? void 0 : params.start_date)
-                query.set("start_date", params.start_date);
-            if (params === null || params === void 0 ? void 0 : params.end_date)
-                query.set("end_date", params.end_date);
-            if ((params === null || params === void 0 ? void 0 : params.published) !== undefined)
-                query.set("published", String(params.published));
+            const query = new URLSearchParams({ page: String(page), limit: String(limit) });
+            for (const key of Object.keys(rest)) {
+                const value = rest[key];
+                if (value !== undefined && value !== "")
+                    query.set(key, String(value));
+            }
             const res = yield fetch(`${this.baseUrl}/api/v2/public/workflow?${query}`, {
                 headers: {
                     authorization: `Bearer ${this.token}`,
