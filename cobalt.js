@@ -11,6 +11,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Cobalt = exports.AuthStatus = exports.AuthType = void 0;
 var AuthType;
@@ -468,13 +479,24 @@ class Cobalt {
      * Returns the private workflows for the specified application.
      * @param {Object} params
      * @param {String} [params.slug]
+     * @param {String} [params.name]
      * @param {Number} [params.page]
      * @param {Number} [params.limit]
+     * @param {String} [params.start_date] ISO date string — filter workflows created on or after this date.
+     * @param {String} [params.end_date] ISO date string — filter workflows created on or before this date.
+     * @param {Boolean} [params.published] Filter by workflow published status.
      * @returns
      */
-    getWorkflows(params) {
+    getWorkflows(_a = {}) {
+        var { page = 1, limit = 100 } = _a, rest = __rest(_a, ["page", "limit"]);
         return __awaiter(this, void 0, void 0, function* () {
-            const res = yield fetch(`${this.baseUrl}/api/v2/public/workflow?page=${(params === null || params === void 0 ? void 0 : params.page) || 1}&limit=${(params === null || params === void 0 ? void 0 : params.limit) || 100}${(params === null || params === void 0 ? void 0 : params.slug) ? `&slug=${params.slug}` : ""}`, {
+            const query = new URLSearchParams({ page: String(page), limit: String(limit) });
+            for (const key of Object.keys(rest)) {
+                const value = rest[key];
+                if (value !== undefined && value !== "")
+                    query.set(key, String(value));
+            }
+            const res = yield fetch(`${this.baseUrl}/api/v2/public/workflow?${query}`, {
                 headers: {
                     authorization: `Bearer ${this.token}`,
                 },
@@ -589,11 +611,25 @@ class Cobalt {
      * @param {Object} [params]
      * @param {Number} [params.page]
      * @param {Number} [params.limit]
+     * @param {String} [params.status] - Filter by execution status (COMPLETED, RUNNING, ERRORED, STOPPED, STOPPING, TIMED_OUT)
+     * @param {String} [params.workflow_name] - Filter by workflow name
+     * @param {String} [params.workflow_id] - Filter by workflow ID
+     * @param {String} [params.start_date] - Filter executions after this date
+     * @param {String} [params.end_date] - Filter executions before this date
+     * @param {String} [params.execution_type] - Filter by execution type (SYNC, ASYNC)
+     * @param {String} [params.execution_source] - Filter by execution source (Event, Schedule, API Call)
      * @returns {Promise<PaginatedResponse<Execution>>} The paginated workflow execution logs.
      */
-    getExecutions({ page = 1, limit = 10 } = {}) {
+    getExecutions(_a = {}) {
+        var { page = 1, limit = 10 } = _a, rest = __rest(_a, ["page", "limit"]);
         return __awaiter(this, void 0, void 0, function* () {
-            const res = yield fetch(`${this.baseUrl}/api/v2/public/execution?page=${page}&limit=${limit}`, {
+            const query = new URLSearchParams({ page: String(page), limit: String(limit) });
+            for (const key of Object.keys(rest)) {
+                const value = rest[key];
+                if (value !== undefined && value !== "")
+                    query.set(key, String(value));
+            }
+            const res = yield fetch(`${this.baseUrl}/api/v2/public/execution?${query}`, {
                 headers: {
                     authorization: `Bearer ${this.token}`,
                 },

@@ -187,13 +187,56 @@ export interface PublicWorkflowPayload {
     slug?: string;
 }
 
+/** Parameters for filtering and paginating the list of workflows. */
 export interface PublicWorkflowsPayload extends PaginationProps {
+    /** Filter workflows by the application slug. */
     slug?: string;
+    /** Filter workflows by name (partial match). */
+    name?: string;
+    /** Filter workflows created on or after this ISO 8601 date string. */
+    start_date?: string;
+    /** Filter workflows created on or before this ISO 8601 date string. */
+    end_date?: string;
+    /** Filter by workflow published status. `true` returns only published workflows, `false` returns only drafts. */
+    published?: boolean;
+    /** Any additional filter keys supported by the API. */
+    [key: string]: string | number | boolean | undefined;
 }
 
 interface PaginationProps {
     page?: number;
     limit?: number;
+}
+
+/** The current status of a workflow execution. */
+export type ExecutionStatus = "COMPLETED" | "RUNNING" | "ERRORED" | "STOPPED" | "STOPPING" | "TIMED_OUT";
+/** The trigger source that initiated a workflow execution. */
+export type ExecutionSource = "Event" | "Schedule" | "API Call";
+/** Whether a workflow execution runs synchronously (waits for result) or asynchronously (fire-and-forget). */
+export type ExecutionType = "SYNC" | "ASYNC";
+
+/** Filters for narrowing down the list of workflow executions. */
+export interface ExecutionFilters {
+    /** Filter executions by their current status. */
+    status?: ExecutionStatus;
+    /** Filter executions by workflow name (partial match). */
+    workflow_name?: string;
+    /** Filter executions by workflow ID. */
+    workflow_id?: string;
+    /** Filter executions that started on or after this ISO 8601 date string. */
+    start_date?: string;
+    /** Filter executions that started on or before this ISO 8601 date string. */
+    end_date?: string;
+    /** Filter by how the execution was invoked — synchronously or asynchronously. */
+    execution_type?: ExecutionType;
+    /** Filter by the trigger source that initiated the execution. */
+    execution_source?: ExecutionSource;
+}
+
+/** Parameters for filtering and paginating the list of workflow executions. */
+export interface GetExecutionsParams extends PaginationProps, ExecutionFilters {
+    /** Any additional filter keys supported by the API. */
+    [key: string]: string | number | undefined;
 }
 
 interface PaginatedResponse<T> {
@@ -279,7 +322,7 @@ export interface Execution {
         name: string;
         icon?: string;
     };
-    status: "COMPLETED" | "RUNNING" | "ERRORED" | "STOPPED" | "STOPPING" | "TIMED_OUT";
+    status: ExecutionStatus;
     associated_workflow: {
         _id: string;
         name: string;
@@ -806,12 +849,22 @@ class Cobalt {
      * Returns the private workflows for the specified application.
      * @param {Object} params
      * @param {String} [params.slug]
+     * @param {String} [params.name]
      * @param {Number} [params.page]
      * @param {Number} [params.limit]
+     * @param {String} [params.start_date] ISO date string — filter workflows created on or after this date.
+     * @param {String} [params.end_date] ISO date string — filter workflows created on or before this date.
+     * @param {Boolean} [params.published] Filter by workflow published status.
      * @returns
      */
-    async getWorkflows(params?: PublicWorkflowsPayload): Promise<PaginatedResponse<PublicWorkflow>> {
-        const res = await fetch(`${this.baseUrl}/api/v2/public/workflow?page=${params?.page || 1}&limit=${params?.limit || 100}${params?.slug ? `&slug=${params.slug}` : ""}`, {
+    async getWorkflows({ page = 1, limit = 100, ...rest }: PublicWorkflowsPayload = {}): Promise<PaginatedResponse<PublicWorkflow>> {
+        const query = new URLSearchParams({ page: String(page), limit: String(limit) });
+        for (const key of Object.keys(rest)) {
+            const value = rest[key];
+            if (value !== undefined && value !== "") query.set(key, String(value));
+        }
+        
+        const res = await fetch(`${this.baseUrl}/api/v2/public/workflow?${query}`, {
             headers: {
                 authorization: `Bearer ${this.token}`,
             },
@@ -931,10 +984,23 @@ class Cobalt {
      * @param {Object} [params]
      * @param {Number} [params.page]
      * @param {Number} [params.limit]
+     * @param {String} [params.status] - Filter by execution status (COMPLETED, RUNNING, ERRORED, STOPPED, STOPPING, TIMED_OUT)
+     * @param {String} [params.workflow_name] - Filter by workflow name
+     * @param {String} [params.workflow_id] - Filter by workflow ID
+     * @param {String} [params.start_date] - Filter executions after this date
+     * @param {String} [params.end_date] - Filter executions before this date
+     * @param {String} [params.execution_type] - Filter by execution type (SYNC, ASYNC)
+     * @param {String} [params.execution_source] - Filter by execution source (Event, Schedule, API Call)
      * @returns {Promise<PaginatedResponse<Execution>>} The paginated workflow execution logs.
      */
-    async getExecutions({ page = 1, limit = 10 }: PaginationProps = {}): Promise<PaginatedResponse<Execution>> {
-        const res = await fetch(`${this.baseUrl}/api/v2/public/execution?page=${page}&limit=${limit}`, {
+    async getExecutions({ page = 1, limit = 10, ...rest }: GetExecutionsParams = {}): Promise<PaginatedResponse<Execution>> {
+        const query = new URLSearchParams({ page: String(page), limit: String(limit) });
+        for (const key of Object.keys(rest)) {
+            const value = rest[key];
+            if (value !== undefined && value !== "") query.set(key, String(value));
+        }
+
+        const res = await fetch(`${this.baseUrl}/api/v2/public/execution?${query}`, {
             headers: {
                 authorization: `Bearer ${this.token}`,
             },
