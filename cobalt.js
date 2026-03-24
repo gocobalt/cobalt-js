@@ -462,12 +462,22 @@ class Cobalt {
      * Returns the private workflows for the specified application.
      * @param {Object} params
      * @param {String} [params.slug]
+     * @param {String} [params.name]
      * @param {Number} [params.page]
      * @param {Number} [params.limit]
+     * @param {String} [params.start_date] ISO date string — filter workflows created on or after this date.
+     * @param {String} [params.end_date] ISO date string — filter workflows created on or before this date.
+     * @param {Boolean} [params.published] Filter by workflow published status.
      * @returns
      */
-    async getWorkflows(params) {
-        const res = await fetch(`${this.baseUrl}/api/v2/public/workflow?page=${params?.page || 1}&limit=${params?.limit || 100}${params?.slug ? `&slug=${params.slug}` : ""}`, {
+    async getWorkflows({ page = 1, limit = 100, ...rest } = {}) {
+        const query = new URLSearchParams({ page: String(page), limit: String(limit) });
+        for (const key of Object.keys(rest)) {
+            const value = rest[key];
+            if (value !== undefined && value !== "")
+                query.set(key, String(value));
+        }
+        const res = await fetch(`${this.baseUrl}/api/v2/public/workflow?${query}`, {
             headers: {
                 authorization: `Bearer ${this.token}`,
             },
@@ -572,10 +582,23 @@ class Cobalt {
      * @param {Object} [params]
      * @param {Number} [params.page]
      * @param {Number} [params.limit]
+     * @param {String} [params.status] - Filter by execution status (COMPLETED, RUNNING, ERRORED, STOPPED, STOPPING, TIMED_OUT)
+     * @param {String} [params.workflow_name] - Filter by workflow name
+     * @param {String} [params.workflow_id] - Filter by workflow ID
+     * @param {String} [params.start_date] - Filter executions after this date
+     * @param {String} [params.end_date] - Filter executions before this date
+     * @param {String} [params.execution_type] - Filter by execution type (SYNC, ASYNC)
+     * @param {String} [params.execution_source] - Filter by execution source (Event, Schedule, API Call)
      * @returns {Promise<PaginatedResponse<Execution>>} The paginated workflow execution logs.
      */
-    async getExecutions({ page = 1, limit = 10 } = {}) {
-        const res = await fetch(`${this.baseUrl}/api/v2/public/execution?page=${page}&limit=${limit}`, {
+    async getExecutions({ page = 1, limit = 10, ...rest } = {}) {
+        const query = new URLSearchParams({ page: String(page), limit: String(limit) });
+        for (const key of Object.keys(rest)) {
+            const value = rest[key];
+            if (value !== undefined && value !== "")
+                query.set(key, String(value));
+        }
+        const res = await fetch(`${this.baseUrl}/api/v2/public/execution?${query}`, {
             headers: {
                 authorization: `Bearer ${this.token}`,
             },
