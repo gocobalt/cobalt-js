@@ -11,7 +11,7 @@
 <li><a href="" aria-current="page">Refold</a></li></ul>
 <h1>Class Refold</h1></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/6e45cf51dd66cd74b1d2cbcb2959382dd93ea7e0/refold.ts#L472">refold.ts:472</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/427bdb6121623c20967d75c096b363c0c937d575/refold.ts#L492">refold.ts:492</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -72,12 +72,18 @@
 <div class="tsd-comment tsd-typography"><p>The base URL of the Refold API. You don't need to set this.</p>
 </div></li>
 <li class="tsd-parameter">
+<h5 id="code"><code class="tsd-tag">Optional</code><span class="tsd-kind-property">code</span><span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
+<div class="tsd-comment tsd-typography"><p>The single-use code from a connect URL, traded for a session token on the first request.
+Prefer this over <code>token</code>: a code that reaches the wrong person is already spent, whereas a
+token stays usable until it expires. Ignored if <code>token</code> is also given.</p>
+</div></li>
+<li class="tsd-parameter">
 <h5 id="token"><code class="tsd-tag">Optional</code><span class="tsd-kind-property">token</span><span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
 <div class="tsd-comment tsd-typography"><p>The session token.</p>
 </div></li></ul></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="" class="tsd-signature-type tsd-kind-class">Refold</a></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/6e45cf51dd66cd74b1d2cbcb2959382dd93ea7e0/refold.ts#L482">refold.ts:482</a></li></ul></aside></div></li></ul></section></section></details>
+<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/427bdb6121623c20967d75c096b363c0c937d575/refold.ts#L506">refold.ts:506</a></li></ul></aside></div></li></ul></section></section></details>
 <details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
 <h2 class="tsd-anchor-link" id="properties-1">Properties<a href="#properties-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
 <section>
@@ -85,7 +91,7 @@
 <h3 class="tsd-anchor-link" id="token"><span>token</span><a href="#token" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">token</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/6e45cf51dd66cd74b1d2cbcb2959382dd93ea7e0/refold.ts#L474">refold.ts:474</a></li></ul></aside></section></section></details>
+<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/427bdb6121623c20967d75c096b363c0c937d575/refold.ts#L494">refold.ts:494</a></li></ul></aside></section></section></details>
 <details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Methods"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
 <h2 class="tsd-anchor-link" id="methods-1">Methods<a href="#methods-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
 <section>
@@ -106,7 +112,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/Config.html" class="tsd-signature-type tsd-kind-interface">Config</a><span class="tsd-signature-symbol">&gt;</span></h4><p>The specified config.</p>
 <aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/6e45cf51dd66cd74b1d2cbcb2959382dd93ea7e0/refold.ts#L830">refold.ts:830</a></li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/427bdb6121623c20967d75c096b363c0c937d575/refold.ts#L926">refold.ts:926</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="connect"><span>connect</span><a href="#connect" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -161,7 +167,7 @@ when a payload is given, otherwise <code>oauth2</code>.</p>
 <h4 class="tsd-anchor-link" id="throws">Throws<a href="#throws" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>Throws an error if the authentication type is invalid or the connection fails.</p>
 </div></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/6e45cf51dd66cd74b1d2cbcb2959382dd93ea7e0/refold.ts#L780">refold.ts:780</a></li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/427bdb6121623c20967d75c096b363c0c937d575/refold.ts#L876">refold.ts:876</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="createworkflow"><span>create<wbr/>Workflow</span><a href="#createworkflow" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -192,7 +198,7 @@ when a payload is given, otherwise <code>oauth2</code>.</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/PublicWorkflow.html" class="tsd-signature-type tsd-kind-interface">PublicWorkflow</a><span class="tsd-signature-symbol">&gt;</span></h4><p>The created public workflow.</p>
 <aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/6e45cf51dd66cd74b1d2cbcb2959382dd93ea7e0/refold.ts#L1113">refold.ts:1113</a></li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/427bdb6121623c20967d75c096b363c0c937d575/refold.ts#L1209">refold.ts:1209</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="deleteconfig"><span>delete<wbr/>Config</span><a href="#deleteconfig" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -212,7 +218,7 @@ when a payload is given, otherwise <code>oauth2</code>.</p>
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/6e45cf51dd66cd74b1d2cbcb2959382dd93ea7e0/refold.ts#L923">refold.ts:923</a></li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/427bdb6121623c20967d75c096b363c0c937d575/refold.ts#L1019">refold.ts:1019</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="deleteconfigfield"><span>delete<wbr/>Config<wbr/>Field</span><a href="#deleteconfigfield" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -235,7 +241,7 @@ when a payload is given, otherwise <code>oauth2</code>.</p>
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/6e45cf51dd66cd74b1d2cbcb2959382dd93ea7e0/refold.ts#L1025">refold.ts:1025</a></li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/427bdb6121623c20967d75c096b363c0c937d575/refold.ts#L1121">refold.ts:1121</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="deleteworkflow"><span>delete<wbr/>Workflow</span><a href="#deleteworkflow" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -252,7 +258,7 @@ when a payload is given, otherwise <code>oauth2</code>.</p>
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/6e45cf51dd66cd74b1d2cbcb2959382dd93ea7e0/refold.ts#L1141">refold.ts:1141</a></li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/427bdb6121623c20967d75c096b363c0c937d575/refold.ts#L1237">refold.ts:1237</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="disconnect"><span>disconnect</span><a href="#disconnect" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -272,7 +278,7 @@ when a payload is given, otherwise <code>oauth2</code>.</p>
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/6e45cf51dd66cd74b1d2cbcb2959382dd93ea7e0/refold.ts#L809">refold.ts:809</a></li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/427bdb6121623c20967d75c096b363c0c937d575/refold.ts#L905">refold.ts:905</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="executeworkflow"><span>execute<wbr/>Workflow</span><a href="#executeworkflow" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -306,7 +312,7 @@ when a payload is given, otherwise <code>oauth2</code>.</p>
 </div></li></ul></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/6e45cf51dd66cd74b1d2cbcb2959382dd93ea7e0/refold.ts#L1185">refold.ts:1185</a></li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/427bdb6121623c20967d75c096b363c0c937d575/refold.ts#L1281">refold.ts:1281</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="getapp"><span>get<wbr/>App</span><a href="#getapp" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -318,7 +324,7 @@ when a payload is given, otherwise <code>oauth2</code>.</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/Application.html" class="tsd-signature-type tsd-kind-interface">Application</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4><p>The list of applications.</p>
 <aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/6e45cf51dd66cd74b1d2cbcb2959382dd93ea7e0/refold.ts#L542">refold.ts:542</a></li></ul></aside></div></li>
+<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/427bdb6121623c20967d75c096b363c0c937d575/refold.ts#L638">refold.ts:638</a></li></ul></aside></div></li>
 <li class="">
 <div class="tsd-signature tsd-anchor-link" id="getapp-2"><span class="tsd-kind-call-signature">getApp</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">slug</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/Application.html" class="tsd-signature-type tsd-kind-interface">Application</a><span class="tsd-signature-symbol">&gt;</span><a href="#getapp-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
 <div class="tsd-description">
@@ -334,7 +340,7 @@ the application is enabled in Refold.</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/Application.html" class="tsd-signature-type tsd-kind-interface">Application</a><span class="tsd-signature-symbol">&gt;</span></h4><p>The application details.</p>
 <aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/6e45cf51dd66cd74b1d2cbcb2959382dd93ea7e0/refold.ts#L549">refold.ts:549</a></li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/427bdb6121623c20967d75c096b363c0c937d575/refold.ts#L645">refold.ts:645</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="getapps"><span>get<wbr/>Apps</span><a href="#getapps" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -346,7 +352,7 @@ the application is enabled in Refold.</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/Application.html" class="tsd-signature-type tsd-kind-interface">Application</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4><p>The list of applications.</p>
 <aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/6e45cf51dd66cd74b1d2cbcb2959382dd93ea7e0/refold.ts#L577">refold.ts:577</a></li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/427bdb6121623c20967d75c096b363c0c937d575/refold.ts#L673">refold.ts:673</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="getconfig"><span>get<wbr/>Config</span><a href="#getconfig" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -370,7 +376,7 @@ the application is enabled in Refold.</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/Config.html" class="tsd-signature-type tsd-kind-interface">Config</a><span class="tsd-signature-symbol">&gt;</span></h4><p>The specified config.</p>
 <aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/6e45cf51dd66cd74b1d2cbcb2959382dd93ea7e0/refold.ts#L878">refold.ts:878</a></li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/427bdb6121623c20967d75c096b363c0c937d575/refold.ts#L974">refold.ts:974</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="getconfigfield"><span>get<wbr/>Config<wbr/>Field</span><a href="#getconfigfield" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -397,7 +403,7 @@ the application is enabled in Refold.</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/Config.html" class="tsd-signature-type tsd-kind-interface">Config</a><span class="tsd-signature-symbol">&gt;</span></h4><p>The specified config field.</p>
 <aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/6e45cf51dd66cd74b1d2cbcb2959382dd93ea7e0/refold.ts#L972">refold.ts:972</a></li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/427bdb6121623c20967d75c096b363c0c937d575/refold.ts#L1068">refold.ts:1068</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="getconfigs"><span>get<wbr/>Configs</span><a href="#getconfigs" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -415,7 +421,7 @@ the application is enabled in Refold.</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{</span> <span class="tsd-kind-property">config_id</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">}</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4><p>The configs created for the specified application.</p>
 <aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/6e45cf51dd66cd74b1d2cbcb2959382dd93ea7e0/refold.ts#L856">refold.ts:856</a></li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/427bdb6121623c20967d75c096b363c0c937d575/refold.ts#L952">refold.ts:952</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="getexecution"><span>get<wbr/>Execution</span><a href="#getexecution" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -433,7 +439,7 @@ the application is enabled in Refold.</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/Execution.html" class="tsd-signature-type tsd-kind-interface">Execution</a><span class="tsd-signature-symbol">&gt;</span></h4><p>The specified execution log.</p>
 <aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/6e45cf51dd66cd74b1d2cbcb2959382dd93ea7e0/refold.ts#L1245">refold.ts:1245</a></li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/427bdb6121623c20967d75c096b363c0c937d575/refold.ts#L1341">refold.ts:1341</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="getexecutions"><span>get<wbr/>Executions</span><a href="#getexecutions" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -488,7 +494,7 @@ the application is enabled in Refold.</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">PaginatedResponse</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/Execution.html" class="tsd-signature-type tsd-kind-interface">Execution</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4><p>The paginated workflow execution logs.</p>
 <aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/6e45cf51dd66cd74b1d2cbcb2959382dd93ea7e0/refold.ts#L1219">refold.ts:1219</a></li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/427bdb6121623c20967d75c096b363c0c937d575/refold.ts#L1315">refold.ts:1315</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="getfieldoptions"><span>get<wbr/>Field<wbr/>Options</span><a href="#getfieldoptions" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -515,7 +521,7 @@ the application is enabled in Refold.</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/RuleOptions.html" class="tsd-signature-type tsd-kind-interface">RuleOptions</a><span class="tsd-signature-symbol">&gt;</span></h4><p>The specified rule field's options.</p>
 <aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/6e45cf51dd66cd74b1d2cbcb2959382dd93ea7e0/refold.ts#L1050">refold.ts:1050</a></li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/427bdb6121623c20967d75c096b363c0c937d575/refold.ts#L1146">refold.ts:1146</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="getworkflowpayload"><span>get<wbr/>Workflow<wbr/>Payload</span><a href="#getworkflowpayload" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -533,7 +539,7 @@ the application is enabled in Refold.</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/WorkflowPayloadResponse.html" class="tsd-signature-type tsd-kind-interface">WorkflowPayloadResponse</a><span class="tsd-signature-symbol">&gt;</span></h4><p>The workflow payload response.</p>
 <aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/6e45cf51dd66cd74b1d2cbcb2959382dd93ea7e0/refold.ts#L1162">refold.ts:1162</a></li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/427bdb6121623c20967d75c096b363c0c937d575/refold.ts#L1258">refold.ts:1258</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="getworkflows"><span>get<wbr/>Workflows</span><a href="#getworkflows" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -579,7 +585,7 @@ the application is enabled in Refold.</p>
 </div></li></ul></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">PaginatedResponse</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/PublicWorkflow.html" class="tsd-signature-type tsd-kind-interface">PublicWorkflow</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/6e45cf51dd66cd74b1d2cbcb2959382dd93ea7e0/refold.ts#L1083">refold.ts:1083</a></li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/427bdb6121623c20967d75c096b363c0c937d575/refold.ts#L1179">refold.ts:1179</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="toggleconfigworkflow"><span>toggle<wbr/>Config<wbr/>Workflow</span><a href="#toggleconfigworkflow" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -597,7 +603,7 @@ the application is enabled in Refold.</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ConfigWorkflow.html" class="tsd-signature-type tsd-kind-interface">ConfigWorkflow</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4><p>The updated list of workflows in the config.</p>
 <aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/6e45cf51dd66cd74b1d2cbcb2959382dd93ea7e0/refold.ts#L944">refold.ts:944</a></li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/427bdb6121623c20967d75c096b363c0c937d575/refold.ts#L1040">refold.ts:1040</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="updateconfig"><span>update<wbr/>Config</span><a href="#updateconfig" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -615,7 +621,7 @@ the application is enabled in Refold.</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/Config.html" class="tsd-signature-type tsd-kind-interface">Config</a><span class="tsd-signature-symbol">&gt;</span></h4><p>The specified config.</p>
 <aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/6e45cf51dd66cd74b1d2cbcb2959382dd93ea7e0/refold.ts#L899">refold.ts:899</a></li></ul></aside></div></li></ul></section>
+<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/427bdb6121623c20967d75c096b363c0c937d575/refold.ts#L995">refold.ts:995</a></li></ul></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="updateconfigfield"><span>update<wbr/>Config<wbr/>Field</span><a href="#updateconfigfield" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -642,7 +648,7 @@ the application is enabled in Refold.</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/Config.html" class="tsd-signature-type tsd-kind-interface">Config</a><span class="tsd-signature-symbol">&gt;</span></h4><p>The updated config field.</p>
 <aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/6e45cf51dd66cd74b1d2cbcb2959382dd93ea7e0/refold.ts#L999">refold.ts:999</a></li></ul></aside></div></li></ul></section></section></details></div>
+<li>Defined in <a href="https://github.com/gocobalt/refold-js/blob/427bdb6121623c20967d75c096b363c0c937d575/refold.ts#L1095">refold.ts:1095</a></li></ul></aside></div></li></ul></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

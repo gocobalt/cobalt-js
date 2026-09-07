@@ -58,6 +58,20 @@ var GrantType;
 const POLL_INTERVAL = 3e3;
 /** How long, in milliseconds, polling continues after the auth window closes or the wait times out, since the connection may complete moments later. */
 const POLL_GRACE = 6e3;
+/**
+ * Identifies one SDK instance to the connect-code exchange. Not a secret — it only proves a retry
+ * comes from the same caller — but there is no point emitting a guessable one, so an environment
+ * without crypto gets nothing and forgoes the retry instead.
+ */
+const randomId = () => {
+    const c = globalThis.crypto;
+    if (typeof (c === null || c === void 0 ? void 0 : c.randomUUID) === "function")
+        return c.randomUUID();
+    if (typeof (c === null || c === void 0 ? void 0 : c.getRandomValues) === "function") {
+        return Array.from(c.getRandomValues(new Uint8Array(16)), b => (b + 0x100).toString(16).slice(1)).join("");
+    }
+    return undefined;
+};
 /** The number of consecutive polling failures tolerated before authentication is aborted. */
 const MAX_POLL_FAILURES = 3;
 /** The default maximum time, in milliseconds, to wait for authentication. */
@@ -66,6 +80,7 @@ class Refold {
     /**
      * Refold Frontend SDK
      * @param {Object} options The options to configure the Refold SDK.
+     * @param {String} [options.code] The single-use code from a connect URL.
      * @param {String} [options.token] The session token.
      * @param {String} [options.baseUrl=https://app.refold.ai] The base URL of the Refold API.
      */
@@ -76,6 +91,72 @@ class Refold {
                 : "https://" + options.baseUrl
             : "https://app.refold.ai";
         this.token = options.token || "";
+        this.code = options.code || "";
+        if (this.code && !this.token) {
+            // Identifies this instance to the exchange, so a request whose response never arrived
+            // can be retried by us and only us. Minted before the first attempt, since that is the
+            // case it exists for. Without a source of randomness we send nothing rather than
+            // something guessable, and simply forgo the retry.
+            this.claim = randomId();
+            // Exchanged up front, not on the first call. `connect()` opens a popup immediately
+            // after its request, and browsers drop user activation across a network round-trip —
+            // an exchange in that path gets the popup blocked. Failures are swallowed here and
+            // resurfaced on the call that actually needs the token.
+            void this.startExchange().catch(() => undefined);
+        }
+    }
+    /**
+     * The `Authorization` header every request carries. A code is traded for its session token on
+     * first use and the token is then held in memory only, so it never reaches the URL, storage or
+     * anywhere else the page can leak it.
+     * @private
+     */
+    bearer() {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (!this.token && this.code)
+                this.token = yield this.startExchange();
+            return `Bearer ${this.token}`;
+        });
+    }
+    /**
+     * The one in-flight exchange for this instance. A code is spendable once, so concurrent calls
+     * share it rather than race. A failure is not cached — a spent code fails again anyway, while
+     * caching the rejection would let one network blip brick the instance for good.
+     * @private
+     */
+    startExchange() {
+        var _a;
+        (_a = this.exchange) !== null && _a !== void 0 ? _a : (this.exchange = this.exchangeCode(this.code, this.claim).catch(error => {
+            this.exchange = undefined;
+            throw error;
+        }));
+        return this.exchange;
+    }
+    /**
+     * Claims a connect code, which spends it. Unauthenticated by construction — possession of the
+     * code is the credential, and the page holding it has nothing else to present.
+     * @private
+     */
+    exchangeCode(code, claim_id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const res = yield fetch(`${this.baseUrl}/api/v2/public/connect-code/exchange`, {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                },
+                body: JSON.stringify({ code, claim_id }),
+            });
+            if (res.status >= 400 && res.status < 600) {
+                // Not every failure is the API answering. A misconfigured gateway serves an HTML page,
+                // and parsing that as JSON would surface "Unexpected token <" instead of the status.
+                throw yield res.json().catch(() => Object.assign(new Error(`The connect code could not be exchanged (HTTP ${res.status}).`), { code: "EXCHANGE_FAILED", status: res.status }));
+            }
+            const data = yield res.json().catch(() => undefined);
+            if (!(data === null || data === void 0 ? void 0 : data.token)) {
+                throw Object.assign(new Error("The connect code exchange returned no session token."), { code: "EXCHANGE_FAILED", status: res.status });
+            }
+            return data.token;
+        });
     }
     /**
      * Returns the org & customer details for the associated token.
@@ -86,7 +167,7 @@ class Refold {
         return __awaiter(this, void 0, void 0, function* () {
             const res = yield fetch(`${this.baseUrl}/api/v3/org/basics`, {
                 headers: {
-                    authorization: `Bearer ${this.token}`,
+                    authorization: yield this.bearer(),
                 },
             });
             if (res.status >= 400 && res.status < 600) {
@@ -107,7 +188,7 @@ class Refold {
             const res = yield fetch(`${this.baseUrl}/api/v2/public/linked-account`, {
                 method: "PUT",
                 headers: {
-                    authorization: `Bearer ${this.token}`,
+                    authorization: yield this.bearer(),
                     "content-type": "application/json",
                 },
                 body: JSON.stringify(Object.assign({}, payload)),
@@ -131,7 +212,7 @@ class Refold {
         return __awaiter(this, void 0, void 0, function* () {
             const res = yield fetch(`${this.baseUrl}/api/v2/f-sdk/application${slug ? `/${slug}` : ""}`, {
                 headers: {
-                    authorization: `Bearer ${this.token}`,
+                    authorization: yield this.bearer(),
                 },
             });
             if (res.status >= 400 && res.status < 600) {
@@ -150,7 +231,7 @@ class Refold {
         return __awaiter(this, void 0, void 0, function* () {
             const res = yield fetch(`${this.baseUrl}/api/v2/f-sdk/application`, {
                 headers: {
-                    authorization: `Bearer ${this.token}`,
+                    authorization: yield this.bearer(),
                 },
             });
             if (res.status >= 400 && res.status < 600) {
@@ -185,7 +266,7 @@ class Refold {
             const res = yield fetch(url, {
                 method: "POST",
                 headers: {
-                    authorization: `Bearer ${this.token}`,
+                    authorization: yield this.bearer(),
                     "content-type": "application/json",
                 },
                 body: JSON.stringify(params !== null && params !== void 0 ? params : {}),
@@ -297,7 +378,7 @@ class Refold {
             const res = yield fetch(`${this.baseUrl}/api/v2/app/${slug}/save`, {
                 method: "POST",
                 headers: {
-                    authorization: `Bearer ${this.token}`,
+                    authorization: yield this.bearer(),
                     "content-type": "application/json",
                 },
                 body: JSON.stringify(Object.assign(Object.assign({}, payload), (connectorAuthType ? { auth_type: connectorAuthType } : {}))),
@@ -351,7 +432,7 @@ class Refold {
             const res = yield fetch(`${this.baseUrl}/api/v1/linked-acc/integration/${slug}${type ? `?auth_type=${type}` : ""}`, {
                 method: "DELETE",
                 headers: {
-                    authorization: `Bearer ${this.token}`,
+                    authorization: yield this.bearer(),
                 },
             });
             if (res.status >= 400 && res.status < 600) {
@@ -371,7 +452,7 @@ class Refold {
             const res = yield fetch(`${this.baseUrl}/api/v2/f-sdk/config`, {
                 method: "POST",
                 headers: {
-                    authorization: `Bearer ${this.token}`,
+                    authorization: yield this.bearer(),
                     "content-type": "application/json",
                 },
                 body: JSON.stringify(Object.assign(Object.assign({}, payload), { labels: payload.labels || [] })),
@@ -392,7 +473,7 @@ class Refold {
         return __awaiter(this, void 0, void 0, function* () {
             const res = yield fetch(`${this.baseUrl}/api/v2/public/slug/${slug}/configs`, {
                 headers: {
-                    authorization: `Bearer ${this.token}`,
+                    authorization: yield this.bearer(),
                 },
             });
             if (res.status >= 400 && res.status < 600) {
@@ -412,7 +493,7 @@ class Refold {
     getConfig(slug, configId, excludeOptions) {
         return __awaiter(this, void 0, void 0, function* () {
             const res = yield fetch(`${this.baseUrl}/api/v2/f-sdk/slug/${slug}/config${configId ? `/${configId}` : ""}`, {
-                headers: Object.assign({ authorization: `Bearer ${this.token}` }, (excludeOptions ? { disable_field_options: "true" } : {})),
+                headers: Object.assign({ authorization: yield this.bearer() }, (excludeOptions ? { disable_field_options: "true" } : {})),
             });
             if (res.status >= 400 && res.status < 600) {
                 const error = yield res.json();
@@ -431,7 +512,7 @@ class Refold {
             const res = yield fetch(`${this.baseUrl}/api/v2/f-sdk/config`, {
                 method: "PUT",
                 headers: {
-                    authorization: `Bearer ${this.token}`,
+                    authorization: yield this.bearer(),
                     "content-type": "application/json",
                 },
                 body: JSON.stringify(payload),
@@ -454,7 +535,7 @@ class Refold {
             const res = yield fetch(`${this.baseUrl}/api/v2/f-sdk/slug/${slug}/config${configId ? `/${configId}` : ""}`, {
                 method: "DELETE",
                 headers: {
-                    authorization: `Bearer ${this.token}`,
+                    authorization: yield this.bearer(),
                 },
             });
             if (res.status >= 400 && res.status < 600) {
@@ -475,7 +556,7 @@ class Refold {
             const res = yield fetch(`${this.baseUrl}/api/v2/public/slug/${slug}/config/${config_id}/workflows/${workflow_id}`, {
                 method: "PATCH",
                 headers: {
-                    authorization: `Bearer ${this.token}`,
+                    authorization: yield this.bearer(),
                     "content-type": "application/json",
                 },
                 body: JSON.stringify({ enabled }),
@@ -501,7 +582,7 @@ class Refold {
             const res = yield fetch(`${this.baseUrl}/api/v2/public/config/field/${fieldId}${workflowId ? `?workflow_id=${workflowId}` : ""}`, {
                 method: "POST",
                 headers: {
-                    authorization: `Bearer ${this.token}`,
+                    authorization: yield this.bearer(),
                     "content-type": "application/json",
                     slug,
                 },
@@ -527,7 +608,7 @@ class Refold {
             const res = yield fetch(`${this.baseUrl}/api/v2/public/config/field/${fieldId}${workflowId ? `?workflow_id=${workflowId}` : ""}`, {
                 method: "PUT",
                 headers: {
-                    authorization: `Bearer ${this.token}`,
+                    authorization: yield this.bearer(),
                     "content-type": "application/json",
                     slug,
                 },
@@ -552,7 +633,7 @@ class Refold {
             const res = yield fetch(`${this.baseUrl}/api/v2/public/config/field/${fieldId}${workflowId ? `?workflow_id=${workflowId}` : ""}`, {
                 method: "DELETE",
                 headers: {
-                    authorization: `Bearer ${this.token}`,
+                    authorization: yield this.bearer(),
                     slug,
                 },
             });
@@ -576,7 +657,7 @@ class Refold {
             const res = yield fetch(`${this.baseUrl}/api/v2/public/config/rule-engine/${fieldId}${workflowId ? `?workflow_id=${workflowId}` : ""}`, {
                 method: "POST",
                 headers: {
-                    authorization: `Bearer ${this.token}`,
+                    authorization: yield this.bearer(),
                     "content-type": "application/json",
                     slug,
                 },
@@ -614,7 +695,7 @@ class Refold {
             }
             const res = yield fetch(`${this.baseUrl}/api/v2/public/workflow?${query}`, {
                 headers: {
-                    authorization: `Bearer ${this.token}`,
+                    authorization: yield this.bearer(),
                 },
             });
             if (res.status >= 400 && res.status < 600) {
@@ -639,7 +720,7 @@ class Refold {
             const res = yield fetch(`${this.baseUrl}/api/v2/public/workflow`, {
                 method: "POST",
                 headers: {
-                    authorization: `Bearer ${this.token}`,
+                    authorization: yield this.bearer(),
                     "content-type": "application/json",
                 },
                 body: JSON.stringify({
@@ -666,7 +747,7 @@ class Refold {
             const res = yield fetch(`${this.baseUrl}/api/v2/public/workflow/${workflowId}`, {
                 method: "DELETE",
                 headers: {
-                    authorization: `Bearer ${this.token}`,
+                    authorization: yield this.bearer(),
                 },
             });
             if (res.status >= 400 && res.status < 600) {
@@ -685,7 +766,7 @@ class Refold {
         return __awaiter(this, void 0, void 0, function* () {
             const res = yield fetch(`${this.baseUrl}/api/v2/public/workflow/request-structure/${workflowId}`, {
                 headers: {
-                    authorization: `Bearer ${this.token}`,
+                    authorization: yield this.bearer(),
                 },
             });
             if (res.status >= 400 && res.status < 600) {
@@ -708,7 +789,7 @@ class Refold {
             const res = yield fetch(`${this.baseUrl}/api/v2/public/workflow/${options === null || options === void 0 ? void 0 : options.worklfow}/execute`, {
                 method: "POST",
                 headers: {
-                    authorization: `Bearer ${this.token}`,
+                    authorization: yield this.bearer(),
                     "content-type": "application/json",
                     slug: (options === null || options === void 0 ? void 0 : options.slug) || "",
                     sync_execution: (options === null || options === void 0 ? void 0 : options.sync_execution) ? "true" : "false",
@@ -747,7 +828,7 @@ class Refold {
             }
             const res = yield fetch(`${this.baseUrl}/api/v2/public/execution?${query}`, {
                 headers: {
-                    authorization: `Bearer ${this.token}`,
+                    authorization: yield this.bearer(),
                 },
             });
             if (res.status >= 400 && res.status < 600) {
@@ -766,7 +847,7 @@ class Refold {
         return __awaiter(this, void 0, void 0, function* () {
             const res = yield fetch(`${this.baseUrl}/api/v2/public/execution/${executionId}`, {
                 headers: {
-                    authorization: `Bearer ${this.token}`,
+                    authorization: yield this.bearer(),
                 },
             });
             if (res.status >= 400 && res.status < 600) {
