@@ -136,8 +136,15 @@ export interface OAuthParams {
     grantType?: GrantType;
     /** Whether to close the authentication window automatically once the connection succeeds or the wait times out. */
     autoClose?: boolean;
-    /** Maximum time in milliseconds to wait for authentication before giving up. The user closing the authentication window does not end the wait. Set to `0` to wait indefinitely, in which case the returned promise never settles unless the connection succeeds. Defaults to 5 minutes. */
+    /** Maximum time in milliseconds to wait for authentication before giving up. Set to `0` to wait indefinitely. Defaults to 3 minutes. */
     timeout?: number;
+    /**
+     * Signal used to give up on an in-progress authentication — abort it and the
+     * returned promise resolves `false`. Providers that sever the authentication
+     * window's handle make an abandoned flow undetectable, so this is the only way
+     * to end such a wait before the `timeout`.
+     */
+    signal?: AbortSignal;
 }
 export interface KeyBasedParams {
     /** The application slug. */
@@ -484,7 +491,8 @@ declare class Refold {
      * @param params.slug - The application slug.
      * @param params.payload - The key value pairs of auth data.
      * @param params.autoClose - Whether to close the authentication window automatically once the connection succeeds or the wait times out. Defaults to `true`.
-     * @param params.timeout - Maximum time in milliseconds to wait for authentication before giving up. The user closing the authentication window does not end the wait. Set to `0` to wait indefinitely, in which case the returned promise never settles unless the connection succeeds. Defaults to 5 minutes.
+     * @param params.timeout - Maximum time in milliseconds to wait for authentication before giving up. Set to `0` to wait indefinitely. Defaults to 3 minutes.
+     * @param params.signal - Signal used to give up on the authentication and resolve `false`.
      * @returns {Promise<Boolean>} Whether the user authenticated.
      */
     private oauth;
@@ -504,11 +512,12 @@ declare class Refold {
      * @param params.payload - key-value pairs of authentication data required for the specified auth type.
      * @param params.grantType - The application's OAuth grant. Pass {@link GrantType.ClientCredentials} for machine-to-machine connectors (fields are submitted to the server, no window opens). Omit for redirect grants.
      * @param params.autoClose - Whether to close the authentication window automatically once the connection succeeds or the wait times out. If not provided, it defaults to `true`.
-     * @param params.timeout - Maximum time in milliseconds to wait for authentication before giving up. Only applicable to the OAuth2 flow. The user closing the authentication window does not end the wait, since a provider can sever the window handle and make it indistinguishable from a closed one. Set to `0` to wait indefinitely, in which case the returned promise never settles unless the connection succeeds. If not provided, it defaults to 5 minutes.
+     * @param params.timeout - Maximum time in milliseconds to wait for authentication before giving up. Only applicable to the OAuth2 flow. Set to `0` to wait indefinitely. If not provided, it defaults to 3 minutes.
+     * @param params.signal - Signal used to give up on an in-progress OAuth2 authentication, resolving the returned promise `false`. Providers that sever the authentication window's handle make an abandoned flow undetectable, so this is the only way to end such a wait before the `timeout`.
      * @returns A promise that resolves to true if the connection was successful, otherwise false.
      * @throws Throws an error if the authentication type is invalid or the connection fails.
      */
-    connect({ slug, type, payload, grantType, autoClose, timeout, }: ConnectParams): Promise<boolean>;
+    connect({ slug, type, payload, grantType, autoClose, timeout, signal, }: ConnectParams): Promise<boolean>;
     /**
      * Disconnect the specified application and remove any associated data from Refold.
      * @param {String} slug The application slug.

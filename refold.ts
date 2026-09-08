@@ -151,8 +151,15 @@ export interface OAuthParams {
     grantType?: GrantType;
     /** Whether to close the authentication window automatically once the connection succeeds or the wait times out. */
     autoClose?: boolean;
-    /** Maximum time in milliseconds to wait for authentication before giving up. The user closing the authentication window does not end the wait. Set to `0` to wait indefinitely, in which case the returned promise never settles unless the connection succeeds. Defaults to 5 minutes. */
+    /** Maximum time in milliseconds to wait for authentication before giving up. Set to `0` to wait indefinitely. Defaults to 3 minutes. */
     timeout?: number;
+    /**
+     * Signal used to give up on an in-progress authentication — abort it and the
+     * returned promise resolves `false`. Providers that sever the authentication
+     * window's handle make an abandoned flow undetectable, so this is the only way
+     * to end such a wait before the `timeout`.
+     */
+    signal?: AbortSignal;
 }
 
 export interface KeyBasedParams {
@@ -467,7 +474,7 @@ const POLL_GRACE = 6e3;
 /** The number of consecutive polling failures tolerated before authentication is aborted. */
 const MAX_POLL_FAILURES = 3;
 /** The default maximum time, in milliseconds, to wait for authentication. */
-const DEFAULT_CONNECT_TIMEOUT = 300e3;
+const DEFAULT_CONNECT_TIMEOUT = 180e3;
 
 class Refold {
     private baseUrl: string;
@@ -637,7 +644,8 @@ class Refold {
      * @param params.slug - The application slug.
      * @param params.payload - The key value pairs of auth data.
      * @param params.autoClose - Whether to close the authentication window automatically once the connection succeeds or the wait times out. Defaults to `true`.
-     * @param params.timeout - Maximum time in milliseconds to wait for authentication before giving up. The user closing the authentication window does not end the wait. Set to `0` to wait indefinitely, in which case the returned promise never settles unless the connection succeeds. Defaults to 5 minutes.
+     * @param params.timeout - Maximum time in milliseconds to wait for authentication before giving up. Set to `0` to wait indefinitely. Defaults to 3 minutes.
+     * @param params.signal - Signal used to give up on the authentication and resolve `false`.
      * @returns {Promise<Boolean>} Whether the user authenticated.
      */
     private async oauth({
@@ -645,7 +653,10 @@ class Refold {
         payload,
         autoClose = true,
         timeout = DEFAULT_CONNECT_TIMEOUT,
+        signal,
     }: OAuthParams): Promise<boolean> {
+        if (signal?.aborted) return false;
+
         const data = await this.integrate(slug, payload);
 
         // No auth_url ⇒ the server completed the connection without a redirect
@@ -677,23 +688,42 @@ class Refold {
             let consecutiveFailures = 0;
             let firstFailure: unknown;
             let graceStartedAt: number | undefined;
+            let handleTrusted: boolean | undefined;
+
+            const stop = () => {
+                clearInterval(interval);
+                signal?.removeEventListener("abort", onAbort);
+            };
+
+            const onAbort = () => {
+                stop();
+                if (autoClose) connectWindow.close();
+                resolve(false);
+            };
 
             // keep checking connection status
             const interval = setInterval(() => {
-                // A provider serving any page in the auth chain with a
-                // `same-origin` Cross-Origin-Opener-Policy puts it in a new
-                // browsing context group, discarding the context `window.open`
-                // returned: the handle then reports `closed` for a window that
-                // is still open, and `close()` on it is a no-op. That is
-                // indistinguishable from a genuine close, so the timeout bounds
-                // the wait instead.
-                if (timeout > 0 && Date.now() - startedAt >= timeout) {
-                    // the connection may complete moments around the wait timing
-                    // out, so keep polling for a little longer before giving up
-                    if (autoClose) connectWindow.close();
+                // A provider serving any page in the auth chain with a `same-origin`
+                // Cross-Origin-Opener-Policy has it placed in a new browsing context
+                // group, discarding the context `window.open` returned: the handle
+                // then reports `closed` for a window that is still open, and
+                // `close()` on it is a no-op. Since that is indistinguishable from a
+                // genuine close, `closed` counts only once the handle has been seen
+                // alive — and as it never returns to `false`, this first reading
+                // settles the question for the whole run. The severing response
+                // arrives before the user can read the page it renders and close the
+                // window, so shortening POLL_INTERVAL narrows that margin.
+                handleTrusted ??= !connectWindow.closed;
+
+                const timedOut = timeout > 0 && Date.now() - startedAt >= timeout;
+                if ((handleTrusted && connectWindow.closed) || timedOut) {
+                    // the connection may complete moments around the window closing
+                    // or the wait timing out, so keep polling for a little longer
+                    // before giving up
+                    if (timedOut && autoClose) connectWindow.close();
                     graceStartedAt ??= Date.now();
                     if (Date.now() - graceStartedAt >= POLL_GRACE) {
-                        clearInterval(interval);
+                        stop();
                         resolve(false);
                         return;
                     }
@@ -711,9 +741,7 @@ class Refold {
                     if (hasActiveOAuthAccount(app)) {
                         // close auth window
                         if (autoClose) connectWindow.close();
-                        // clear interval
-                        clearInterval(interval);
-                        // resolve status
+                        stop();
                         resolve(true);
                     }
                 })
@@ -724,11 +752,15 @@ class Refold {
                     consecutiveFailures += 1;
                     firstFailure ??= e;
                     if (consecutiveFailures >= MAX_POLL_FAILURES) {
-                        clearInterval(interval);
+                        stop();
                         reject(firstFailure);
                     }
                 });
             }, POLL_INTERVAL);
+
+            signal?.addEventListener("abort", onAbort);
+            // the signal may have been aborted while /integrate was in flight
+            if (signal?.aborted) onAbort();
         });
     }
 
@@ -778,7 +810,8 @@ class Refold {
      * @param params.payload - key-value pairs of authentication data required for the specified auth type.
      * @param params.grantType - The application's OAuth grant. Pass {@link GrantType.ClientCredentials} for machine-to-machine connectors (fields are submitted to the server, no window opens). Omit for redirect grants.
      * @param params.autoClose - Whether to close the authentication window automatically once the connection succeeds or the wait times out. If not provided, it defaults to `true`.
-     * @param params.timeout - Maximum time in milliseconds to wait for authentication before giving up. Only applicable to the OAuth2 flow. The user closing the authentication window does not end the wait, since a provider can sever the window handle and make it indistinguishable from a closed one. Set to `0` to wait indefinitely, in which case the returned promise never settles unless the connection succeeds. If not provided, it defaults to 5 minutes.
+     * @param params.timeout - Maximum time in milliseconds to wait for authentication before giving up. Only applicable to the OAuth2 flow. Set to `0` to wait indefinitely. If not provided, it defaults to 3 minutes.
+     * @param params.signal - Signal used to give up on an in-progress OAuth2 authentication, resolving the returned promise `false`. Providers that sever the authentication window's handle make an abandoned flow undetectable, so this is the only way to end such a wait before the `timeout`.
      * @returns A promise that resolves to true if the connection was successful, otherwise false.
      * @throws Throws an error if the authentication type is invalid or the connection fails.
      */
@@ -789,19 +822,20 @@ class Refold {
         grantType,
         autoClose = true,
         timeout = DEFAULT_CONNECT_TIMEOUT,
+        signal,
     }: ConnectParams): Promise<boolean> {
         switch (type) {
             case AuthType.OAuth2:
-                return this.oauth({ slug, payload, grantType, autoClose, timeout });
+                return this.oauth({ slug, payload, grantType, autoClose, timeout, signal });
             case AuthType.KeyBased:
                 return this.keybased({ slug, payload, authType: type });
             default:
                 // client-credentials (M2M) is OAuth2 but carries a payload, so it
                 // must not be mistaken for a key-based connect.
                 if (grantType === GrantType.ClientCredentials)
-                    return this.oauth({ slug, payload, grantType, autoClose, timeout });
+                    return this.oauth({ slug, payload, grantType, autoClose, timeout, signal });
                 if (payload) return this.keybased({ slug, payload, authType: type });
-                return this.oauth({ slug, grantType, autoClose, timeout });
+                return this.oauth({ slug, grantType, autoClose, timeout, signal });
         }
     }
 
