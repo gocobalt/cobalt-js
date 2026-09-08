@@ -56,7 +56,7 @@ var GrantType;
 })(GrantType || (exports.GrantType = GrantType = {}));
 /** How often, in milliseconds, connection status is polled during authentication. */
 const POLL_INTERVAL = 3e3;
-/** How long, in milliseconds, polling continues after the auth window closes or the wait times out, since the connection may complete moments later. */
+/** How long, in milliseconds, polling continues after the wait times out, since the connection may complete moments later. */
 const POLL_GRACE = 6e3;
 /** The number of consecutive polling failures tolerated before authentication is aborted. */
 const MAX_POLL_FAILURES = 3;
@@ -203,12 +203,12 @@ class Refold {
      * @param params - The parameters for the OAuth flow.
      * @param params.slug - The application slug.
      * @param params.payload - The key value pairs of auth data.
-     * @param params.autoClose - Whether to close the authentication window automatically. Defaults to `true`.
-     * @param params.timeout - Maximum time in milliseconds to wait for authentication before giving up. Set to `0` to wait indefinitely. Defaults to 5 minutes.
+     * @param params.autoClose - Whether to close the authentication window automatically once the connection succeeds or the wait times out. Defaults to `true`.
+     * @param params.timeout - Maximum time in milliseconds to wait for authentication before giving up. The user closing the authentication window does not end the wait. Set to `0` to wait indefinitely, in which case the returned promise never settles unless the connection succeeds. Defaults to 5 minutes.
      * @returns {Promise<Boolean>} Whether the user authenticated.
      */
-    oauth(_a) {
-        return __awaiter(this, arguments, void 0, function* ({ slug, payload, autoClose = true, timeout = DEFAULT_CONNECT_TIMEOUT, }) {
+    oauth({ slug, payload, autoClose = true, timeout = DEFAULT_CONNECT_TIMEOUT, }) {
+        return __awaiter(this, void 0, void 0, function* () {
             const data = yield this.integrate(slug, payload);
             // No auth_url ⇒ the server completed the connection without a redirect
             // (client-credentials / M2M); report the outcome it gives us. A response
@@ -232,12 +232,17 @@ class Refold {
                 let graceStartedAt;
                 // keep checking connection status
                 const interval = setInterval(() => {
-                    const timedOut = timeout > 0 && Date.now() - startedAt >= timeout;
-                    if (connectWindow.closed || timedOut) {
-                        // the connection may complete moments around the window
-                        // closing or the wait timing out, so keep polling for a
-                        // little longer before giving up
-                        if (timedOut && autoClose)
+                    // A provider serving any page in the auth chain with a
+                    // `same-origin` Cross-Origin-Opener-Policy puts it in a new
+                    // browsing context group, discarding the context `window.open`
+                    // returned: the handle then reports `closed` for a window that
+                    // is still open, and `close()` on it is a no-op. That is
+                    // indistinguishable from a genuine close, so the timeout bounds
+                    // the wait instead.
+                    if (timeout > 0 && Date.now() - startedAt >= timeout) {
+                        // the connection may complete moments around the wait timing
+                        // out, so keep polling for a little longer before giving up
+                        if (autoClose)
                             connectWindow.close();
                         graceStartedAt !== null && graceStartedAt !== void 0 ? graceStartedAt : (graceStartedAt = Date.now());
                         if (Date.now() - graceStartedAt >= POLL_GRACE) {
@@ -287,8 +292,8 @@ class Refold {
      * @param params.payload - The key value pairs of auth data.
      * @returns {Promise<Boolean>} Whether the auth data was saved successfully.
      */
-    keybased(_a) {
-        return __awaiter(this, arguments, void 0, function* ({ slug, payload, authType, }) {
+    keybased({ slug, payload, authType, }) {
+        return __awaiter(this, void 0, void 0, function* () {
             // A connector offering several key-based types needs to be told which one; the generic
             // `keybased` is not one of them, so it is not forwarded and an application's body stays
             // exactly the credentials it always was. A connector with a single key-based type has
@@ -317,13 +322,13 @@ class Refold {
      * @param params.type - The authentication type to use. If not provided, it defaults to `keybased` if payload is provided, otherwise `oauth2`.
      * @param params.payload - key-value pairs of authentication data required for the specified auth type.
      * @param params.grantType - The application's OAuth grant. Pass {@link GrantType.ClientCredentials} for machine-to-machine connectors (fields are submitted to the server, no window opens). Omit for redirect grants.
-     * @param params.autoClose - Whether to close the authentication window automatically. If not provided, it defaults to `true`.
-     * @param params.timeout - Maximum time in milliseconds to wait for authentication before giving up. Only applicable to the OAuth2 flow. Set to `0` to wait indefinitely. If not provided, it defaults to 5 minutes.
+     * @param params.autoClose - Whether to close the authentication window automatically once the connection succeeds or the wait times out. If not provided, it defaults to `true`.
+     * @param params.timeout - Maximum time in milliseconds to wait for authentication before giving up. Only applicable to the OAuth2 flow. The user closing the authentication window does not end the wait, since a provider can sever the window handle and make it indistinguishable from a closed one. Set to `0` to wait indefinitely, in which case the returned promise never settles unless the connection succeeds. If not provided, it defaults to 5 minutes.
      * @returns A promise that resolves to true if the connection was successful, otherwise false.
      * @throws Throws an error if the authentication type is invalid or the connection fails.
      */
-    connect(_a) {
-        return __awaiter(this, arguments, void 0, function* ({ slug, type, payload, grantType, autoClose = true, timeout = DEFAULT_CONNECT_TIMEOUT, }) {
+    connect({ slug, type, payload, grantType, autoClose = true, timeout = DEFAULT_CONNECT_TIMEOUT, }) {
+        return __awaiter(this, void 0, void 0, function* () {
             switch (type) {
                 case AuthType.OAuth2:
                     return this.oauth({ slug, payload, grantType, autoClose, timeout });
@@ -603,9 +608,9 @@ class Refold {
      * @param {Boolean} [params.published] Filter by workflow published status.
      * @returns
      */
-    getWorkflows() {
-        return __awaiter(this, arguments, void 0, function* (_a = {}) {
-            var { page = 1, limit = 100 } = _a, rest = __rest(_a, ["page", "limit"]);
+    getWorkflows(_a = {}) {
+        var { page = 1, limit = 100 } = _a, rest = __rest(_a, ["page", "limit"]);
+        return __awaiter(this, void 0, void 0, function* () {
             const query = new URLSearchParams({ page: String(page), limit: String(limit) });
             for (const key of Object.keys(rest)) {
                 const value = rest[key];
@@ -634,8 +639,8 @@ class Refold {
      * @returns {Promise<PublicWorkflow>} The created public workflow.
      */
     createWorkflow(params) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
-            var _a;
             const res = yield fetch(`${this.baseUrl}/api/v2/public/workflow`, {
                 method: "POST",
                 headers: {
@@ -736,9 +741,9 @@ class Refold {
      * @param {String} [params.execution_source] - Filter by execution source (Event, Schedule, API Call)
      * @returns {Promise<PaginatedResponse<Execution>>} The paginated workflow execution logs.
      */
-    getExecutions() {
-        return __awaiter(this, arguments, void 0, function* (_a = {}) {
-            var { page = 1, limit = 10 } = _a, rest = __rest(_a, ["page", "limit"]);
+    getExecutions(_a = {}) {
+        var { page = 1, limit = 10 } = _a, rest = __rest(_a, ["page", "limit"]);
+        return __awaiter(this, void 0, void 0, function* () {
             const query = new URLSearchParams({ page: String(page), limit: String(limit) });
             for (const key of Object.keys(rest)) {
                 const value = rest[key];
