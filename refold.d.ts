@@ -134,9 +134,9 @@ export interface OAuthParams {
      * explicitly and it is not needed.
      */
     grantType?: GrantType;
-    /** Whether to close the authentication window automatically. */
+    /** Whether to close the authentication window automatically once the connection succeeds or the wait times out. */
     autoClose?: boolean;
-    /** Maximum time in milliseconds to wait for authentication before giving up. Set to `0` to wait indefinitely. Defaults to 5 minutes. */
+    /** Maximum time in milliseconds to wait for authentication before giving up. The user closing the authentication window does not end the wait. Set to `0` to wait indefinitely, in which case the returned promise never settles unless the connection succeeds. Defaults to 5 minutes. */
     timeout?: number;
 }
 export interface KeyBasedParams {
@@ -483,8 +483,8 @@ declare class Refold {
      * @param params - The parameters for the OAuth flow.
      * @param params.slug - The application slug.
      * @param params.payload - The key value pairs of auth data.
-     * @param params.autoClose - Whether to close the authentication window automatically. Defaults to `true`.
-     * @param params.timeout - Maximum time in milliseconds to wait for authentication before giving up. Set to `0` to wait indefinitely. Defaults to 5 minutes.
+     * @param params.autoClose - Whether to close the authentication window automatically once the connection succeeds or the wait times out. Defaults to `true`.
+     * @param params.timeout - Maximum time in milliseconds to wait for authentication before giving up. The user closing the authentication window does not end the wait. Set to `0` to wait indefinitely, in which case the returned promise never settles unless the connection succeeds. Defaults to 5 minutes.
      * @returns {Promise<Boolean>} Whether the user authenticated.
      */
     private oauth;
@@ -503,8 +503,8 @@ declare class Refold {
      * @param params.type - The authentication type to use. If not provided, it defaults to `keybased` if payload is provided, otherwise `oauth2`.
      * @param params.payload - key-value pairs of authentication data required for the specified auth type.
      * @param params.grantType - The application's OAuth grant. Pass {@link GrantType.ClientCredentials} for machine-to-machine connectors (fields are submitted to the server, no window opens). Omit for redirect grants.
-     * @param params.autoClose - Whether to close the authentication window automatically. If not provided, it defaults to `true`.
-     * @param params.timeout - Maximum time in milliseconds to wait for authentication before giving up. Only applicable to the OAuth2 flow. Set to `0` to wait indefinitely. If not provided, it defaults to 5 minutes.
+     * @param params.autoClose - Whether to close the authentication window automatically once the connection succeeds or the wait times out. If not provided, it defaults to `true`.
+     * @param params.timeout - Maximum time in milliseconds to wait for authentication before giving up. Only applicable to the OAuth2 flow. The user closing the authentication window does not end the wait, since a provider can sever the window handle and make it indistinguishable from a closed one. Set to `0` to wait indefinitely, in which case the returned promise never settles unless the connection succeeds. If not provided, it defaults to 5 minutes.
      * @returns A promise that resolves to true if the connection was successful, otherwise false.
      * @throws Throws an error if the authentication type is invalid or the connection fails.
      */
